@@ -31,5 +31,60 @@
         ],
         "appStoreLink": "https://apps.apple.com/jp/app/wishitem-%E3%81%BB%E3%81%97%E3%81%84%E3%82%82%E3%81%AE%E7%AE%A1%E7%90%86%E3%82%A2%E3%83%97%E3%83%AA/id6751175434",
         "iconPlaceholder": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/26/23/a9/2623a9ed-72b0-57eb-b99f-da12ca5abfd0/AppIcon-0-0-1x_U007epad-0-1-0-85-220.png/400x400ia-75.webp"
+    },
+    {
+        "name": "SNSアイコンメーカー",
+        "description": "SNSなどのアイコン用に写真の枠を簡単に変更・作成できるアプリ。色の変更や位置調整も自由自在です。",
+        "features": [
+            "豊富なカラーバリエーション",
+            "写真のズーム・移動機能",
+            "高画質保存対応"
+        ],
+        "appStoreLink": "https://apps.apple.com/jp/app/sns%E3%82%A2%E3%82%A4%E3%82%B3%E3%83%B3%E3%83%A1%E3%83%BC%E3%82%AB%E3%83%BC/id1548509872",
+        "iconPlaceholder": "https://placehold.co/120x120/EC4899/ffffff?text=ICON"
+    },
+    {
+        "name": "シンプルな日記",
+        "description": "余計な機能を省いた、シンプルで使いやすい日記アプリ。毎日の出来事を写真とともに記録できます。",
+        "features": [
+            "写真添付機能",
+            "見やすいカレンダー表示",
+            "安心のパスコードロック"
+        ],
+        "appStoreLink": "https://apps.apple.com/jp/app/%E3%82%B7%E3%83%B3%E3%83%97%E3%83%AB%E3%81%AA%E6%97%A5%E8%A8%98/id1527811929",
+        "iconPlaceholder": "https://placehold.co/120x120/3B82F6/ffffff?text=DIARY"
+    },
+    {
+        "name": "ToDoリスト",
+        "description": "日付とタブでタスクを直感的に管理できるToDoアプリ。やるべきことを整理して生産性を向上させます。",
+        "features": [
+            "日付別のタスク管理",
+            "カスタムタブ機能",
+            "シンプルな操作性"
+        ],
+        "appStoreLink": "https://apps.apple.com/jp/app/todo%E3%83%AA%E3%82%B9%E3%83%88-%E6%97%A5%E4%BB%98%E3%81%A8%E3%82%BF%E3%83%96%E3%81%A7%E7%B0%A1%E5%8D%98%E7%AE%A1%E7%90%86/id1532413581",
+        "iconPlaceholder": "https://placehold.co/120x120/EF4444/ffffff?text=TODO"
+    },
+    {
+        "name": "シンプルメモウィジェット",
+        "description": "ホーム画面に付箋のようなメモを配置できるウィジェットアプリ。忘れたくない情報を常に目に入る場所に。",
+        "features": [
+            "ホーム画面ウィジェット対応",
+            "文字サイズ・色変更",
+            "ダークモード対応"
+        ],
+        "appStoreLink": "https://apps.apple.com/jp/app/%E3%82%B7%E3%83%B3%E3%83%97%E3%83%AB%E3%83%A1%E3%83%A2%E3%82%A6%E3%82%A3%E3%82%B8%E3%82%A7%E3%83%83%E3%83%88/id1534997238",
+        "iconPlaceholder": "https://placehold.co/120x120/F59E0B/ffffff?text=MEMO"
+    },
+    {
+        "name": "シンプルアルバム",
+        "description": "写真や動画をフォルダ分けして整理できるアルバムアプリ。プライベートな写真もシークレット機能で安全に管理。",
+        "features": [
+            "フォルダによる整理",
+            "シークレットモード",
+            "スライドショー機能"
+        ],
+        "appStoreLink": "https://apps.apple.com/jp/app/%E3%82%B7%E3%83%B3%E3%83%97%E3%83%AB%E3%82%A2%E3%83%AB%E3%83%90%E3%83%A0-%E5%86%99%E7%9C%9F-%E5%8B%95%E7%94%BB%E6%95%B4%E7%90%86/id6755067622",
+        "iconPlaceholder": "https://placehold.co/120x120/10B981/ffffff?text=ALBUM"
     }
 ]
