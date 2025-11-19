@@ -112,6 +112,18 @@ const recentApps = appData.slice(0, 3);
                                 <p class="text-custom-paragraph text-lg line-clamp-3">
                                     {app.description}
                                 </p>
+
+                                {index === 0 && app.images && app.images.length > 0 && (
+                                    <div class="mt-6 grid grid-cols-2 gap-4">
+                                        {app.images.slice(0, 4).map((image) => (
+                                            <img 
+                                                src={image} 
+                                                alt={`${app.name} screenshot`} 
+                                                class="rounded-xl shadow-sm border border-custom-secondary/30 hover:scale-105 transition duration-300 object-cover w-full h-32 sm:h-48"
+                                            />
+                                        ))}
+                                    </div>
+                                )}
                             </div>
 
                             <div class="relative z-10 mt-8 pt-6 border-t border-custom-secondary/30">

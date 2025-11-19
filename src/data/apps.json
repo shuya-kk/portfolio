@@ -8,7 +8,13 @@
             "SNSで映えるユニークな質感"
         ],
         "appStoreLink": "https://apps.apple.com/jp/app/low-camera-%E4%BD%8E%E7%94%BB%E8%B3%AA%E3%82%AB%E3%83%A1%E3%83%A9/id1606589793",
-        "iconPlaceholder": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/c4/26/ea/c426eac0-fca0-66ed-a4ee-1c3f953c12ca/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/400x400ia-75.webp"
+        "iconPlaceholder": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/c4/26/ea/c426eac0-fca0-66ed-a4ee-1c3f953c12ca/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/400x400ia-75.webp",
+        "images": [
+            "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource126/v4/37/24/ee/3724eef5-0458-956b-499c-b06b99747025/53f28ec4-9c18-4bb1-b8b9-1dfef4b5c794_ja1-1.png/1286x594bb.webp",
+            "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource116/v4/3d/f3/13/3df3139d-31e2-9ef8-b01a-8eeb1e9b4f1e/65ee4b7b-6026-45c4-b672-3f916a035633_ja1-2.png/1286x594bb.webp",
+            "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource126/v4/7c/25/af/7c25af2f-706a-73ef-7130-0fe537b8f9d5/8f417388-3ca1-40fd-b77b-4de7098e246e_ja1-3.png/1286x594bb.webp",
+            "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource116/v4/a8/67/03/a86703e3-e0da-c39e-d3fa-8c98be96ecd5/331ac50b-9769-4160-99c8-265147bfb77d_ja1-4.png/1286x594bb.webp"
+        ]
     },
     {
         "name": "Rect -チェキ風加工アプリ",
