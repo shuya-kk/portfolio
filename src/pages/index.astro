@@ -1,36 +1,226 @@
 ---
+// インポートセクション: Astroのコンポーネントや外部ライブラリをインポート
+import appData from '../data/apps.json'; // 外部のJSONファイルからアプリデータをインポート
+import { getCollection } from 'astro:content';
 
+// ブログ記事を取得して日付順にソートし、最新の3件を取得
+const allPosts = await getCollection('blog');
+const sortedPosts = allPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+const latestPosts = sortedPosts.slice(0, 3);
+
+// appDataの構造はそのままなので、以降のテンプレート内のマップ処理は変更なし
 ---
 
-<!-- <html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro2</h1>
-	</body>
-</html> -->
+<!-- Tailwind CSSを使用し、完全にレスポンシブな単一ページポートフォリオ -->
+<!DOCTYPE html>
 <html lang="ja">
-	<head>
-		<meta charset="utf-8" />
-		<title>Tailwind Test</title>
-	</head>
-	<body class="bg-gray-100 p-8">
-		<h1 class="text-4xl font-bold text-blue-600 mb-4">
-			Hello, Tailwind in Astro!
-		</h1>
-		<p class="text-lg text-gray-700">
-			これはTailwindクラス (bg-gray-100, text-blue-600, p-8)
-			を使ってスタイリングされています。
-		</p>
-		<button
-			class="mt-4 px-6 py-2 bg-green-500 text-white rounded-lg shadow-lg hover:bg-green-600 transition duration-300"
-		>
-			ボタン
-		</button>
-	</body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio | モバイルアプリ開発</title>
+</head>
+<!-- ホワイト系配色を基調に設定 -->
+<body class="bg-white text-gray-800 min-h-screen flex flex-col font-sans antialiased">
+
+    <!-- 1. ヘッダー/ナビゲーション -->
+    <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-100">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+            <!-- 🌟 ルートリンクは絶対パスを維持 🌟 -->
+            <a href="/portfolio/" class="text-2xl font-bold tracking-tight text-indigo-700">
+                Developer Portfolio
+            </a>
+            <div class="hidden sm:flex space-x-6">
+                <a href="/portfolio/#apps" class="text-gray-600 hover:text-indigo-700 transition font-medium">アプリケーション</a>
+                <!-- 🌟 修正: 相対パス `blog` に変更 🌟 -->
+                <a href="/portfolio/blog" class="text-gray-600 hover:text-indigo-700 transition font-medium">ブログ</a>
+                <a href="/portfolio/#about" class="text-gray-600 hover:text-indigo-700 transition font-medium">About</a>
+                <a href="/portfolio/#contact" class="text-gray-600 hover:text-indigo-700 transition font-medium">お問い合わせ</a>
+            </div>
+            <!-- モバイルメニューボタンのSVGアイコン (シンプルさを優先し、ここでは非表示) -->
+        </nav>
+    </header>
+
+    <!-- 2. メインコンテンツ -->
+    <main class="flex-grow">
+        <!-- ヒーローセクション (ホワイトベースの配色に変更) -->
+        <section id="hero" class="py-20 md:py-32 bg-white border-b border-gray-100">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h1 class="text-4xl sm:text-6xl font-extrabold text-gray-900 leading-tight">
+                    モバイル体験を創造する
+                </h1>
+                <p class="mt-4 text-xl sm:text-2xl text-indigo-600">
+                    使いやすさと機能性を追求したアプリを開発しています
+                </p>
+                <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-6 mt-8">
+                    <!-- アプリを見るボタン (メインCTA) -->
+                    <a href="#apps" class="inline-block px-8 py-3 text-lg font-medium text-white bg-indigo-600 rounded-full shadow-lg hover:bg-indigo-700 transition transform hover:scale-[1.02] duration-300">
+                        開発アプリを見る
+                    </a>
+                    <!-- 🌟 修正: ヒーローのブログリンクを相対パス `blog` に変更 🌟 -->
+                    <a href="blog" class="inline-block px-8 py-3 text-lg font-medium text-indigo-600 border-2 border-indigo-600 rounded-full hover:bg-indigo-50 hover:text-indigo-700 transition duration-300">
+                        開発ブログを読む
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. アプリ紹介セクション (全アプリを表示) -->
+        <section id="apps" class="py-16 md:py-24 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-center mb-16 text-gray-900">
+                    リリース中のiOSアプリケーション
+                </h2>
+
+                <!-- 複数アプリのためのグリッドレイアウト -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                    {appData.map((app) => (
+                        <div class="bg-white p-6 sm:p-8 rounded-2xl border border-gray-200 transition hover:border-indigo-300 hover:shadow-sm flex flex-col">
+                            
+                            <div class="flex items-center space-x-4 mb-4">
+                                <!-- アプリアイコン -->
+                                <img 
+                                    src={app.iconPlaceholder} 
+                                    alt={`${app.name}のアイコン`}
+                                    class="rounded-xl shadow-lg w-16 h-16 object-cover flex-shrink-0"
+                                    onerror="this.src='https://placehold.co/64x64/dddddd/333333?text=APP';"
+                                />
+                                <!-- アプリ名 -->
+                                <h3 class="text-xl font-bold text-gray-900">
+                                    {app.name}
+                                </h3>
+                            </div>
+
+                            <!-- アプリ詳細 -->
+                            <p class="text-gray-600 mb-6 flex-grow">
+                                {app.description}
+                            </p>
+                            
+                            <!-- 特徴リスト -->
+                            <ul class="list-none space-y-2 mb-6">
+                                {app.features.map((feature) => (
+                                    <li class="flex items-center text-sm text-gray-700">
+                                        <!-- チェックマークSVGアイコン -->
+                                        <svg class="w-4 h-4 text-indigo-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                        {feature}
+                                    </li>
+                                ))}
+                            </ul>
+
+                            <!-- App Storeボタン (下揃え) -->
+                            <div class="mt-4">
+                                <a 
+                                    href={app.appStoreLink} 
+                                    target="_blank" 
+                                    rel="noopener noreferrer"
+                                    class="inline-flex items-center justify-center w-full px-6 py-3 border border-transparent text-base font-medium rounded-full shadow-md text-white bg-green-600 hover:bg-green-700 transition"
+                                >
+                                    <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1.41 15.67L12 16.26l-1.41 1.41c-.2.2-.51.2-.71 0s-.2-.51 0-.71L12 14.84l-1.41-1.41c-.2-.2-.2-.51 0-.71s.51-.2.71 0L12 13.41l1.41-1.41c.2-.2.51-.2.71 0s.2.51 0 .71L12.71 14.84l1.41 1.41c.2.2.2.51 0 .71s-.51.2-.71 0zM12 7c-2.76 0-5 2.24-5 5h2c0-1.66 1.34-3 3-3s3 1.34 3 3h2c0-2.76-2.24-5-5-5z"></path></svg>
+                                    App Storeで詳細を見る
+                                </a>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </section>
+
+        <!-- 最新のブログ記事セクション -->
+        <section id="latest-blog" class="py-16 md:py-24 bg-white border-t border-gray-100">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-gray-900">
+                        最新のブログ記事
+                    </h2>
+                    <p class="mt-4 text-lg text-gray-600">
+                        開発の裏側や技術的な知見を発信しています
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    {latestPosts.map((post) => (
+                        <a href={`/portfolio/blog/${post.slug}`} class="group block bg-white rounded-2xl border border-gray-200 overflow-hidden hover:border-indigo-300 hover:shadow-sm transition duration-300 flex flex-col h-full">
+                            <div class="p-6 flex flex-col flex-grow">
+                                <div class="flex items-center text-sm text-gray-500 mb-3">
+                                    <time datetime={post.data.pubDate.toISOString()}>
+                                        {post.data.pubDate.toLocaleDateString('ja-JP')}
+                                    </time>
+                                    {post.data.tags && post.data.tags.length > 0 && (
+                                        <>
+                                            <span class="mx-2">•</span>
+                                            <span class="text-indigo-600 font-medium">
+                                                {post.data.tags[0]}
+                                            </span>
+                                        </>
+                                    )}
+                                </div>
+                                <h3 class="text-xl font-bold text-gray-900 mb-3 group-hover:text-indigo-600 transition line-clamp-2">
+                                    {post.data.title}
+                                </h3>
+                                <p class="text-gray-600 text-sm line-clamp-3 flex-grow">
+                                    {post.data.description}
+                                </p>
+                                <div class="mt-4 flex items-center text-indigo-600 font-medium text-sm group-hover:translate-x-1 transition-transform">
+                                    記事を読む
+                                    <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                                </div>
+                            </div>
+                        </a>
+                    ))}
+                </div>
+
+                <div class="text-center mt-12">
+                    <a href="/portfolio/blog" class="inline-flex items-center justify-center px-8 py-3 border border-gray-300 text-base font-medium rounded-full text-gray-700 bg-white hover:bg-gray-50 hover:text-indigo-600 transition duration-300 shadow-sm">
+                        すべての記事を見る
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. その他の情報/お問い合わせセクション (Aboutセクションを追加) -->
+        <section id="about" class="py-16 md:py-24 bg-white border-t border-b border-gray-100">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-3xl font-extrabold text-center text-gray-900 mb-8">
+                    About
+                </h2>
+                <div class="text-lg text-gray-600 space-y-4">
+                    <p>
+                        個人開発者として、iOSアプリケーションの開発・運営を行っています。ユーザーの「あると便利」を形にすることを目標に、シンプルで使いやすいデザインと、安定した機能提供を心がけています。
+                    </p>
+                    <p>
+                        Swift/SwiftUIを中心に開発を行っており、アプリケーションの企画から設計、リリース、継続的な改善までを一貫して担当しています。
+                    </p>
+                    <p>
+                        アプリ開発に関する技術的な交流や、新しいプロジェクトへの協力など、お気軽にお声がけください。
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="py-16 md:py-24 bg-white">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h2 class="text-3xl font-extrabold text-gray-900 mb-4">
+                    お問い合わせ
+                </h2>
+                <p class="text-lg text-gray-600 mb-8">
+                    プロジェクトの相談、技術的な質問、またはご意見など、お気軽にご連絡ください。
+                </p>
+                <a 
+                    href="mailto:contact@example.com" 
+                    class="inline-block px-8 py-3 text-lg font-medium text-indigo-600 border-2 border-indigo-600 rounded-full hover:bg-indigo-600 hover:text-white transition shadow-md"
+                >
+                    メールでのお問い合わせ (contact@example.com)
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <!-- 5. フッター -->
+    <footer class="bg-gray-900 text-white mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 text-center text-sm">
+            <p class="text-gray-400">&copy; {new Date().getFullYear()} All rights reserved.</p>
+            <p class="mt-1 text-gray-500">Built with Astro and Tailwind CSS</p>
+        </div>
+    </footer>
+
+</body>
 </html>

@@ -1,0 +1,120 @@
+---
+// コレクションのインポートと型定義
+import type { CollectionEntry } from 'astro:content'; 
+import { getCollection } from 'astro:content';
+
+// Propsの型を定義
+type Props = {
+  // postは実際には使わないが、paramsのtagを使用
+  posts: CollectionEntry<'blog'>[]; 
+  tag: string;
+};
+
+// 1. 動的ルーティングのパスを生成 (SSG: 静的生成)
+export async function getStaticPaths() {
+  const allPosts = await getCollection('blog');
+  
+  // すべてのタグを重複なく集める
+  const uniqueTags = new Set<string>();
+  allPosts.forEach(post => {
+    post.data.tags?.forEach(tag => {
+      uniqueTags.add(tag);
+    });
+  });
+
+  // 各タグに対してパスを生成
+  return Array.from(uniqueTags).map(tag => {
+    // そのタグに一致する記事をフィルタリング
+    const filteredPosts = allPosts.filter(post => post.data.tags?.includes(tag));
+
+    return {
+      params: { tag: tag },
+      props: { 
+        posts: filteredPosts.sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime()),
+        tag: tag 
+      },
+    };
+  });
+}
+
+// 2. Propsを取得
+const { tag, posts } = Astro.props as Props;
+---
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- タイトルをタグ名を含むものに設定 -->
+    <title>タグ: {tag} | 開発ブログ</title>
+</head>
+<body class="bg-white text-gray-800 min-h-screen flex flex-col font-sans antialiased">
+    <!-- ヘッダー（ブログ一覧ページと同じ構造） -->
+    <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-sm shadow-sm border-b border-gray-100">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+            <!-- ルートリンク -->
+            <a href="/portfolio/" class="text-2xl font-bold tracking-tight text-indigo-700">
+                Developer Portfolio
+            </a>
+            <div class="hidden sm:flex space-x-6">
+                <a href="/portfolio/#apps" class="text-gray-600 hover:text-indigo-700 transition font-medium">アプリケーション</a>
+                <a href="/portfolio/blog" class="text-indigo-700 transition font-medium">ブログ</a>
+                <a href="/portfolio/#contact" class="text-gray-600 hover:text-indigo-700 transition font-medium">お問い合わせ</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="flex-grow py-16 md:py-24 bg-gray-50">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- タグ名を表示 -->
+            <h1 class="text-3xl font-extrabold text-gray-900 mb-4 text-center">
+                タグ: <span class="text-indigo-600">#{tag}</span> の記事一覧
+            </h1>
+            
+            <!-- ブログ一覧へ戻るリンク -->
+            <div class="text-center mb-10">
+                <a href="/portfolio/blog" class="inline-flex items-center text-sm text-gray-500 hover:text-gray-700 transition font-medium">
+                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                    すべての記事を見る
+                </a>
+            </div>
+
+            <div class="space-y-8">
+                {posts.map((post) => (
+                    <!-- 🌟 修正: 記事詳細リンクにベースパス `/portfolio` を明示的に追加 🌟 -->
+                    <a href={`/portfolio/blog/${post.slug}`} class="block bg-white p-6 sm:p-8 rounded-xl shadow-lg border border-gray-100 transition hover:shadow-2xl hover:border-indigo-200">
+                        <article>
+                            <h2 class="text-2xl font-bold text-gray-900 hover:text-indigo-600 transition">
+                                {post.data.title}
+                            </h2>
+                            <p class="mt-2 text-sm text-gray-500">
+                                公開日: {post.data.pubDate.toLocaleDateString('ja-JP')}
+                                {post.data.tags && (
+                                    <span class="ml-4 space-x-2">
+                                        {post.data.tags.map((tag) => (
+                                            <span class="inline-block bg-indigo-100 text-indigo-700 text-xs font-semibold px-2 py-0.5 rounded-full">
+                                                #{tag}
+                                            </span>
+                                        ))}
+                                    </span>
+                                )}
+                            </p>
+                            <p class="mt-4 text-gray-600 line-clamp-2">
+                                {post.data.description}
+                            </p>
+                        </article>
+                    </a>
+                ))}
+            </div>
+        </div>
+    </main>
+
+    <!-- フッターはメインページと同じものを使用 (シンプル化のため手動で記述) -->
+    <footer class="bg-gray-900 text-white mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 text-center text-sm">
+            <p class="text-gray-400">&copy; {new Date().getFullYear()} All rights reserved.</p>
+            <p class="mt-1 text-gray-500">Built with Astro and Tailwind CSS</p>
+        </div>
+    </footer>
+</body>
+</html>

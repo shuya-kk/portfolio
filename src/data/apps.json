@@ -1,0 +1,35 @@
+[
+    {
+        "name": "Low Camera -低画質カメラ-",
+        "description": "あえて「低画質」を追求したカメラアプリ。ノスタルジックな写真や、ユニークな表現を楽しめます。",
+        "features": [
+            "豊富な低画質フィルター",
+            "レトロな日付スタンプ機能",
+            "SNSで映えるユニークな質感"
+        ],
+        "appStoreLink": "https://apps.apple.com/jp/app/low-camera-%E4%BD%8E%E7%94%BB%E8%B3%AA%E3%82%AB%E3%83%A1%E3%83%A9/id1606589793",
+        "iconPlaceholder": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/c4/26/ea/c426eac0-fca0-66ed-a4ee-1c3f953c12ca/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/400x400ia-75.webp"
+    },
+    {
+        "name": "Rect -チェキ風加工アプリ",
+        "description": "撮影した写真を簡単に「チェキ風」に加工できるアプリ。エモい雰囲気の写真をすぐに作成・共有できます。",
+        "features": [
+            "多彩なフレームとテクスチャ",
+            "直感的な操作性",
+            "高解像度での出力対応"
+        ],
+        "appStoreLink": "https://apps.apple.com/jp/app/rect-%E3%83%81%E3%A2%A8%E3%82%AD%E9%A2%A8%E5%8A%A0%E5%B7%A5%E3%82%A2%E3%83%97%E3%83%AA/id1528587271",
+        "iconPlaceholder": "https://is1-ssl.mzstatic.com/image/thumb/Purple126/v4/bf/21/0f/bf210fbc-c3b5-bc16-ef23-2ce782100c67/AppIcon-0-1x_U007emarketing-0-7-0-85-220.png/400x400ia-75.webp"
+    },
+    {
+        "name": "WishItem – ほしいもの管理アプリ",
+        "description": "Amazonや楽天など、様々なECサイトの欲しいものを一箇所で管理・比較できるシンプルなリストアプリ。",
+        "features": [
+            "URLからの自動情報取得",
+            "カテゴリ別管理",
+            "パスワード保護機能"
+        ],
+        "appStoreLink": "https://apps.apple.com/jp/app/wishitem-%E3%81%BB%E3%81%97%E3%81%84%E3%82%82%E3%81%AE%E7%AE%A1%E7%90%86%E3%82%A2%E3%83%97%E3%83%AA/id6751175434",
+        "iconPlaceholder": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/26/23/a9/2623a9ed-72b0-57eb-b99f-da12ca5abfd0/AppIcon-0-0-1x_U007epad-0-1-0-85-220.png/400x400ia-75.webp"
+    }
+]

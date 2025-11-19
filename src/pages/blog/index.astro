@@ -1,0 +1,82 @@
+---
+import { getCollection } from 'astro:content';
+
+// ブログコレクションからすべての記事を取得し、公開日順（新しい順）にソート
+const allPosts = await getCollection('blog');
+const sortedPosts = allPosts.sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
+---
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>開発ブログ | Developer Portfolio</title>
+</head>
+<body class="bg-white text-gray-800 min-h-screen flex flex-col font-sans antialiased">
+    <!-- ヘッダーはメインページと同じものを使用 (シンプル化のため手動で記述) -->
+    <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-100">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+            <!-- 🌟 修正: ヘッダーリンクにベースパス `/portfolio` を明示的に追加 🌟 -->
+            <a href="/portfolio/" class="text-2xl font-bold tracking-tight text-indigo-700">
+                Developer Portfolio
+            </a>
+            <div class="hidden sm:flex space-x-6">
+                <a href="/portfolio/#apps" class="text-gray-600 hover:text-indigo-700 transition font-medium">アプリケーション</a>
+                <a href="/portfolio/blog" class="text-indigo-700 transition font-medium">ブログ</a>
+                <a href="/portfolio/#contact" class="text-gray-600 hover:text-indigo-700 transition font-medium">お問い合わせ</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="flex-grow py-16 md:py-24 bg-white">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h1 class="text-4xl font-extrabold text-gray-900 mb-12 text-center">
+                開発ブログ
+            </h1>
+
+            <div class="space-y-8">
+                {sortedPosts.map((post) => (
+                    <!-- 🌟 修正: 記事詳細リンクにベースパス `/portfolio` を明示的に追加 🌟 -->
+                    <a href={`/portfolio/blog/${post.slug}`} class="block bg-white p-6 sm:p-8 rounded-xl border border-gray-200 transition hover:border-indigo-300 hover:shadow-sm">
+                        <article>
+                            <h2 class="text-2xl font-bold text-gray-900 hover:text-indigo-600 transition">
+                                {post.data.title}
+                            </h2>
+                            <p class="mt-2 text-sm text-gray-500">
+                                公開日: {post.data.pubDate.toLocaleDateString('ja-JP')}
+                                {post.data.tags && (
+                                    <span class="ml-4 space-x-2">
+                                        {post.data.tags.map((tag) => (
+                                            <span class="inline-block bg-indigo-100 text-indigo-700 text-xs font-semibold px-2 py-0.5 rounded-full">
+                                                #{tag}
+                                            </span>
+                                        ))}
+                                    </span>
+                                )}
+                            </p>
+                            <p class="mt-4 text-gray-600 line-clamp-2">
+                                {post.data.description}
+                            </p>
+                        </article>
+                    </a>
+                ))}
+            </div>
+
+            {sortedPosts.length === 0 && (
+                <p class="text-center text-lg text-gray-500 mt-10">
+                    まだ記事がありません。新しい記事をお待ちください。
+                </p>
+            )}
+        </div>
+    </main>
+
+    <!-- フッターはメインページと同じものを使用 (シンプル化のため手動で記述) -->
+    <footer class="bg-gray-900 text-white mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 text-center text-sm">
+            <p class="text-gray-400">&copy; {new Date().getFullYear()} All rights reserved.</p>
+            <p class="mt-1 text-gray-500">Built with Astro and Tailwind CSS</p>
+        </div>
+    </footer>
+</body>
+</html>
