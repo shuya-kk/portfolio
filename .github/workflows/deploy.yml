@@ -36,13 +36,12 @@ jobs:
       - name: Build Astro site
         run: npm run build
         # base設定により、結果は ./dist に出力される
-
-      # 5. GitHub Pagesへのデプロイ
+          
+      # 5. GitHub Pagesへのデプロイ (修正後)
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/configure-pages@v5
-        uses: actions/deploy-pages@v4
-        # ビルド成果物（distディレクトリの内容）をデプロイ
+        # Configure Pagesは削除し、Deploy Pagesのみを使用
+        uses: actions/deploy-pages@v4 
         with:
           # GitHub Pagesがdistディレクトリを参照するように設定
           folder: dist
