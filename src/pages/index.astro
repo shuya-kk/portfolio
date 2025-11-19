@@ -114,7 +114,7 @@ const recentApps = appData.slice(0, 3);
                                 </p>
 
                                 {index === 0 && app.images && app.images.length > 0 && (
-                                    <div class="mt-6 grid grid-cols-2 gap-4">
+                                    <div class="mt-6 hidden md:grid grid-cols-2 gap-4">
                                         {app.images.slice(0, 4).map((image) => (
                                             <img 
                                                 src={image} 
