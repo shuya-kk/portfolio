@@ -2,6 +2,7 @@
 // インポートセクション: Astroのコンポーネントや外部ライブラリをインポート
 import appData from '../data/apps.json'; // 外部のJSONファイルからアプリデータをインポート
 import { getCollection } from 'astro:content';
+import HoneycombBackground from '../components/HoneycombBackground.astro';
 
 // ブログ記事を取得して日付順にソートし、最新の3件を取得
 const allPosts = await getCollection('blog');
@@ -14,7 +15,7 @@ const recentApps = appData.slice(0, 3);
 
 <!-- Tailwind CSSを使用し、完全にレスポンシブな単一ページポートフォリオ -->
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="ja" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -22,12 +23,11 @@ const recentApps = appData.slice(0, 3);
     <link rel="icon" href="/favicon.ico" />
 </head>
 <!-- ホワイト系配色を基調に設定 -->
-<body class="bg-custom-bg text-custom-paragraph min-h-screen flex flex-col font-sans antialiased">
+<body class="bg-custom-bg text-custom-paragraph min-h-screen flex flex-col font-sans antialiased selection:bg-custom-highlight selection:text-white">
 
-    <!-- 1. ヘッダー/ナビゲーション -->
     <!-- 1. ヘッダー/ナビゲーション (フローティング・ピルデザイン) -->
     <header class="fixed bottom-8 left-1/2 transform -translate-x-1/2 z-50 w-auto max-w-[90vw]">
-        <nav class="bg-custom-headline/90 backdrop-blur-md text-custom-main px-6 py-3 rounded-full shadow-2xl border border-custom-secondary/20 flex items-center space-x-6">
+        <nav class="bg-custom-headline/90 backdrop-blur-md text-custom-main px-6 py-3 rounded-full shadow-2xl border border-custom-secondary/20 flex items-center space-x-6 ring-1 ring-white/10">
             <!-- ルートリンク (アイコンのみ) -->
             <a href="/portfolio/" class="text-custom-highlight hover:text-white transition">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
@@ -43,45 +43,40 @@ const recentApps = appData.slice(0, 3);
     </header>
 
     <!-- 2. メインコンテンツ -->
-    <main class="flex-grow">
-        <!-- ヒーローセクション (ホワイトベースの配色に変更) -->
+    <main class="flex-grow relative">
         <!-- ヒーローセクション (大胆なタイポグラフィとアニメーション) -->
-        <section id="hero" class="min-h-[80vh] flex items-center justify-center py-20 bg-custom-bg relative overflow-hidden">
-            <!-- 背景装飾 -->
-            <div class="absolute top-0 left-0 w-full h-full overflow-hidden opacity-10 pointer-events-none">
-                <div class="absolute top-1/4 left-1/4 w-64 h-64 bg-custom-highlight rounded-full mix-blend-multiply filter blur-3xl animate-float"></div>
-                <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-custom-secondary rounded-full mix-blend-multiply filter blur-3xl animate-float" style="animation-delay: 1s;"></div>
-            </div>
+        <section id="hero" class="min-h-[90vh] flex items-center justify-center py-20 relative overflow-hidden">
+            <HoneycombBackground />
 
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-                <span class="inline-block py-1 px-3 rounded-full bg-custom-secondary/30 text-custom-highlight text-sm font-semibold mb-6 animate-fade-in">
+                <span class="inline-block py-1 px-3 rounded-full bg-custom-highlight/10 text-custom-highlight text-sm font-semibold mb-6 animate-fade-in border border-custom-highlight/20">
                     iOS Developer & UI Designer
                 </span>
-                <h1 class="text-6xl sm:text-8xl md:text-9xl font-black text-custom-headline leading-none tracking-tighter mb-8 animate-fade-in" style="animation-delay: 0.1s;">
+                <h1 class="text-6xl sm:text-8xl md:text-9xl font-black text-custom-headline leading-none tracking-tighter mb-8 animate-fade-in drop-shadow-sm" style="animation-delay: 0.1s;">
                     CRAFTING<br>
                     <span class="text-transparent bg-clip-text bg-gradient-to-r from-custom-highlight to-custom-tertiary">DIGITAL</span><br>
-                    EXPERIENCES
+                    HIVES
                 </h1>
                 <p class="mt-6 text-xl sm:text-2xl text-custom-paragraph max-w-2xl mx-auto animate-fade-in" style="animation-delay: 0.2s;">
-                    使いやすさと美しさを兼ね備えた、<br class="hidden sm:block">心に残るモバイル体験を創造します。
+                    機能美と心地よさが調和する、<br class="hidden sm:block">六角形のピースを紡ぐようにアプリを創る。
                 </p>
                 <div class="mt-10 animate-fade-in" style="animation-delay: 0.3s;">
-                    <a href="#apps" class="inline-flex items-center justify-center px-8 py-4 text-lg font-bold text-custom-main bg-custom-headline rounded-full hover:bg-custom-highlight transition transform hover:scale-105 duration-300 shadow-xl">
+                    <a href="#apps" class="group inline-flex items-center justify-center px-8 py-4 text-lg font-bold text-white bg-custom-highlight rounded-full hover:bg-custom-tertiary transition transform hover:scale-105 duration-300 shadow-lg hover:shadow-custom-highlight/50">
                         See My Work
-                        <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+                        <svg class="w-5 h-5 ml-2 group-hover:translate-y-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
                     </a>
                 </div>
             </div>
         </section>
 
         <!-- 3. アプリ紹介セクション (Bento Grid) -->
-        <section id="apps" class="py-24 bg-custom-bg">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <section id="apps" class="py-24 bg-custom-bg relative">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 <div class="flex items-end justify-between mb-12">
                     <h2 class="text-5xl font-black text-custom-headline tracking-tight">
                         SELECTED<br>WORKS
                     </h2>
-                    <a href="/portfolio/apps" class="hidden sm:inline-flex items-center text-custom-highlight font-bold hover:underline">
+                    <a href="/portfolio/apps" class="hidden sm:inline-flex items-center text-custom-highlight font-bold hover:underline decoration-2 underline-offset-4">
                         View All Apps
                         <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
                     </a>
@@ -90,19 +85,19 @@ const recentApps = appData.slice(0, 3);
                 <!-- Bento Grid Layout -->
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[minmax(300px,auto)]">
                     {recentApps.map((app, index) => (
-                        <div class={`group relative bg-custom-main rounded-3xl p-8 border border-custom-secondary/50 hover:border-custom-highlight transition-all duration-500 hover:shadow-2xl overflow-hidden flex flex-col ${index === 0 ? 'md:col-span-2 md:row-span-2' : ''}`}>
-                            <!-- 背景装飾 -->
-                            <div class="absolute top-0 right-0 w-64 h-64 bg-custom-secondary/20 rounded-full blur-3xl -mr-32 -mt-32 transition group-hover:bg-custom-highlight/10"></div>
+                        <div class={`group relative bg-white rounded-3xl p-8 border border-custom-secondary/50 hover:border-custom-highlight transition-all duration-500 hover:shadow-2xl hover:shadow-custom-highlight/10 overflow-hidden flex flex-col ${index === 0 ? 'md:col-span-2 md:row-span-2' : ''}`}>
+                            <!-- 背景装飾 (六角形マスク) -->
+                            <div class="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-custom-highlight/5 to-custom-tertiary/5 rounded-bl-full -mr-10 -mt-10 transition group-hover:scale-110 duration-700"></div>
                             
                             <div class="relative z-10 flex-grow">
                                 <div class="flex items-start justify-between mb-6">
                                     <img 
                                         src={app.iconPlaceholder} 
                                         alt={`${app.name} icon`}
-                                        class="w-16 h-16 rounded-2xl shadow-md group-hover:scale-110 transition duration-500"
+                                        class="w-16 h-16 rounded-2xl shadow-md group-hover:scale-110 transition duration-500 ring-1 ring-custom-secondary/20"
                                         onerror="this.src='https://placehold.co/64x64/dddddd/333333?text=APP';"
                                     />
-                                    <a href={app.appStoreLink} target="_blank" class="p-2 bg-custom-bg rounded-full text-custom-headline hover:bg-custom-headline hover:text-custom-main transition">
+                                    <a href={app.appStoreLink} target="_blank" class="p-2 bg-custom-bg rounded-full text-custom-headline hover:bg-custom-headline hover:text-custom-main transition group-hover:rotate-12">
                                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
                                     </a>
                                 </div>
@@ -115,13 +110,16 @@ const recentApps = appData.slice(0, 3);
                                 </p>
 
                                 {index === 0 && app.images && app.images.length > 0 && (
-                                    <div class="mt-6 hidden md:grid grid-cols-2 gap-4">
+                                    <div class="mt-8 hidden md:grid grid-cols-2 gap-4">
                                         {app.images.slice(0, 4).map((image) => (
-                                            <img 
-                                                src={image} 
-                                                alt={`${app.name} screenshot`} 
-                                                class="rounded-xl shadow-sm border border-custom-secondary/30 hover:scale-105 transition duration-300 object-cover w-full h-32 sm:h-48"
-                                            />
+                                            <div class="relative overflow-hidden rounded-xl shadow-sm border border-custom-secondary/30 group/img">
+                                                <img 
+                                                    src={image} 
+                                                    alt={`${app.name} screenshot`} 
+                                                    class="object-cover w-full h-32 sm:h-48 transform transition duration-500 group-hover/img:scale-105"
+                                                />
+                                                <div class="absolute inset-0 bg-custom-highlight/0 group-hover/img:bg-custom-highlight/10 transition duration-300"></div>
+                                            </div>
                                         ))}
                                     </div>
                                 )}
@@ -130,7 +128,7 @@ const recentApps = appData.slice(0, 3);
                             <div class="relative z-10 mt-8 pt-6 border-t border-custom-secondary/30">
                                 <ul class="flex flex-wrap gap-2">
                                     {app.features?.slice(0, index === 0 ? 4 : 2).map((feature) => (
-                                        <li class="text-xs font-medium px-3 py-1 rounded-full bg-custom-secondary/30 text-custom-headline">
+                                        <li class="text-xs font-medium px-3 py-1 rounded-full bg-custom-highlight/10 text-custom-highlight border border-custom-highlight/20">
                                             {feature}
                                         </li>
                                     ))}
@@ -150,13 +148,16 @@ const recentApps = appData.slice(0, 3);
         </section>
 
         <!-- 最新のブログ記事セクション (Minimal List) -->
-        <section id="latest-blog" class="py-24 bg-custom-main border-t border-custom-secondary/30">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <section id="latest-blog" class="py-24 bg-white border-t border-custom-secondary/30 relative overflow-hidden">
+             <!-- Decorative Hexagon -->
+             <div class="absolute -left-20 top-20 w-64 h-64 bg-custom-secondary/10 rotate-45 pointer-events-none" style="clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);"></div>
+
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 <div class="flex items-end justify-between mb-12">
                     <h2 class="text-5xl font-black text-custom-headline tracking-tight">
                         LATEST<br>THOUGHTS
                     </h2>
-                    <a href="/portfolio/blog" class="hidden sm:inline-flex items-center text-custom-highlight font-bold hover:underline">
+                    <a href="/portfolio/blog" class="hidden sm:inline-flex items-center text-custom-highlight font-bold hover:underline decoration-2 underline-offset-4">
                         Read All Posts
                         <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
                     </a>
@@ -165,16 +166,16 @@ const recentApps = appData.slice(0, 3);
                 <div class="space-y-6">
                     {latestPosts.map((post) => (
                         <a href={`/portfolio/blog/${post.slug}`} class="group block">
-                            <article class="flex flex-col md:flex-row md:items-center justify-between py-8 border-b border-custom-secondary/30 group-hover:border-custom-highlight transition">
-                                <div class="md:w-3/4">
+                            <article class="flex flex-col md:flex-row md:items-center justify-between py-8 border-b border-custom-secondary/30 group-hover:border-custom-highlight transition relative">
+                                <div class="md:w-3/4 relative z-10">
                                     <div class="flex items-center text-sm text-custom-paragraph mb-2">
-                                        <time datetime={post.data.pubDate.toISOString()} class="font-mono">
+                                        <time datetime={post.data.pubDate.toISOString()} class="font-mono text-custom-highlight">
                                             {post.data.pubDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
                                         </time>
                                         {post.data.tags && post.data.tags.length > 0 && (
                                             <>
                                                 <span class="mx-3 text-custom-secondary">/</span>
-                                                <span class="font-medium text-custom-highlight">
+                                                <span class="font-medium text-custom-paragraph group-hover:text-custom-highlight transition">
                                                     {post.data.tags[0]}
                                                 </span>
                                             </>
@@ -185,7 +186,7 @@ const recentApps = appData.slice(0, 3);
                                     </h3>
                                 </div>
                                 <div class="mt-4 md:mt-0 md:w-1/4 flex justify-end opacity-0 group-hover:opacity-100 transform translate-x-[-10px] group-hover:translate-x-0 transition duration-300">
-                                    <span class="inline-flex items-center text-custom-highlight font-bold">
+                                    <span class="inline-flex items-center text-custom-highlight font-bold bg-custom-highlight/10 px-4 py-2 rounded-full">
                                         Read
                                         <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                                     </span>
@@ -205,12 +206,12 @@ const recentApps = appData.slice(0, 3);
         </section>
 
         <!-- 4. その他の情報/お問い合わせセクション (Aboutセクションを追加) -->
-        <section id="about" class="py-16 md:py-24 bg-custom-bg border-t border-b border-custom-secondary">
+        <section id="about" class="py-16 md:py-24 bg-custom-bg border-t border-b border-custom-secondary/30">
             <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
                 <h2 class="text-3xl font-extrabold text-center text-custom-headline mb-8">
                     About
                 </h2>
-                <div class="text-lg text-custom-paragraph space-y-4">
+                <div class="text-lg text-custom-paragraph space-y-4 leading-relaxed">
                     <p>
                         個人開発者として、iOSアプリケーションの開発・運営を行っています。ユーザーの「あると便利」を形にすることを目標に、シンプルで使いやすいデザインと、安定した機能提供を心がけています。
                     </p>
@@ -224,8 +225,9 @@ const recentApps = appData.slice(0, 3);
             </div>
         </section>
 
-        <section id="contact" class="py-16 md:py-24 bg-custom-bg">
-            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <section id="contact" class="py-16 md:py-24 bg-white relative overflow-hidden">
+             <div class="absolute right-0 bottom-0 w-96 h-96 bg-custom-highlight/5 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
                 <h2 class="text-3xl font-extrabold text-custom-headline mb-4">
                     お問い合わせ
                 </h2>
@@ -234,19 +236,23 @@ const recentApps = appData.slice(0, 3);
                 </p>
                 <a 
                     href="mailto:contact@example.com" 
-                    class="inline-block px-8 py-3 text-lg font-medium text-custom-button border-2 border-custom-button rounded-full hover:bg-custom-button hover:text-custom-button-text transition shadow-md"
+                    class="inline-block px-8 py-4 text-lg font-bold text-white bg-custom-headline rounded-full hover:bg-custom-highlight transition transform hover:-translate-y-1 shadow-lg"
                 >
-                    メールでのお問い合わせ (contact@example.com)
+                    メールでのお問い合わせ
                 </a>
             </div>
         </section>
     </main>
 
     <!-- 5. フッター -->
-    <footer class="bg-custom-headline text-custom-main mt-auto">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 text-center text-sm">
-            <p class="text-custom-secondary">&copy; {new Date().getFullYear()} All rights reserved.</p>
-            <p class="mt-1 text-custom-secondary">Built with Astro and Tailwind CSS</p>
+    <footer class="bg-custom-headline text-white mt-auto relative overflow-hidden">
+        <div class="absolute inset-0 bg-[url('/honeycomb-pattern.svg')] opacity-5"></div> <!-- Optional pattern -->
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 text-center text-sm relative z-10">
+            <div class="flex justify-center space-x-6 mb-8">
+                 <!-- Social Icons could go here -->
+            </div>
+            <p class="text-custom-secondary/60">&copy; {new Date().getFullYear()} Shuya Komiya. All rights reserved.</p>
+            <p class="mt-2 text-custom-secondary/40 text-xs">Built with Astro, Tailwind CSS & a touch of Honey.</p>
         </div>
     </footer>
 

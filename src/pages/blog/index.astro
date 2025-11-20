@@ -1,5 +1,6 @@
 ---
 import { getCollection } from "astro:content";
+import HoneycombBackground from "../../components/HoneycombBackground.astro";
 
 // ブログコレクションからすべての記事を取得し、公開日順（新しい順）にソート
 const allPosts = await getCollection("blog");
@@ -9,22 +10,21 @@ const sortedPosts = allPosts.sort(
 ---
 
 <!doctype html>
-<html lang="ja">
+<html lang="ja" class="scroll-smooth">
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>開発ブログ | Developer Portfolio</title>
     </head>
     <body
-        class="bg-custom-bg text-custom-paragraph min-h-screen flex flex-col font-sans antialiased"
+        class="bg-custom-bg text-custom-paragraph min-h-screen flex flex-col font-sans antialiased selection:bg-custom-highlight selection:text-white"
     >
-        <!-- ヘッダーはメインページと同じものを使用 (シンプル化のため手動で記述) -->
         <!-- 1. ヘッダー/ナビゲーション (フローティング・ピルデザイン) -->
         <header
             class="fixed bottom-8 left-1/2 transform -translate-x-1/2 z-50 w-auto max-w-[90vw]"
         >
             <nav
-                class="bg-custom-headline/90 backdrop-blur-md text-custom-main px-6 py-3 rounded-full shadow-2xl border border-custom-secondary/20 flex items-center space-x-6"
+                class="bg-custom-headline/90 backdrop-blur-md text-custom-main px-6 py-3 rounded-full shadow-2xl border border-custom-secondary/20 flex items-center space-x-6 ring-1 ring-white/10"
             >
                 <!-- ルートリンク (アイコンのみ) -->
                 <a
@@ -67,10 +67,12 @@ const sortedPosts = allPosts.sort(
             </nav>
         </header>
 
-        <main class="flex-grow py-24 bg-custom-bg">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <main class="flex-grow py-24 relative overflow-hidden">
+            <HoneycombBackground />
+
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 <h1
-                    class="text-5xl sm:text-7xl font-black text-center mb-20 text-custom-headline tracking-tight animate-fade-in"
+                    class="text-5xl sm:text-7xl font-black text-center mb-20 text-custom-headline tracking-tight animate-fade-in drop-shadow-sm"
                 >
                     ALL<br />THOUGHTS
                 </h1>
@@ -85,12 +87,12 @@ const sortedPosts = allPosts.sort(
                                 href={`/portfolio/blog/${post.slug}`}
                                 class="group block"
                             >
-                                <article class="flex flex-col md:flex-row md:items-center justify-between py-8 border-b border-custom-secondary/30 group-hover:border-custom-highlight transition">
+                                <article class="flex flex-col md:flex-row md:items-center justify-between py-8 border-b border-custom-secondary/30 group-hover:border-custom-highlight transition relative bg-white/50 backdrop-blur-sm rounded-2xl p-6 hover:bg-white hover:shadow-lg hover:shadow-custom-highlight/5">
                                     <div class="md:w-3/4">
                                         <div class="flex items-center text-sm text-custom-paragraph mb-2">
                                             <time
                                                 datetime={post.data.pubDate.toISOString()}
-                                                class="font-mono"
+                                                class="font-mono text-custom-highlight"
                                             >
                                                 {post.data.pubDate.toLocaleDateString(
                                                     "en-US",
@@ -107,7 +109,7 @@ const sortedPosts = allPosts.sort(
                                                         <span class="mx-3 text-custom-secondary">
                                                             /
                                                         </span>
-                                                        <span class="font-medium text-custom-highlight">
+                                                        <span class="font-medium text-custom-paragraph group-hover:text-custom-highlight transition">
                                                             {post.data.tags[0]}
                                                         </span>
                                                     </>
@@ -121,7 +123,7 @@ const sortedPosts = allPosts.sort(
                                         </p>
                                     </div>
                                     <div class="mt-4 md:mt-0 md:w-1/4 flex justify-end opacity-0 group-hover:opacity-100 transform translate-x-[-10px] group-hover:translate-x-0 transition duration-300">
-                                        <span class="inline-flex items-center text-custom-highlight font-bold">
+                                        <span class="inline-flex items-center text-custom-highlight font-bold bg-custom-highlight/10 px-4 py-2 rounded-full">
                                             Read
                                             <svg
                                                 class="w-5 h-5 ml-2"
@@ -154,16 +156,21 @@ const sortedPosts = allPosts.sort(
             </div>
         </main>
 
-        <!-- フッターはメインページと同じものを使用 (シンプル化のため手動で記述) -->
-        <footer class="bg-custom-headline text-custom-main mt-auto">
+        <footer
+            class="bg-custom-headline text-white mt-auto relative overflow-hidden"
+        >
             <div
-                class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 text-center text-sm"
+                class="absolute inset-0 bg-[url('/honeycomb-pattern.svg')] opacity-5"
             >
-                <p class="text-custom-secondary">
-                    &copy; {new Date().getFullYear()} All rights reserved.
+            </div>
+            <div
+                class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 text-center text-sm relative z-10"
+            >
+                <p class="text-custom-secondary/60">
+                    &copy; {new Date().getFullYear()} Shuya Komiya. All rights reserved.
                 </p>
-                <p class="mt-1 text-custom-secondary">
-                    Built with Astro and Tailwind CSS
+                <p class="mt-2 text-custom-secondary/40 text-xs">
+                    Built with Astro, Tailwind CSS & a touch of Honey.
                 </p>
             </div>
         </footer>
