@@ -3,7 +3,7 @@
 title: "WishItem: 欲しいもの管理をもっと直感的に、もっと楽しく" 
 pubDate: 2024-11-01T00:00:00Z
 description: "WishItemアプリのコンセプトやこだわり、開発時に工夫した設計思想について紹介します。"
-tags: \["WishItem", "開発技術", "iOSアプリ"\]
+tags: ["WishItem", "開発技術", "iOSアプリ"]
 
 ---
 
