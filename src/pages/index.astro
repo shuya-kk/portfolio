@@ -1,260 +1,243 @@
 ---
-// インポートセクション: Astroのコンポーネントや外部ライブラリをインポート
-import appData from '../data/apps.json'; // 外部のJSONファイルからアプリデータをインポート
-import { getCollection } from 'astro:content';
-import HoneycombBackground from '../components/HoneycombBackground.astro';
+import appData from "../data/apps.json";
+import { getCollection } from "astro:content";
+import CanvasBackground from "../components/CanvasBackground.astro";
+import Navbar from "../components/Navbar.astro";
+import Footer from "../components/Footer.astro";
+import AppCard from "../components/AppCard.astro";
+import BlogCard from "../components/BlogCard.astro";
+import SectionHeader from "../components/SectionHeader.astro";
 
-// ブログ記事を取得して日付順にソートし、最新の3件を取得
-const allPosts = await getCollection('blog');
-const sortedPosts = allPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
-const latestPosts = sortedPosts.slice(0, 3);
+const allPosts = await getCollection("blog");
+const sortedPosts = allPosts.sort(
+    (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+const latestPosts = sortedPosts.slice(0, 4);
 
-// appDataの構造はそのままなので、以降のテンプレート内のマップ処理は変更なし
 const recentApps = appData.slice(0, 3);
 ---
 
-<!-- Tailwind CSSを使用し、完全にレスポンシブな単一ページポートフォリオ -->
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ja" class="scroll-smooth">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio | モバイルアプリ開発</title>
-    <link rel="icon" href="/favicon.ico" />
-</head>
-<!-- ホワイト系配色を基調に設定 -->
-<body class="bg-custom-bg text-custom-paragraph min-h-screen flex flex-col font-sans antialiased selection:bg-custom-highlight selection:text-white">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Shuya Komiya | Portfolio</title>
+        <link rel="icon" href="/favicon.ico" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;900&family=JetBrains+Mono:wght@400&display=swap"
+            rel="stylesheet"
+        />
+    </head>
+    <body
+        class="bg-dark-bg text-text-main font-sans selection:bg-neon-amber selection:text-white overflow-x-hidden"
+    >
+        <CanvasBackground />
+        <Navbar />
 
-    <!-- 1. ヘッダー/ナビゲーション (フローティング・ピルデザイン) -->
-    <header class="fixed bottom-8 left-1/2 transform -translate-x-1/2 z-50 w-auto max-w-[90vw]">
-        <nav class="bg-custom-headline/90 backdrop-blur-md text-custom-main px-6 py-3 rounded-full shadow-2xl border border-custom-secondary/20 flex items-center space-x-6 ring-1 ring-white/10">
-            <!-- ルートリンク (アイコンのみ) -->
-            <a href="/portfolio/" class="text-custom-highlight hover:text-white transition">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
-            </a>
-            <div class="h-4 w-px bg-custom-secondary/30"></div>
-            <div class="flex space-x-6 text-sm font-medium">
-                <a href="/portfolio/#apps" class="hover:text-custom-highlight transition">Apps</a>
-                <a href="/portfolio/blog" class="hover:text-custom-highlight transition">Blog</a>
-                <a href="/portfolio/#about" class="hover:text-custom-highlight transition">About</a>
-                <a href="/portfolio/#contact" class="hover:text-custom-highlight transition">Contact</a>
-            </div>
-        </nav>
-    </header>
+        <main class="relative z-10">
+            <!-- Hero Section -->
+            <section
+                id="hero"
+                class="min-h-screen flex items-center justify-center relative px-4"
+            >
+                <div class="max-w-5xl mx-auto text-center">
+                    <div
+                        class="inline-block mb-6 animate-fade-in opacity-0"
+                        style="animation-delay: 0.2s;"
+                    >
+                        <span
+                            class="px-4 py-2 rounded-full border border-neon-amber/30 bg-neon-amber/5 text-neon-amber text-sm font-mono tracking-wider"
+                        >
+                            IOS DEVELOPER & UI DESIGNER
+                        </span>
+                    </div>
 
-    <!-- 2. メインコンテンツ -->
-    <main class="flex-grow relative">
-        <!-- ヒーローセクション (大胆なタイポグラフィとアニメーション) -->
-        <section id="hero" class="min-h-[90vh] flex items-center justify-center py-20 relative overflow-hidden">
-            <HoneycombBackground />
+                    <h1
+                        class="text-6xl sm:text-8xl md:text-9xl font-black tracking-tighter leading-none mb-8 animate-fade-in-up opacity-0"
+                        style="animation-delay: 0.4s;"
+                    >
+                        DIGITAL<br />
+                        <span
+                            class="text-transparent bg-clip-text bg-gradient-to-r from-neon-amber to-neon-gold text-glow"
+                            >CRAFTSMAN</span
+                        >
+                    </h1>
 
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-                <span class="inline-block py-1 px-3 rounded-full bg-custom-highlight/10 text-custom-highlight text-sm font-semibold mb-6 animate-fade-in border border-custom-highlight/20">
-                    iOS Developer & UI Designer
-                </span>
-                <h1 class="text-6xl sm:text-8xl md:text-9xl font-black text-custom-headline leading-none tracking-tighter mb-8 animate-fade-in drop-shadow-sm" style="animation-delay: 0.1s;">
-                    CRAFTING<br>
-                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-custom-highlight to-custom-tertiary">DIGITAL</span><br>
-                    HIVES
-                </h1>
-                <p class="mt-6 text-xl sm:text-2xl text-custom-paragraph max-w-2xl mx-auto animate-fade-in" style="animation-delay: 0.2s;">
-                    機能美と心地よさが調和する、<br class="hidden sm:block">六角形のピースを紡ぐようにアプリを創る。
-                </p>
-                <div class="mt-10 animate-fade-in" style="animation-delay: 0.3s;">
-                    <a href="#apps" class="group inline-flex items-center justify-center px-8 py-4 text-lg font-bold text-white bg-custom-highlight rounded-full hover:bg-custom-tertiary transition transform hover:scale-105 duration-300 shadow-lg hover:shadow-custom-highlight/50">
-                        See My Work
-                        <svg class="w-5 h-5 ml-2 group-hover:translate-y-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
-                    </a>
-                </div>
-            </div>
-        </section>
+                    <p
+                        class="text-xl text-text-muted max-w-2xl mx-auto mb-12 animate-fade-in-up opacity-0"
+                        style="animation-delay: 0.6s;"
+                    >
+                        Building immersive digital experiences with a focus on
+                        motion, aesthetics, and usability.
+                    </p>
 
-        <!-- 3. アプリ紹介セクション (Bento Grid) -->
-        <section id="apps" class="py-24 bg-custom-bg relative">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                <div class="flex items-end justify-between mb-12">
-                    <h2 class="text-5xl font-black text-custom-headline tracking-tight">
-                        SELECTED<br>WORKS
-                    </h2>
-                    <a href="/portfolio/apps" class="hidden sm:inline-flex items-center text-custom-highlight font-bold hover:underline decoration-2 underline-offset-4">
-                        View All Apps
-                        <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
-                    </a>
-                </div>
-
-                <!-- Bento Grid Layout -->
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[minmax(300px,auto)]">
-                    {recentApps.map((app, index) => (
-                        <div class={`group relative bg-white rounded-3xl p-8 border border-custom-secondary/50 hover:border-custom-highlight transition-all duration-500 hover:shadow-2xl hover:shadow-custom-highlight/10 overflow-hidden flex flex-col ${index === 0 ? 'md:col-span-2 md:row-span-2' : ''}`}>
-                            <!-- 背景装飾 (六角形マスク) -->
-                            <div class="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-custom-highlight/5 to-custom-tertiary/5 rounded-bl-full -mr-10 -mt-10 transition group-hover:scale-110 duration-700"></div>
-                            
-                            <div class="relative z-10 flex-grow">
-                                <div class="flex items-start justify-between mb-6">
-                                    <img 
-                                        src={app.iconPlaceholder} 
-                                        alt={`${app.name} icon`}
-                                        class="w-16 h-16 rounded-2xl shadow-md group-hover:scale-110 transition duration-500 ring-1 ring-custom-secondary/20"
-                                        onerror="this.src='https://placehold.co/64x64/dddddd/333333?text=APP';"
-                                    />
-                                    <a href={app.appStoreLink} target="_blank" class="p-2 bg-custom-bg rounded-full text-custom-headline hover:bg-custom-headline hover:text-custom-main transition group-hover:rotate-12">
-                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
-                                    </a>
-                                </div>
-                                
-                                <h3 class={`font-bold text-custom-headline mb-3 ${index === 0 ? 'text-4xl' : 'text-2xl'}`}>
-                                    {app.name}
-                                </h3>
-                                <p class="text-custom-paragraph text-lg line-clamp-3">
-                                    {app.description}
-                                </p>
-
-                                {index === 0 && app.images && app.images.length > 0 && (
-                                    <div class="mt-8 hidden md:grid grid-cols-2 gap-4">
-                                        {app.images.slice(0, 4).map((image) => (
-                                            <div class="relative overflow-hidden rounded-xl shadow-sm border border-custom-secondary/30 group/img">
-                                                <img 
-                                                    src={image} 
-                                                    alt={`${app.name} screenshot`} 
-                                                    class="object-cover w-full h-32 sm:h-48 transform transition duration-500 group-hover/img:scale-105"
-                                                />
-                                                <div class="absolute inset-0 bg-custom-highlight/0 group-hover/img:bg-custom-highlight/10 transition duration-300"></div>
-                                            </div>
-                                        ))}
-                                    </div>
-                                )}
-                            </div>
-
-                            <div class="relative z-10 mt-8 pt-6 border-t border-custom-secondary/30">
-                                <ul class="flex flex-wrap gap-2">
-                                    {app.features?.slice(0, index === 0 ? 4 : 2).map((feature) => (
-                                        <li class="text-xs font-medium px-3 py-1 rounded-full bg-custom-highlight/10 text-custom-highlight border border-custom-highlight/20">
-                                            {feature}
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
-                        </div>
-                    ))}
-                </div>
-                
-                <div class="mt-8 text-center sm:hidden">
-                    <a href="/portfolio/apps" class="inline-flex items-center text-custom-highlight font-bold hover:underline">
-                        View All Apps
-                        <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
-                    </a>
-                </div>
-            </div>
-        </section>
-
-        <!-- 最新のブログ記事セクション (Minimal List) -->
-        <section id="latest-blog" class="py-24 bg-white border-t border-custom-secondary/30 relative overflow-hidden">
-             <!-- Decorative Hexagon -->
-             <div class="absolute -left-20 top-20 w-64 h-64 bg-custom-secondary/10 rotate-45 pointer-events-none" style="clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);"></div>
-
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                <div class="flex items-end justify-between mb-12">
-                    <h2 class="text-5xl font-black text-custom-headline tracking-tight">
-                        LATEST<br>THOUGHTS
-                    </h2>
-                    <a href="/portfolio/blog" class="hidden sm:inline-flex items-center text-custom-highlight font-bold hover:underline decoration-2 underline-offset-4">
-                        Read All Posts
-                        <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
-                    </a>
-                </div>
-
-                <div class="space-y-6">
-                    {latestPosts.map((post) => (
-                        <a href={`/portfolio/blog/${post.slug}`} class="group block">
-                            <article class="flex flex-col md:flex-row md:items-center justify-between py-8 border-b border-custom-secondary/30 group-hover:border-custom-highlight transition relative">
-                                <div class="md:w-3/4 relative z-10">
-                                    <div class="flex items-center text-sm text-custom-paragraph mb-2">
-                                        <time datetime={post.data.pubDate.toISOString()} class="font-mono text-custom-highlight">
-                                            {post.data.pubDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
-                                        </time>
-                                        {post.data.tags && post.data.tags.length > 0 && (
-                                            <>
-                                                <span class="mx-3 text-custom-secondary">/</span>
-                                                <span class="font-medium text-custom-paragraph group-hover:text-custom-highlight transition">
-                                                    {post.data.tags[0]}
-                                                </span>
-                                            </>
-                                        )}
-                                    </div>
-                                    <h3 class="text-2xl md:text-3xl font-bold text-custom-headline group-hover:text-custom-highlight transition">
-                                        {post.data.title}
-                                    </h3>
-                                </div>
-                                <div class="mt-4 md:mt-0 md:w-1/4 flex justify-end opacity-0 group-hover:opacity-100 transform translate-x-[-10px] group-hover:translate-x-0 transition duration-300">
-                                    <span class="inline-flex items-center text-custom-highlight font-bold bg-custom-highlight/10 px-4 py-2 rounded-full">
-                                        Read
-                                        <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                                    </span>
-                                </div>
-                            </article>
+                    <div
+                        class="animate-fade-in-up opacity-0"
+                        style="animation-delay: 0.8s;"
+                    >
+                        <a
+                            href="#apps"
+                            class="group inline-flex items-center gap-3 px-8 py-4 bg-white text-black rounded-full font-bold hover:bg-neon-amber hover:text-white transition-all duration-300 hover:scale-105"
+                        >
+                            Explore Work
+                            <svg
+                                class="w-4 h-4 group-hover:translate-y-1 transition-transform"
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                                ><path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    stroke-width="2"
+                                    d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg
+                            >
                         </a>
-                    ))}
+                    </div>
                 </div>
 
-                <div class="mt-12 text-center sm:hidden">
-                    <a href="/portfolio/blog" class="inline-flex items-center text-custom-highlight font-bold hover:underline">
-                        Read All Posts
-                        <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
-                    </a>
-                </div>
-            </div>
-        </section>
-
-        <!-- 4. その他の情報/お問い合わせセクション (Aboutセクションを追加) -->
-        <section id="about" class="py-16 md:py-24 bg-custom-bg border-t border-b border-custom-secondary/30">
-            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-                <h2 class="text-3xl font-extrabold text-center text-custom-headline mb-8">
-                    About
-                </h2>
-                <div class="text-lg text-custom-paragraph space-y-4 leading-relaxed">
-                    <p>
-                        個人開発者として、iOSアプリケーションの開発・運営を行っています。ユーザーの「あると便利」を形にすることを目標に、シンプルで使いやすいデザインと、安定した機能提供を心がけています。
-                    </p>
-                    <p>
-                        Swift/SwiftUIを中心に開発を行っており、アプリケーションの企画から設計、リリース、継続的な改善までを一貫して担当しています。
-                    </p>
-                    <p>
-                        アプリ開発に関する技術的な交流や、新しいプロジェクトへの協力など、お気軽にお声がけください。
-                    </p>
-                </div>
-            </div>
-        </section>
-
-        <section id="contact" class="py-16 md:py-24 bg-white relative overflow-hidden">
-             <div class="absolute right-0 bottom-0 w-96 h-96 bg-custom-highlight/5 rounded-full blur-3xl pointer-events-none"></div>
-            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-                <h2 class="text-3xl font-extrabold text-custom-headline mb-4">
-                    お問い合わせ
-                </h2>
-                <p class="text-lg text-custom-paragraph mb-8">
-                    プロジェクトの相談、技術的な質問、またはご意見など、お気軽にご連絡ください。
-                </p>
-                <a 
-                    href="mailto:contact@example.com" 
-                    class="inline-block px-8 py-4 text-lg font-bold text-white bg-custom-headline rounded-full hover:bg-custom-highlight transition transform hover:-translate-y-1 shadow-lg"
+                <!-- Scroll Indicator -->
+                <div
+                    class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-float opacity-50"
                 >
-                    メールでのお問い合わせ
-                </a>
-            </div>
-        </section>
-    </main>
+                    <div
+                        class="w-6 h-10 border-2 border-white/20 rounded-full flex justify-center p-1"
+                    >
+                        <div
+                            class="w-1 h-2 bg-white rounded-full animate-pulse-glow"
+                        >
+                        </div>
+                    </div>
+                </div>
+            </section>
 
-    <!-- 5. フッター -->
-    <footer class="bg-custom-headline text-white mt-auto relative overflow-hidden">
-        <div class="absolute inset-0 bg-[url('/honeycomb-pattern.svg')] opacity-5"></div> <!-- Optional pattern -->
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 text-center text-sm relative z-10">
-            <div class="flex justify-center space-x-6 mb-8">
-                 <!-- Social Icons could go here -->
-            </div>
-            <p class="text-custom-secondary/60">&copy; {new Date().getFullYear()} Shuya Komiya. All rights reserved.</p>
-            <p class="mt-2 text-custom-secondary/40 text-xs">Built with Astro, Tailwind CSS & a touch of Honey.</p>
-        </div>
-    </footer>
+            <!-- Apps Section -->
+            <section id="apps" class="py-32 relative">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <SectionHeader
+                        title="Selected Works"
+                        subtitle="Portfolio"
+                    />
 
-</body>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        {
+                            recentApps.map((app, index) => (
+                                <AppCard
+                                    name={app.name}
+                                    description={app.description}
+                                    iconUrl={app.iconPlaceholder}
+                                    appStoreUrl={app.appStoreLink}
+                                    features={app.features}
+                                    isFeatured={index === 0}
+                                />
+                            ))
+                        }
+                    </div>
+
+                    <div class="mt-12 text-center">
+                        <a
+                            href="/portfolio/apps"
+                            class="inline-flex items-center text-text-muted hover:text-neon-amber transition-colors font-mono text-sm group"
+                        >
+                            VIEW ALL APPS
+                            <svg
+                                class="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform"
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                                ><path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    stroke-width="2"
+                                    d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg
+                            >
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Blog Section -->
+            <section
+                id="blog"
+                class="py-32 bg-dark-surface/30 border-y border-white/5"
+            >
+                <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <SectionHeader
+                        title="Latest Thoughts"
+                        subtitle="Blog"
+                        align="center"
+                    />
+
+                    <div class="mt-16 space-y-8">
+                        {
+                            latestPosts.map((post) => (
+                                <BlogCard
+                                    title={post.data.title}
+                                    date={post.data.pubDate}
+                                    slug={post.slug}
+                                    tags={post.data.tags}
+                                />
+                            ))
+                        }
+                    </div>
+
+                    <div class="mt-16 text-center">
+                        <a
+                            href="/portfolio/blog"
+                            class="inline-flex items-center px-6 py-3 border border-white/10 rounded-full text-sm font-bold hover:bg-white hover:text-black transition-all duration-300"
+                        >
+                            Read More Articles
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- About Section -->
+            <section id="about" class="py-32 relative overflow-hidden">
+                <div
+                    class="absolute right-0 top-1/2 -translate-y-1/2 w-1/2 h-full bg-gradient-to-l from-neon-amber/5 to-transparent pointer-events-none"
+                >
+                </div>
+
+                <div
+                    class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center"
+                >
+                    <SectionHeader
+                        title="About Me"
+                        subtitle="Profile"
+                        align="center"
+                    />
+
+                    <div
+                        class="prose prose-invert prose-lg mx-auto text-text-muted leading-relaxed"
+                    >
+                        <p>
+                            個人開発者として、iOSアプリケーションの開発・運営を行っています。
+                            <span class="text-white font-bold">「機能美」</span
+                            >と<span class="text-white font-bold"
+                                >「心地よさ」</span
+                            >が調和するデジタル体験を追求しています。
+                        </p>
+                        <p>
+                            Swift/SwiftUIを中心に、企画から設計、実装、リリースまで一貫して担当。
+                            ただ動くものを作るのではなく、ユーザーの感情を動かすようなインターフェース作りを心がけています。
+                        </p>
+                    </div>
+
+                    <div class="mt-12">
+                        <a
+                            href="mailto:contact@example.com"
+                            class="inline-block px-8 py-4 bg-neon-amber text-white font-bold rounded-full shadow-[0_0_20px_rgba(245,158,11,0.4)] hover:shadow-[0_0_40px_rgba(245,158,11,0.6)] hover:-translate-y-1 transition-all duration-300"
+                        >
+                            Get In Touch
+                        </a>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <Footer />
+    </body>
 </html>

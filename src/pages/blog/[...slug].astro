@@ -1,106 +1,124 @@
 ---
 // 1. 【重要】 'type'キーワードをつけてCollectionEntryをインポート
-import type { CollectionEntry } from 'astro:content'; 
-import { getCollection, getEntryBySlug } from 'astro:content';
+import type { CollectionEntry } from "astro:content";
+import { getCollection } from "astro:content";
+import Navbar from "../../components/Navbar.astro";
+import Footer from "../../components/Footer.astro";
+import CanvasBackground from "../../components/CanvasBackground.astro";
 
 // 2. Propsの型を定義し、postの型を CollectionEntry<'blog'> に設定
 type Props = {
-  post: CollectionEntry<'blog'>;
+    post: CollectionEntry<"blog">;
 };
 
 // 1. 動的ルーティングのパスを生成 (SSG: 静的生成)
 export async function getStaticPaths() {
-  const posts = await getCollection('blog');
-  return posts.map(post => ({
-    params: { slug: post.slug },
-    props: { post },
-  }));
+    const posts = await getCollection("blog");
+    return posts.map((post) => ({
+        params: { slug: post.slug },
+        props: { post },
+    }));
 }
 
 // 2. 記事データとコンテンツを取得
 // 3. 【重要】 Astro.propsを取得する際に、定義したProps型にキャスト
-const { post } = Astro.props as Props; 
+const { post } = Astro.props as Props;
 const { Content } = await post.render();
 
 // 公開日を整形
-const formattedDate = post.data.pubDate.toLocaleDateString('ja-JP', {
-  year: 'numeric',
-  month: 'long',
-  day: 'numeric',
+const formattedDate = post.data.pubDate.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
 });
 ---
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- タイトルを記事のタイトルに設定 -->
-    <title>{post.data.title} | 開発ブログ</title>
-</head>
-<body class="bg-custom-bg text-custom-paragraph min-h-screen flex flex-col font-sans antialiased">
-    <!-- ヘッダー（ブログ一覧ページと同じ構造） -->
-    <!-- 1. ヘッダー/ナビゲーション (フローティング・ピルデザイン) -->
-    <header class="fixed bottom-8 left-1/2 transform -translate-x-1/2 z-50 w-auto max-w-[90vw]">
-        <nav class="bg-custom-headline/90 backdrop-blur-md text-custom-main px-6 py-3 rounded-full shadow-2xl border border-custom-secondary/20 flex items-center space-x-6">
-            <!-- ルートリンク (アイコンのみ) -->
-            <a href="/portfolio/" class="text-custom-highlight hover:text-white transition">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
-            </a>
-            <div class="h-4 w-px bg-custom-secondary/30"></div>
-            <div class="flex space-x-6 text-sm font-medium">
-                <a href="/portfolio/#apps" class="hover:text-custom-highlight transition">Apps</a>
-                <a href="/portfolio/blog" class="hover:text-custom-highlight transition">Blog</a>
-                <a href="/portfolio/#about" class="hover:text-custom-highlight transition">About</a>
-                <a href="/portfolio/#contact" class="hover:text-custom-highlight transition">Contact</a>
+
+<!doctype html>
+<html lang="ja" class="scroll-smooth">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <!-- タイトルを記事のタイトルに設定 -->
+        <title>{post.data.title} | Shuya Komiya</title>
+        <link rel="icon" href="/favicon.ico" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;900&family=JetBrains+Mono:wght@400&display=swap"
+            rel="stylesheet"
+        />
+    </head>
+    <body
+        class="bg-dark-bg text-text-main font-sans selection:bg-neon-amber selection:text-white overflow-x-hidden"
+    >
+        <CanvasBackground />
+        <Navbar />
+
+        <main class="relative z-10 pt-32 pb-20">
+            <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+                <!-- ブログ一覧へ戻るリンク -->
+                <a
+                    href="/portfolio/blog"
+                    class="inline-flex items-center text-text-muted hover:text-neon-amber transition-colors mb-8 text-sm font-mono group"
+                >
+                    <svg
+                        class="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        ><path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg
+                    >
+                    Back to Thoughts
+                </a>
+
+                <!-- 記事タイトル -->
+                <h1
+                    class="text-4xl md:text-5xl font-black text-white mb-6 leading-tight tracking-tight animate-fade-in-up"
+                >
+                    {post.data.title}
+                </h1>
+
+                <!-- メタ情報 -->
+                <div
+                    class="text-sm text-text-muted mb-12 flex flex-wrap items-center gap-4 font-mono animate-fade-in-up"
+                    style="animation-delay: 0.1s;"
+                >
+                    <time datetime={post.data.pubDate.toISOString()}
+                        >{formattedDate}</time
+                    >
+                    {
+                        post.data.tags && (
+                            <>
+                                <span class="text-dark-border">/</span>
+                                <span class="flex gap-2">
+                                    {post.data.tags.map((tag) => (
+                                        <a
+                                            href={`/portfolio/blog/tag/${tag}`}
+                                            class="text-neon-amber hover:underline decoration-1 underline-offset-2"
+                                        >
+                                            #{tag}
+                                        </a>
+                                    ))}
+                                </span>
+                            </>
+                        )
+                    }
+                </div>
+
+                <!-- 記事本文 (Markdownコンテンツ) -->
+                <div
+                    class="prose prose-invert prose-lg max-w-none prose-headings:font-bold prose-headings:tracking-tight prose-a:text-neon-amber prose-a:no-underline hover:prose-a:underline prose-img:rounded-xl prose-img:shadow-lg animate-fade-in-up"
+                    style="animation-delay: 0.2s;"
+                >
+                    <Content />
+                </div>
             </div>
-        </nav>
-    </header>
+        </main>
 
-    <main class="flex-grow py-16 md:py-24">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <!-- ブログ一覧へ戻るリンク -->
-            <a href="/portfolio/blog" class="inline-flex items-center text-custom-highlight hover:text-custom-headline transition mb-8 text-sm font-medium">
-                <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
-                ブログ一覧へ戻る
-            </a>
-
-            <!-- 記事タイトル -->
-            <h1 class="text-4xl md:text-5xl font-black text-custom-headline mb-6 leading-tight tracking-tight">
-                {post.data.title}
-            </h1>
-
-            <!-- メタ情報 -->
-            <div class="text-sm text-custom-paragraph mb-8 flex flex-wrap items-center space-x-4">
-                <span>公開日: {formattedDate}</span>
-                {post.data.tags && (
-                    <span class="space-x-2">
-                        {post.data.tags.map((tag) => (
-                            <!-- 🌟 修正: タグを <a> に変更し、タグページへのリンクを設定 🌟 -->
-                            <a 
-                                href={`/portfolio/blog/tag/${tag}`} 
-                                class="inline-block bg-custom-secondary text-custom-headline text-xs font-semibold px-2 py-0.5 rounded-full hover:bg-custom-highlight hover:text-custom-main transition"
-                            >
-                                #{tag}
-                            </a>
-                        ))}
-                    </span>
-                )}
-            </div>
-
-            <!-- 記事本文 (Markdownコンテンツ) -->
-            <!-- Tailwind TypographyプラグインでMarkdownのスタイルを適用 -->
-            <div class="prose max-w-none prose-lg prose-headings:text-custom-headline prose-p:text-custom-paragraph prose-a:text-custom-highlight prose-strong:text-custom-headline prose-li:text-custom-paragraph prose-code:text-custom-highlight">
-                <Content />
-            </div>
-        </div>
-    </main>
-
-    <!-- フッターはメインページと同じ構造 -->
-    <footer class="bg-custom-headline text-custom-main mt-auto">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 text-center text-sm">
-            <p class="text-custom-secondary">&copy; {new Date().getFullYear()} All rights reserved.</p>
-            <p class="mt-1 text-custom-secondary">Built with Astro and Tailwind CSS</p>
-        </div>
-    </footer>
-</body>
+        <Footer />
+    </body>
 </html>

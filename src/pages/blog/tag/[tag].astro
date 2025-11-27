@@ -2,6 +2,10 @@
 // コレクションのインポートと型定義
 import type { CollectionEntry } from "astro:content";
 import { getCollection } from "astro:content";
+import Navbar from "../../../components/Navbar.astro";
+import Footer from "../../../components/Footer.astro";
+import BlogCard from "../../../components/BlogCard.astro";
+import CanvasBackground from "../../../components/CanvasBackground.astro";
 
 // Propsの型を定義
 type Props = {
@@ -47,83 +51,49 @@ const { tag, posts } = Astro.props as Props;
 ---
 
 <!doctype html>
-<html lang="ja">
+<html lang="ja" class="scroll-smooth">
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <!-- タイトルをタグ名を含むものに設定 -->
-        <title>タグ: {tag} | 開発ブログ</title>
+        <title>Tag: {tag} | Shuya Komiya</title>
+        <link rel="icon" href="/favicon.ico" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;900&family=JetBrains+Mono:wght@400&display=swap"
+            rel="stylesheet"
+        />
     </head>
     <body
-        class="bg-custom-bg text-custom-paragraph min-h-screen flex flex-col font-sans antialiased"
+        class="bg-dark-bg text-text-main font-sans selection:bg-neon-amber selection:text-white overflow-x-hidden"
     >
-        <!-- ヘッダー（ブログ一覧ページと同じ構造） -->
-        <!-- 1. ヘッダー/ナビゲーション (フローティング・ピルデザイン) -->
-        <header
-            class="fixed bottom-8 left-1/2 transform -translate-x-1/2 z-50 w-auto max-w-[90vw]"
-        >
-            <nav
-                class="bg-custom-headline/90 backdrop-blur-md text-custom-main px-6 py-3 rounded-full shadow-2xl border border-custom-secondary/20 flex items-center space-x-6"
-            >
-                <!-- ルートリンク (アイコンのみ) -->
-                <a
-                    href="/portfolio/"
-                    class="text-custom-highlight hover:text-white transition"
-                >
-                    <svg
-                        class="w-6 h-6"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                        ><path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
-                        ></path></svg
-                    >
-                </a>
-                <div class="h-4 w-px bg-custom-secondary/30"></div>
-                <div class="flex space-x-6 text-sm font-medium">
-                    <a
-                        href="/portfolio/#apps"
-                        class="hover:text-custom-highlight transition">Apps</a
-                    >
-                    <a
-                        href="/portfolio/blog"
-                        class="hover:text-custom-highlight transition">Blog</a
-                    >
-                    <a
-                        href="/portfolio/#about"
-                        class="hover:text-custom-highlight transition">About</a
-                    >
-                    <a
-                        href="/portfolio/#contact"
-                        class="hover:text-custom-highlight transition"
-                        >Contact</a
-                    >
-                </div>
-            </nav>
-        </header>
+        <CanvasBackground />
+        <Navbar />
 
-        <main class="flex-grow py-24 bg-custom-bg">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <h1
-                    class="text-4xl sm:text-6xl font-black text-center mb-6 text-custom-headline tracking-tight animate-fade-in"
-                >
-                    TAG: <span class="text-custom-highlight">#{tag}</span>
-                </h1>
+        <main class="relative z-10 pt-32 pb-20">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-20 animate-fade-in-up">
+                    <p
+                        class="text-text-muted text-sm font-mono mb-4 uppercase tracking-wider"
+                    >
+                        Browsing Tag
+                    </p>
+                    <h1 class="text-4xl sm:text-6xl font-black tracking-tight">
+                        <span class="text-neon-amber">#{tag}</span>
+                    </h1>
+                </div>
 
                 <div
-                    class="text-center mb-20 animate-fade-in"
+                    class="text-center mb-12 animate-fade-in-up"
                     style="animation-delay: 0.1s;"
                 >
                     <a
                         href="/portfolio/blog"
-                        class="inline-flex items-center text-lg text-custom-paragraph hover:text-custom-headline transition font-medium"
+                        class="inline-flex items-center text-text-muted hover:text-white transition-colors font-mono text-sm group"
                     >
                         <svg
-                            class="w-5 h-5 mr-2"
+                            class="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform"
                             fill="none"
                             stroke="currentColor"
                             viewBox="0 0 24 24"
@@ -138,88 +108,23 @@ const { tag, posts } = Astro.props as Props;
                 </div>
 
                 <div
-                    class="space-y-6 max-w-4xl mx-auto animate-fade-in"
+                    class="space-y-8 animate-fade-in-up"
                     style="animation-delay: 0.2s;"
                 >
                     {
                         posts.map((post) => (
-                            <a
-                                href={`/portfolio/blog/${post.slug}`}
-                                class="group block"
-                            >
-                                <article class="flex flex-col md:flex-row md:items-center justify-between py-8 border-b border-custom-secondary/30 group-hover:border-custom-highlight transition">
-                                    <div class="md:w-3/4">
-                                        <div class="flex items-center text-sm text-custom-paragraph mb-2">
-                                            <time
-                                                datetime={post.data.pubDate.toISOString()}
-                                                class="font-mono"
-                                            >
-                                                {post.data.pubDate.toLocaleDateString(
-                                                    "en-US",
-                                                    {
-                                                        year: "numeric",
-                                                        month: "long",
-                                                        day: "numeric",
-                                                    },
-                                                )}
-                                            </time>
-                                            {post.data.tags &&
-                                                post.data.tags.length > 0 && (
-                                                    <>
-                                                        <span class="mx-3 text-custom-secondary">
-                                                            /
-                                                        </span>
-                                                        <span class="font-medium text-custom-highlight">
-                                                            {post.data.tags[0]}
-                                                        </span>
-                                                    </>
-                                                )}
-                                        </div>
-                                        <h2 class="text-2xl md:text-3xl font-bold text-custom-headline group-hover:text-custom-highlight transition">
-                                            {post.data.title}
-                                        </h2>
-                                        <p class="mt-2 text-custom-paragraph line-clamp-2">
-                                            {post.data.description}
-                                        </p>
-                                    </div>
-                                    <div class="mt-4 md:mt-0 md:w-1/4 flex justify-end opacity-0 group-hover:opacity-100 transform translate-x-[-10px] group-hover:translate-x-0 transition duration-300">
-                                        <span class="inline-flex items-center text-custom-highlight font-bold">
-                                            Read
-                                            <svg
-                                                class="w-5 h-5 ml-2"
-                                                fill="none"
-                                                stroke="currentColor"
-                                                viewBox="0 0 24 24"
-                                            >
-                                                <path
-                                                    stroke-linecap="round"
-                                                    stroke-linejoin="round"
-                                                    stroke-width="2"
-                                                    d="M14 5l7 7m0 0l-7 7m7-7H3"
-                                                />
-                                            </svg>
-                                        </span>
-                                    </div>
-                                </article>
-                            </a>
+                            <BlogCard
+                                title={post.data.title}
+                                date={post.data.pubDate}
+                                slug={post.slug}
+                                tags={post.data.tags}
+                            />
                         ))
                     }
                 </div>
             </div>
         </main>
 
-        <!-- フッターはメインページと同じものを使用 (シンプル化のため手動で記述) -->
-        <footer class="bg-custom-headline text-custom-main mt-auto">
-            <div
-                class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 text-center text-sm"
-            >
-                <p class="text-custom-secondary">
-                    &copy; {new Date().getFullYear()} All rights reserved.
-                </p>
-                <p class="mt-1 text-custom-secondary">
-                    Built with Astro and Tailwind CSS
-                </p>
-            </div>
-        </footer>
+        <Footer />
     </body>
 </html>

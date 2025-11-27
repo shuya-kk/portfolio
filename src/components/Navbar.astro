@@ -1,0 +1,48 @@
+---
+const links = [
+    { name: "Apps", href: "/portfolio/#apps" },
+    { name: "Blog", href: "/portfolio/blog" },
+    { name: "About", href: "/portfolio/#about" },
+];
+---
+
+<header
+    class="fixed top-6 left-1/2 transform -translate-x-1/2 z-50 w-auto max-w-[90vw]"
+>
+    <nav
+        class="bg-dark-surface/80 backdrop-blur-md px-6 py-3 rounded-full border border-white/10 shadow-2xl flex items-center space-x-8"
+    >
+        <a
+            href="/portfolio/"
+            class="text-neon-amber hover:text-white transition-colors"
+        >
+            <svg
+                class="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                ><path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg
+            >
+        </a>
+
+        <div class="h-4 w-px bg-white/10"></div>
+
+        <div class="flex space-x-6 text-sm font-medium">
+            {
+                links.map((link) => (
+                    <a
+                        href={link.href}
+                        class="text-text-muted hover:text-white transition-colors relative group"
+                    >
+                        {link.name}
+                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-neon-amber transition-all duration-300 group-hover:w-full" />
+                    </a>
+                ))
+            }
+        </div>
+    </nav>
+</header>

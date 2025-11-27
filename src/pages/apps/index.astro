@@ -1,112 +1,70 @@
 ---
-// インポートセクション
-import appData from '../../data/apps.json';
-
-// すべてのアプリを表示するため、スライスは行わない
+import appData from "../../data/apps.json";
+import Navbar from "../../components/Navbar.astro";
+import Footer from "../../components/Footer.astro";
+import AppCard from "../../components/AppCard.astro";
+import CanvasBackground from "../../components/CanvasBackground.astro";
+import SectionHeader from "../../components/SectionHeader.astro";
 ---
 
-<!-- Tailwind CSSを使用し、完全にレスポンシブな単一ページポートフォリオ -->
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Applications | Developer Portfolio</title>
-</head>
-<!-- ホワイト系配色を基調に設定 -->
-<body class="bg-custom-bg text-custom-paragraph min-h-screen flex flex-col font-sans antialiased">
+<!doctype html>
+<html lang="ja" class="scroll-smooth">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Applications | Shuya Komiya</title>
+        <link rel="icon" href="/favicon.ico" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;900&family=JetBrains+Mono:wght@400&display=swap"
+            rel="stylesheet"
+        />
+    </head>
+    <body
+        class="bg-dark-bg text-text-main font-sans selection:bg-neon-amber selection:text-white overflow-x-hidden"
+    >
+        <CanvasBackground />
+        <Navbar />
 
-    <!-- 1. ヘッダー/ナビゲーション -->
-    <!-- 1. ヘッダー/ナビゲーション (フローティング・ピルデザイン) -->
-    <header class="fixed bottom-8 left-1/2 transform -translate-x-1/2 z-50 w-auto max-w-[90vw]">
-        <nav class="bg-custom-headline/90 backdrop-blur-md text-custom-main px-6 py-3 rounded-full shadow-2xl border border-custom-secondary/20 flex items-center space-x-6">
-            <!-- ルートリンク (アイコンのみ) -->
-            <a href="/portfolio/" class="text-custom-highlight hover:text-white transition">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
-            </a>
-            <div class="h-4 w-px bg-custom-secondary/30"></div>
-            <div class="flex space-x-6 text-sm font-medium">
-                <a href="/portfolio/#apps" class="hover:text-custom-highlight transition">Apps</a>
-                <a href="/portfolio/blog" class="hover:text-custom-highlight transition">Blog</a>
-                <a href="/portfolio/#about" class="hover:text-custom-highlight transition">About</a>
-                <a href="/portfolio/#contact" class="hover:text-custom-highlight transition">Contact</a>
-            </div>
-        </nav>
-    </header>
-
-    <!-- 2. メインコンテンツ -->
-    <main class="flex-grow">
-        <section id="apps" class="py-24 bg-custom-bg">
+        <main class="relative z-10 pt-32 pb-20">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <h1 class="text-5xl sm:text-7xl font-black text-center mb-6 text-custom-headline tracking-tight animate-fade-in">
-                    ALL<br>APPLICATIONS
-                </h1>
-                <p class="text-center text-xl text-custom-paragraph mb-20 max-w-2xl mx-auto animate-fade-in" style="animation-delay: 0.1s;">
-                    これまでに開発・リリースしたiOSアプリケーションの全リストです。
-                </p>
+                <div class="text-center mb-20">
+                    <h1
+                        class="text-5xl sm:text-7xl font-black tracking-tighter mb-6 animate-fade-in-up"
+                    >
+                        ALL <span
+                            class="text-transparent bg-clip-text bg-gradient-to-r from-neon-amber to-neon-gold text-glow"
+                            >APPLICATIONS</span
+                        >
+                    </h1>
+                    <p
+                        class="text-xl text-text-muted max-w-2xl mx-auto animate-fade-in-up"
+                        style="animation-delay: 0.1s;"
+                    >
+                        A complete collection of iOS applications I've crafted.
+                    </p>
+                </div>
 
-                <!-- 複数アプリのためのグリッドレイアウト -->
-                <!-- 複数アプリのためのグリッドレイアウト -->
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {appData.map((app, index) => (
-                        <div class="group relative bg-custom-main rounded-3xl p-8 border border-custom-secondary/50 hover:border-custom-highlight transition-all duration-500 hover:shadow-2xl overflow-hidden flex flex-col animate-fade-in" style={`animation-delay: ${0.2 + index * 0.1}s;`}>
-                            <!-- 背景装飾 -->
-                            <div class="absolute top-0 right-0 w-48 h-48 bg-custom-secondary/20 rounded-full blur-3xl -mr-24 -mt-24 transition group-hover:bg-custom-highlight/10"></div>
-                            
-                            <div class="relative z-10 flex-grow">
-                                <div class="flex items-start justify-between mb-6">
-                                    <img 
-                                        src={app.iconPlaceholder} 
-                                        alt={`${app.name} icon`}
-                                        class="w-16 h-16 rounded-2xl shadow-md group-hover:scale-110 transition duration-500"
-                                        onerror="this.src='https://placehold.co/64x64/dddddd/333333?text=APP';"
-                                    />
-                                    <a href={app.appStoreLink} target="_blank" class="p-2 bg-custom-bg rounded-full text-custom-headline hover:bg-custom-headline hover:text-custom-main transition">
-                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
-                                    </a>
-                                </div>
-                                
-                                <h3 class="text-2xl font-bold text-custom-headline mb-3">
-                                    {app.name}
-                                </h3>
-                                <p class="text-custom-paragraph text-lg line-clamp-3 mb-6">
-                                    {app.description}
-                                </p>
-
-                                <ul class="list-none space-y-2 mb-6">
-                                    {app.features?.map((feature) => (
-                                        <li class="flex items-center text-sm text-custom-paragraph">
-                                            <svg class="w-4 h-4 text-custom-highlight mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                                            {feature}
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
-
-                            <div class="mt-auto pt-6 border-t border-custom-secondary/30">
-                                <a 
-                                    href={app.appStoreLink} 
-                                    target="_blank" 
-                                    rel="noopener noreferrer"
-                                    class="inline-flex items-center justify-center w-full px-6 py-3 text-base font-bold rounded-full text-custom-main bg-custom-headline hover:bg-custom-highlight transition shadow-lg"
-                                >
-                                    View on App Store
-                                </a>
-                            </div>
-                        </div>
-                    ))}
+                <div
+                    class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 animate-fade-in-up"
+                    style="animation-delay: 0.2s;"
+                >
+                    {
+                        appData.map((app) => (
+                            <AppCard
+                                name={app.name}
+                                description={app.description}
+                                iconUrl={app.iconPlaceholder}
+                                appStoreUrl={app.appStoreLink}
+                                features={app.features}
+                            />
+                        ))
+                    }
                 </div>
             </div>
-        </section>
-    </main>
+        </main>
 
-    <!-- 5. フッター -->
-    <footer class="bg-custom-headline text-custom-main mt-auto">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 text-center text-sm">
-            <p class="text-custom-secondary">&copy; {new Date().getFullYear()} All rights reserved.</p>
-            <p class="mt-1 text-custom-secondary">Built with Astro and Tailwind CSS</p>
-        </div>
-    </footer>
-
-</body>
+        <Footer />
+    </body>
 </html>
