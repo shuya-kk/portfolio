@@ -1,45 +1,45 @@
-# Developer Portfolio
+# 開発者ポートフォリオ
 
-A modern, responsive portfolio website designed to showcase iOS applications and technical blog posts. Built with Astro and Tailwind CSS, featuring a stylish "2025 Web Design Trend" aesthetic.
+iOSアプリケーションや技術ブログ記事を紹介するために設計された、モダンでレスポンシブなポートフォリオウェブサイトです。AstroとTailwind CSSを使用して構築されており、スタイリッシュな「2025年のWebデザインのトレンド」を取り入れています。
 
-**Deployment URL**: [https://daizu-mame-88.github.io/portfolio/](https://daizu-mame-88.github.io/portfolio/)
+**デプロイURL**: [https://daizu-mame-88.github.io/portfolio/](https://daizu-mame-88.github.io/portfolio/)
 
-## 🚀 Features
+## 🚀 特徴
 
--   **Modern Aesthetic**: Implements 2025 web design trends including:
-    -   **Floating Navigation**: A sleek, pill-shaped navigation bar for easy access.
-    -   **Bento Grid Layout**: Dynamic grid layout for showcasing applications.
-    -   **Bold Typography**: High-contrast, impactful headings.
-    -   **Micro-interactions**: Subtle hover effects and animations.
--   **Responsive Design**: Fully optimized for mobile, tablet, and desktop devices.
-    -   *Note*: App screenshots on the homepage are hidden on mobile for a cleaner look.
--   **Content Management**:
-    -   **Blog**: Powered by Astro Content Collections for type-safe Markdown management.
-    -   **Apps**: Data-driven application listing sourced from JSON.
--   **Custom Design System**: Tailored Tailwind CSS configuration with a custom color palette and utility classes.
+-   **モダンな美学**: 以下のような2025年のWebデザインのトレンドを実装しています。
+    -   **フローティングナビゲーション**: アクセスしやすい、洗練されたピル型（カプセル型）のナビゲーションバー。
+    -   **Bento（弁当箱）グリッドレイアウト**: アプリケーションを紹介するための動的なグリッドレイアウト。
+    -   **大胆なタイポグラフィ**: コントラストが高く、インパクトのある見出し。
+    -   **マイクロインタラクション**: 繊細なホバー効果とアニメーション。
+-   **レスポンシブデザイン**: モバイル、タブレット、デスクトップデバイスに完全最適化されています。
+    -   *注記*: すっきりとした見た目にするため、モバイル版ではトップページのアプリスクリーンショットを非表示にしています。
+-   **コンテンツ管理**:
+    -   **ブログ**: Astro Content Collectionsを使用した、型安全なMarkdown管理。
+    -   **アプリ**: JSONからソースを取得するデータ駆動型のアプリケーションリスト。
+-   **カスタムデザインシステム**: カスタムカラーパレットとユーティリティクラスを含む、調整されたTailwind CSS設定。
 
-## 🛠️ Tech Stack
+## 🛠️ 技術スタック
 
--   **Framework**: [Astro](https://astro.build/) (Static Site Generator)
--   **Styling**: [Tailwind CSS](https://tailwindcss.com/)
--   **Language**: [TypeScript](https://www.typescriptlang.org/)
--   **Deployment**: GitHub Pages (via GitHub Actions)
+-   **フレームワーク**: [Astro](https://astro.build/) (静的サイトジェネレーター)
+-   **スタイリング**: [Tailwind CSS](https://tailwindcss.com/)
+-   **言語**: [TypeScript](https://www.typescriptlang.org/)
+-   **デプロイ**: GitHub Pages (GitHub Actions経由)
 
-## 📂 Project Structure
+## 📂 プロジェクト構成
 
 ```text
 /
-├── public/             # Static assets
+├── public/             # 静的アセット
 ├── src/
-│   ├── content/        # Blog posts (Markdown) and config
-│   ├── data/           # Application data (JSON)
-│   ├── pages/          # Application routes
-│   │   ├── index.astro # Homepage
-│   │   ├── apps/       # App list page
-│   │   └── blog/       # Blog pages (List, Detail, Tags)
-│   └── env.d.ts        # TypeScript environment definitions
-├── tailwind.config.mjs # Tailwind CSS configuration
-└── package.json        # Project dependencies and scripts
+│   ├── content/        # ブログ記事 (Markdown) と設定
+│   ├── data/           # アプリケーションデータ (JSON)
+│   ├── pages/          # アプリケーションルート
+│   │   ├── index.astro # ホームページ（トップページ）
+│   │   ├── apps/       # アプリ一覧ページ
+│   │   └── blog/       # ブログページ（一覧、詳細、タグ）
+│   └── env.d.ts        # TypeScript環境定義
+├── tailwind.config.mjs # Tailwind CSS設定
+└── package.json        # プロジェクトの依存関係とスクリプト
 ```
 
 ## 🧞 Commands
