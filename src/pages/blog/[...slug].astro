@@ -2,10 +2,7 @@
 // 1. 【重要】 'type'キーワードをつけてCollectionEntryをインポート
 import type { CollectionEntry } from "astro:content";
 import { getCollection } from "astro:content";
-import Navbar from "../../components/Navbar.astro";
-import Footer from "../../components/Footer.astro";
-import CanvasBackground from "../../components/CanvasBackground.astro";
-import SEOHead from "../../components/SEOHead.astro";
+import Layout from "../../layouts/Layout.astro";
 
 // 2. Propsの型を定義し、postの型を CollectionEntry<'blog'> に設定
 type Props = {
@@ -27,99 +24,77 @@ const { post } = Astro.props as Props;
 const { Content } = await post.render();
 
 // 公開日を整形
-const formattedDate = post.data.pubDate.toLocaleDateString("en-US", {
+const formattedDate = post.data.pubDate.toLocaleDateString("ja-JP", {
     year: "numeric",
     month: "long",
     day: "numeric",
 });
 ---
 
-<!doctype html>
-<html lang="ja" class="scroll-smooth">
-    <head>
-        <SEOHead
-            title={`${post.data.title} | Shuya Komiya`}
-            description={post.data.description}
-            article={true}
-        />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link
-            href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;900&family=JetBrains+Mono:wght@400&display=swap"
-            rel="stylesheet"
-        />
-    </head>
-    <body
-        class="bg-dark-bg text-text-main font-sans selection:bg-neon-amber selection:text-white overflow-x-hidden"
-    >
-        <CanvasBackground />
-        <Navbar />
+<Layout
+    title={`${post.data.title} | Shuya Komiya`}
+    description={post.data.description}
+>
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-32">
+        <!-- ブログ一覧へ戻るリンク -->
+        <a
+            href="/portfolio/blog"
+            class="inline-flex items-center text-wafu-text-muted hover:text-wafu-accent transition-colors mb-8 text-sm font-sans tracking-wider group"
+        >
+            <svg
+                class="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                ><path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg
+            >
+            記事一覧へ戻る
+        </a>
 
-        <main class="relative z-10 pt-32 pb-20">
-            <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-                <!-- ブログ一覧へ戻るリンク -->
-                <a
-                    href="/portfolio/blog"
-                    class="inline-flex items-center text-text-muted hover:text-neon-amber transition-colors mb-8 text-sm font-mono group"
-                >
-                    <svg
-                        class="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                        ><path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg
-                    >
-                    Back to Thoughts
-                </a>
+        <!-- 記事タイトル -->
+        <h1
+            class="text-3xl md:text-5xl font-black text-wafu-text mb-8 leading-relaxed tracking-widest font-serif text-center animate-fade-in-up"
+        >
+            {post.data.title}
+        </h1>
 
-                <!-- 記事タイトル -->
-                <h1
-                    class="text-4xl md:text-5xl font-black text-white mb-6 leading-tight tracking-tight animate-fade-in-up"
-                >
-                    {post.data.title}
-                </h1>
+        <!-- メタ情報 -->
+        <div
+            class="text-sm text-wafu-text-muted mb-12 flex flex-wrap justify-center items-center gap-4 font-serif animate-fade-in-up"
+            style="animation-delay: 0.1s;"
+        >
+            <time datetime={post.data.pubDate.toISOString()}
+                >{formattedDate}</time
+            >
+            {
+                post.data.tags && (
+                    <>
+                        <span class="text-wafu-text/20">/</span>
+                        <span class="flex gap-2">
+                            {post.data.tags.map((tag) => (
+                                <a
+                                    href={`/portfolio/blog/tag/${tag}`}
+                                    class="text-wafu-accent hover:underline decoration-1 underline-offset-2"
+                                >
+                                    #{tag}
+                                </a>
+                            ))}
+                        </span>
+                    </>
+                )
+            }
+        </div>
 
-                <!-- メタ情報 -->
-                <div
-                    class="text-sm text-text-muted mb-12 flex flex-wrap items-center gap-4 font-mono animate-fade-in-up"
-                    style="animation-delay: 0.1s;"
-                >
-                    <time datetime={post.data.pubDate.toISOString()}
-                        >{formattedDate}</time
-                    >
-                    {
-                        post.data.tags && (
-                            <>
-                                <span class="text-dark-border">/</span>
-                                <span class="flex gap-2">
-                                    {post.data.tags.map((tag) => (
-                                        <a
-                                            href={`/portfolio/blog/tag/${tag}`}
-                                            class="text-neon-amber hover:underline decoration-1 underline-offset-2"
-                                        >
-                                            #{tag}
-                                        </a>
-                                    ))}
-                                </span>
-                            </>
-                        )
-                    }
-                </div>
-
-                <!-- 記事本文 (Markdownコンテンツ) -->
-                <div
-                    class="prose prose-invert prose-lg max-w-none prose-headings:font-bold prose-headings:tracking-tight prose-a:text-neon-amber prose-a:no-underline hover:prose-a:underline prose-img:rounded-xl prose-img:shadow-lg animate-fade-in-up"
-                    style="animation-delay: 0.2s;"
-                >
-                    <Content />
-                </div>
-            </div>
-        </main>
-
-        <Footer />
-    </body>
-</html>
+        <!-- 記事本文 (Markdownコンテンツ) -->
+        <div
+            class="prose prose-stone prose-lg max-w-none prose-headings:font-serif prose-headings:tracking-widest prose-p:text-wafu-text prose-p:leading-loose prose-a:text-wafu-accent prose-a:no-underline hover:prose-a:underline prose-img:rounded-sm prose-img:shadow-md animate-fade-in-up"
+            style="animation-delay: 0.2s;"
+        >
+            <Content />
+        </div>
+    </div>
+</Layout>
