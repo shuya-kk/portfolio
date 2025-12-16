@@ -8,25 +8,21 @@ interface Props {
 const { title, subtitle, align = "left" } = Astro.props;
 ---
 
-<div class={`mb-12 ${align === "center" ? "text-center" : "text-left"}`}>
+<div class={`mb-16 ${align === "center" ? "text-center" : "text-left"}`}>
     {
         subtitle && (
-            <span class="inline-block py-1 px-3 rounded-full bg-neon-amber/10 text-neon-amber text-xs font-bold tracking-wider mb-4 border border-neon-amber/20 uppercase">
+            <span class="inline-block text-wafu-accent text-sm font-bold tracking-[0.2em] mb-3 font-serif uppercase">
                 {subtitle}
             </span>
         )
     }
     <h2
-        class="text-4xl md:text-5xl font-black text-white tracking-tight leading-tight"
+        class="text-3xl md:text-4xl font-bold text-wafu-text tracking-widest leading-relaxed font-serif"
     >
-        <span
-            class="bg-clip-text text-transparent bg-gradient-to-r from-white to-white/60"
-        >
-            {title}
-        </span>
+        {title}
     </h2>
     <div
-        class={`h-1 w-20 bg-neon-amber mt-6 rounded-full ${align === "center" ? "mx-auto" : ""}`}
+        class={`h-px w-12 bg-wafu-text/20 mt-6 ${align === "center" ? "mx-auto" : ""}`}
     >
     </div>
 </div>

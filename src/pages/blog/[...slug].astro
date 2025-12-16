@@ -5,6 +5,7 @@ import { getCollection } from "astro:content";
 import Navbar from "../../components/Navbar.astro";
 import Footer from "../../components/Footer.astro";
 import CanvasBackground from "../../components/CanvasBackground.astro";
+import SEOHead from "../../components/SEOHead.astro";
 
 // 2. Propsの型を定義し、postの型を CollectionEntry<'blog'> に設定
 type Props = {
@@ -36,11 +37,11 @@ const formattedDate = post.data.pubDate.toLocaleDateString("en-US", {
 <!doctype html>
 <html lang="ja" class="scroll-smooth">
     <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <!-- タイトルを記事のタイトルに設定 -->
-        <title>{post.data.title} | Shuya Komiya</title>
-        <link rel="icon" href="/favicon.ico" />
+        <SEOHead
+            title={`${post.data.title} | Shuya Komiya`}
+            description={post.data.description}
+            article={true}
+        />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link

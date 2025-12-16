@@ -1,9 +1,7 @@
 ---
 import { getCollection } from "astro:content";
-import Navbar from "../../components/Navbar.astro";
-import Footer from "../../components/Footer.astro";
+import Layout from "../../layouts/Layout.astro";
 import BlogCard from "../../components/BlogCard.astro";
-import CanvasBackground from "../../components/CanvasBackground.astro";
 import SectionHeader from "../../components/SectionHeader.astro";
 
 const allPosts = await getCollection("blog");
@@ -12,72 +10,47 @@ const sortedPosts = allPosts.sort(
 );
 ---
 
-<!doctype html>
-<html lang="ja" class="scroll-smooth">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Blog | Shuya Komiya</title>
-        <link rel="icon" href="/favicon.ico" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link
-            href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;900&family=JetBrains+Mono:wght@400&display=swap"
-            rel="stylesheet"
-        />
-    </head>
-    <body
-        class="bg-dark-bg text-text-main font-sans selection:bg-neon-amber selection:text-white overflow-x-hidden"
-    >
-        <CanvasBackground />
-        <Navbar />
-
-        <main class="relative z-10 pt-32 pb-20">
-            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="text-center mb-20">
-                    <h1
-                        class="text-5xl sm:text-7xl font-black tracking-tighter mb-6 animate-fade-in-up"
-                    >
-                        ALL <span
-                            class="text-transparent bg-clip-text bg-gradient-to-r from-neon-amber to-neon-gold text-glow"
-                            >THOUGHTS</span
-                        >
-                    </h1>
-                    <p
-                        class="text-xl text-text-muted max-w-2xl mx-auto animate-fade-in-up"
-                        style="animation-delay: 0.1s;"
-                    >
-                        Insights, tutorials, and updates from my development
-                        journey.
-                    </p>
-                </div>
-
-                <div
-                    class="space-y-8 animate-fade-in-up"
-                    style="animation-delay: 0.2s;"
+<Layout title="Blog | Shuya Komiya">
+    <main class="relative z-10 pt-32 pb-20">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-20">
+                <h1
+                    class="text-4xl sm:text-6xl font-black tracking-widest mb-6 animate-fade-in-up font-serif text-wafu-text"
                 >
-                    {
-                        sortedPosts.map((post) => (
-                            <BlogCard
-                                title={post.data.title}
-                                date={post.data.pubDate}
-                                slug={post.slug}
-                                tags={post.data.tags}
-                            />
-                        ))
-                    }
-                </div>
+                    思考の全記録
+                </h1>
+                <p
+                    class="text-lg text-wafu-text-muted max-w-2xl mx-auto animate-fade-in-up font-sans tracking-wider"
+                    style="animation-delay: 0.1s;"
+                >
+                    開発の旅路で得た知見、チュートリアル、<br
+                    />そして最新情報の記録。
+                </p>
+            </div>
 
+            <div
+                class="space-y-8 animate-fade-in-up"
+                style="animation-delay: 0.2s;"
+            >
                 {
-                    sortedPosts.length === 0 && (
-                        <p class="text-center text-lg text-text-muted mt-10">
-                            No posts found.
-                        </p>
-                    )
+                    sortedPosts.map((post) => (
+                        <BlogCard
+                            title={post.data.title}
+                            date={post.data.pubDate}
+                            slug={post.slug}
+                            tags={post.data.tags}
+                        />
+                    ))
                 }
             </div>
-        </main>
 
-        <Footer />
-    </body>
-</html>
+            {
+                sortedPosts.length === 0 && (
+                    <p class="text-center text-lg text-text-muted mt-10 font-serif">
+                        記事が見つかりません。
+                    </p>
+                )
+            }
+        </div>
+    </main>
+</Layout>

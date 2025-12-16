@@ -2,6 +2,8 @@
 import { defineConfig } from 'astro/config';
 import tailwind from "@astrojs/tailwind"; // 1. Tailwindインテグレーションをインポート
 
+import sitemap from '@astrojs/sitemap';
+
 // https://astro.build/config
 export default defineConfig({
     // ユーザーのGitHub PagesルートURLを設定
@@ -11,5 +13,5 @@ export default defineConfig({
     base: '/portfolio',
 
     // 2. インテグレーション配列に追加
-    integrations: [tailwind()],
+    integrations: [tailwind(), sitemap()],
 });

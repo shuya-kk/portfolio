@@ -1,70 +1,44 @@
 ---
 import appData from "../../data/apps.json";
-import Navbar from "../../components/Navbar.astro";
-import Footer from "../../components/Footer.astro";
+import Layout from "../../layouts/Layout.astro";
 import AppCard from "../../components/AppCard.astro";
-import CanvasBackground from "../../components/CanvasBackground.astro";
-import SectionHeader from "../../components/SectionHeader.astro";
 ---
 
-<!doctype html>
-<html lang="ja" class="scroll-smooth">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Applications | Shuya Komiya</title>
-        <link rel="icon" href="/favicon.ico" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link
-            href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;900&family=JetBrains+Mono:wght@400&display=swap"
-            rel="stylesheet"
-        />
-    </head>
-    <body
-        class="bg-dark-bg text-text-main font-sans selection:bg-neon-amber selection:text-white overflow-x-hidden"
-    >
-        <CanvasBackground />
-        <Navbar />
-
-        <main class="relative z-10 pt-32 pb-20">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="text-center mb-20">
-                    <h1
-                        class="text-5xl sm:text-7xl font-black tracking-tighter mb-6 animate-fade-in-up"
-                    >
-                        ALL <span
-                            class="text-transparent bg-clip-text bg-gradient-to-r from-neon-amber to-neon-gold text-glow"
-                            >APPLICATIONS</span
-                        >
-                    </h1>
-                    <p
-                        class="text-xl text-text-muted max-w-2xl mx-auto animate-fade-in-up"
-                        style="animation-delay: 0.1s;"
-                    >
-                        A complete collection of iOS applications I've crafted.
-                    </p>
-                </div>
-
-                <div
-                    class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 animate-fade-in-up"
-                    style="animation-delay: 0.2s;"
+<Layout title="Applications | Shuya Komiya">
+    <main class="relative z-10 pt-32 pb-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-20">
+                <h1
+                    class="text-4xl sm:text-6xl font-black tracking-widest mb-6 animate-fade-in-up font-serif text-wafu-text"
                 >
-                    {
-                        appData.map((app) => (
-                            <AppCard
-                                name={app.name}
-                                description={app.description}
-                                iconUrl={app.iconPlaceholder}
-                                appStoreUrl={app.appStoreLink}
-                                features={app.features}
-                            />
-                        ))
-                    }
-                </div>
+                    全作品
+                </h1>
+                <p
+                    class="text-lg text-wafu-text-muted max-w-2xl mx-auto animate-fade-in-up font-sans tracking-wider"
+                    style="animation-delay: 0.1s;"
+                >
+                    これまでに制作した<br
+                        class="md:hidden"
+                    />iOSアプリケーションの記録。
+                </p>
             </div>
-        </main>
 
-        <Footer />
-    </body>
-</html>
+            <div
+                class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 animate-fade-in-up"
+                style="animation-delay: 0.2s;"
+            >
+                {
+                    appData.map((app) => (
+                        <AppCard
+                            name={app.name}
+                            description={app.description}
+                            iconUrl={app.iconPlaceholder}
+                            appStoreUrl={app.appStoreLink}
+                            features={app.features}
+                        />
+                    ))
+                }
+            </div>
+        </div>
+    </main>
+</Layout>

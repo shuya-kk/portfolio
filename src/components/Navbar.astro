@@ -1,45 +1,48 @@
 ---
 const links = [
-    { name: "Apps", href: "/portfolio/#apps" },
-    { name: "Blog", href: "/portfolio/blog" },
-    { name: "About", href: "/portfolio/#about" },
+    { name: "作品", href: "/portfolio/#apps" },
+    { name: "文", href: "/portfolio/blog" },
+    { name: "私", href: "/portfolio/#about" },
 ];
 ---
 
 <header
-    class="fixed top-6 left-1/2 transform -translate-x-1/2 z-50 w-auto max-w-[90vw]"
+    class="fixed top-0 right-0 h-full z-50 flex items-center pr-6 pointer-events-none md:pointer-events-auto"
 >
+    <!-- Background strip for contrast (optional) -->
+
     <nav
-        class="bg-dark-surface/80 backdrop-blur-md px-6 py-3 rounded-full border border-white/10 shadow-2xl flex items-center space-x-8"
+        class="bg-wafu-paper/90 backdrop-blur-sm py-10 px-3 rounded-full border border-wafu-text/5 shadow-xl flex flex-col items-center space-y-12 pointer-events-auto min-h-[50vh]"
     >
+        <!-- Home Icon -->
         <a
             href="/portfolio/"
-            class="text-neon-amber hover:text-white transition-colors"
+            class="text-wafu-accent hover:opacity-80 transition-opacity mb-4"
         >
-            <svg
-                class="w-6 h-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                ><path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg
+            <div
+                class="w-8 h-8 flex items-center justify-center border border-wafu-accent rounded-sm rotate-45"
             >
+                <span
+                    class="block -rotate-45 w-4 h-4 bg-wafu-accent rounded-full"
+                ></span>
+            </div>
         </a>
 
-        <div class="h-4 w-px bg-white/10"></div>
+        <!-- Vertical Divider -->
+        <div class="w-px h-12 bg-wafu-text/10"></div>
 
-        <div class="flex space-x-6 text-sm font-medium">
+        <!-- Navigation Links (Vertical Writing) -->
+        <div
+            class="flex flex-col space-y-8 text-lg font-bold font-serif writing-vertical-rl text-orientation-upright tracking-[0.2em]"
+        >
             {
                 links.map((link) => (
                     <a
                         href={link.href}
-                        class="text-text-muted hover:text-white transition-colors relative group"
+                        class="text-wafu-text hover:text-wafu-accent transition-colors relative group py-2"
                     >
                         {link.name}
-                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-neon-amber transition-all duration-300 group-hover:w-full" />
+                        <span class="absolute right-full top-0 h-full w-0.5 bg-wafu-accent transition-all duration-300 group-hover:block hidden" />
                     </a>
                 ))
             }

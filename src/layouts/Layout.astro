@@ -1,0 +1,41 @@
+---
+import "../styles/wafu.css";
+import CanvasBackground from "../components/CanvasBackground.astro";
+import Navbar from "../components/Navbar.astro";
+import Footer from "../components/Footer.astro";
+
+import SEOHead from "../components/SEOHead.astro";
+
+interface Props {
+    title: string;
+    description?: string;
+    image?: string;
+}
+
+const { title, description, image } = Astro.props;
+---
+
+<!doctype html>
+<html lang="ja" class="scroll-smooth">
+    <head>
+        <SEOHead title={title} description={description} image={image} />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&family=Noto+Serif+JP:wght@200..900&family=Zen+Kaku+Gothic+New:wght@300;400;500;700&display=swap"
+            rel="stylesheet"
+        />
+    </head>
+    <body
+        class="bg-wafu-bg text-wafu-text font-serif selection:bg-wafu-accent selection:text-white overflow-x-hidden bg-washi"
+    >
+        <CanvasBackground />
+        <Navbar />
+
+        <main class="relative z-10 w-full">
+            <slot />
+        </main>
+
+        <Footer />
+    </body>
+</html>

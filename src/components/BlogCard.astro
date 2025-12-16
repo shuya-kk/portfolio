@@ -11,38 +11,46 @@ const { title, date, slug, tags = [] } = Astro.props;
 
 <a
     href={`/portfolio/blog/${slug}`}
-    class="group block relative pl-8 border-l-2 border-dark-border hover:border-neon-amber transition-colors duration-300 py-2"
+    class="group block relative pl-6 border-l border-wafu-text/20 hover:border-wafu-accent transition-colors duration-500 py-4"
 >
+    <!-- Dot indicator -->
     <div
-        class="absolute left-[-5px] top-1/2 -translate-y-1/2 w-2 h-2 bg-dark-border rounded-full group-hover:bg-neon-amber transition-colors duration-300"
+        class="absolute left-[-3px] top-1/2 -translate-y-1/2 w-1.5 h-1.5 bg-wafu-bg border border-wafu-text/40 rounded-full group-hover:border-wafu-accent group-hover:bg-wafu-accent transition-colors duration-300"
     >
     </div>
 
     <div
-        class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2"
+        class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-3"
     >
         <h3
-            class="text-xl font-bold text-text-main group-hover:text-neon-amber transition-colors"
+            class="text-lg font-bold text-wafu-text group-hover:text-wafu-accent transition-colors font-serif tracking-widest"
         >
             {title}
         </h3>
         <div
-            class="flex items-center text-sm text-text-muted font-mono shrink-0"
+            class="flex items-center text-xs text-wafu-text-muted font-sans shrink-0 tracking-wider"
         >
-            <time datetime={date.toISOString()}>
+            <time
+                datetime={date.toISOString()}
+                class="group-hover:text-wafu-text transition-colors"
+            >
                 {
-                    date.toLocaleDateString("en-US", {
-                        year: "numeric",
-                        month: "short",
-                        day: "numeric",
-                    })
+                    date
+                        .toLocaleDateString("ja-JP", {
+                            year: "numeric",
+                            month: "2-digit",
+                            day: "2-digit",
+                        })
+                        .replace(/\//g, ".")
                 }
             </time>
             {
                 tags.length > 0 && (
                     <>
-                        <span class="mx-2 text-dark-border">/</span>
-                        <span class="text-neon-amber/80">#{tags[0]}</span>
+                        <span class="mx-3 text-wafu-text/20">|</span>
+                        <span class="text-wafu-text-muted italic">
+                            #{tags[0]}
+                        </span>
                     </>
                 )
             }
