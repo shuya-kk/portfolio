@@ -2,7 +2,7 @@
 
 iOSアプリケーションや技術ブログ記事を紹介するために設計された、モダンでレスポンシブなポートフォリオウェブサイトです。AstroとTailwind CSSを使用して構築されており、スタイリッシュな「2025年のWebデザインのトレンド」を取り入れています。
 
-**デプロイURL**: [https://daizu-mame-88.github.io/portfolio/](https://daizu-mame-88.github.io/portfolio/)
+**デプロイURL**: [https://shuya-kk.github.io/portfolio/](https://shuya-kk.github.io/portfolio/)
 
 ## 🚀 特徴
 
