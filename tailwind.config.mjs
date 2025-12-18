@@ -7,30 +7,30 @@ export default {
     theme: {
         extend: {
             fontFamily: {
-                sans: ['"Zen Kaku Gothic New"', '"Noto Sans JP"', 'sans-serif'],
+                sans: ['"Zen Kaku Gothic New"', 'Inter', 'sans-serif'],
                 serif: ['"Noto Serif JP"', 'serif'],
+                mono: ['"JetBrains Mono"', 'monospace'],
             },
             colors: {
-                // Light Wafu Theme Palette
-                'wafu-bg': '#fdfbf7',     // Warm Washi White (Background)
-                'wafu-paper': '#f4f1ea',  // Slightly Darker Washi (Cards/Surfaces)
+                // Premium Sumi & Gold Palette
+                'zen-bg': '#fcfaf2',      // Warm Washi White
+                'zen-ink': '#1a1a1c',     // Deep Sumi Ink
+                'zen-dim': '#4a4a4c',     // Muted Ink
+                'zen-border': '#d1cdc0',  // Faded washi border
+                'zen-gold': '#c5a059',    // Antique Gold
+                'zen-indigo': '#2d3a4b',  // Muted Aizome Indigo
+                'zen-accent': '#c5a059',  // Alias for Gold
 
-                'wafu-text': '#2b2b2b',   // Sumi (Ink) - Main Text
-                'wafu-text-muted': '#595959', // Light Sumi - Muted Text
-
-                'wafu-accent': '#be3144', // Enji (Dark Red) - Primary Accent
-                'wafu-accent-sub': '#6c8c6e', // Uguisu (Green) - Secondary Accent
-
-                // Retain generic names for compatibility but map to new palette
-                'text-main': '#2b2b2b',
-                'text-muted': '#595959',
+                // Legacy alias
+                'glass-bg': '#fcfaf2',
+                'text-bright': '#1a1a1c',
+                'text-dim': '#4a4a4c',
             },
             animation: {
                 'fade-in': 'fadeIn 1s ease-out forwards',
                 'fade-in-up': 'fadeInUp 1s ease-out forwards',
-                'float': 'float 8s ease-in-out infinite',
-                'pulse-slow': 'pulseGlow 4s ease-in-out infinite',
-                'slide-in-right': 'slideInRight 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards',
+                'pulse-slow': 'pulseGlow 8s ease-in-out infinite',
+                'orbit': 'orbit 25s linear infinite',
             },
             keyframes: {
                 fadeIn: {
@@ -41,22 +41,17 @@ export default {
                     '0%': { opacity: '0', transform: 'translateY(20px)' },
                     '100%': { opacity: '1', transform: 'translateY(0)' },
                 },
-                float: {
-                    '0%, 100%': { transform: 'translateY(0)' },
-                    '50%': { transform: 'translateY(-10px)' },
-                },
                 pulseGlow: {
-                    '0%, 100%': { opacity: '1', boxShadow: '0 0 15px rgba(191, 152, 72, 0.1)' }, // Soft Gold Glow
-                    '50%': { opacity: '0.8', boxShadow: '0 0 30px rgba(191, 152, 72, 0.2)' },
+                    '0%, 100%': { opacity: '0.4', transform: 'scale(1)' },
+                    '50%': { opacity: '0.7', transform: 'scale(1.15)' },
                 },
-                slideInRight: {
-                    '0%': { transform: 'translateX(20px)', opacity: '0' },
-                    '100%': { transform: 'translateX(0)', opacity: '1' },
+                orbit: {
+                    'from': { transform: 'rotate(0deg) translateX(100px) rotate(0deg)' },
+                    'to': { transform: '360deg) translateX(100px) rotate(-360deg)' },
                 }
             },
             backgroundImage: {
-                'washi-pattern': "url('/patterns/washi.png')", // Placeholder for noise/paper texture if needed
-                'radial-glow': "radial-gradient(circle at center, rgba(30, 41, 59, 0.8) 0%, transparent 70%)",
+                'mesh-gradient': "radial-gradient(at 0% 0%, rgba(139, 92, 246, 0.15) 0px, transparent 55%), radial-gradient(at 100% 0%, rgba(6, 182, 212, 0.15) 0px, transparent 55%), radial-gradient(at 100% 100%, rgba(244, 63, 94, 0.1) 0px, transparent 55%), radial-gradient(at 0% 100%, rgba(139, 92, 246, 0.15) 0px, transparent 55%)",
             },
         },
     },

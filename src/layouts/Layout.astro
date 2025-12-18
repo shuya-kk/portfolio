@@ -22,17 +22,16 @@ const { title, description, image } = Astro.props;
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link
-            href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&family=Noto+Serif+JP:wght@200..900&family=Zen+Kaku+Gothic+New:wght@300;400;500;700&display=swap"
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Noto+Sans+JP:wght@100..900&family=Noto+Serif+JP:wght@200..900&family=Zen+Kaku+Gothic+New:wght@300;400;500;700&display=swap"
             rel="stylesheet"
         />
     </head>
     <body
-        class="bg-wafu-bg text-wafu-text font-serif selection:bg-wafu-accent selection:text-white overflow-x-hidden bg-washi"
+        class="bg-zen-bg text-zen-ink font-serif selection:bg-zen-accent/20 overflow-x-hidden"
     >
-        <CanvasBackground />
         <Navbar />
 
-        <main class="relative z-10 w-full">
+        <main class="relative z-10 w-full pt-24">
             <slot />
         </main>
 

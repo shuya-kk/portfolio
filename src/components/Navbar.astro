@@ -1,85 +1,62 @@
 ---
 const links = [
-    { name: "制作実績", href: "/portfolio/#apps" },
-    { name: "ブログ", href: "/portfolio/blog" },
-    { name: "プロフィール", href: "/portfolio/#about" },
+    { name: "制作物", href: "/portfolio/#apps" },
+    { name: "記録", href: "/portfolio/blog" },
+    { name: "私について", href: "/portfolio/#about" },
 ];
 ---
 
 <header
-    class="fixed z-50 pointer-events-none md:pointer-events-auto w-full md:w-auto top-0 left-0 md:left-auto md:right-0 h-auto md:h-full bottom-0 md:bottom-auto"
+    class="fixed top-0 right-0 h-screen z-50 w-20 hidden md:flex flex-col items-center justify-between py-16 bg-white/60 backdrop-blur-xl border-l border-zen-border"
 >
-    <!-- Desktop Sidebar (Right) -->
-    <nav
-        class="hidden md:flex flex-col items-center py-10 px-3 absolute right-0 top-1/2 -translate-y-1/2 mr-6 bg-wafu-paper/90 backdrop-blur-sm rounded-full border border-wafu-text/5 shadow-xl min-h-[50vh] space-y-12 pointer-events-auto"
-    >
-        <!-- Home Icon -->
-        <a
-            href="/portfolio/"
-            class="text-wafu-accent hover:opacity-80 transition-opacity mb-4"
-        >
-            <div
-                class="w-8 h-8 flex items-center justify-center border border-wafu-accent rounded-sm rotate-45"
-            >
-                <span
-                    class="block -rotate-45 w-4 h-4 bg-wafu-accent rounded-full"
-                ></span>
-            </div>
-        </a>
-
-        <!-- Vertical Divider -->
-        <div class="w-px h-12 bg-wafu-text/10"></div>
-
-        <!-- Navigation Links (Vertical Writing) -->
+    <!-- Artisan Mark -->
+    <a href="/portfolio/" class="group relative py-4">
         <div
-            class="flex flex-col space-y-8 text-lg font-bold font-serif writing-vertical-rl text-orientation-upright tracking-[0.2em]"
+            class="text-[10px] font-black tracking-[0.2em] text-zen-ink sig-mark"
         >
-            {
-                links.map((link) => (
-                    <a
-                        href={link.href}
-                        class="text-wafu-text hover:text-wafu-accent transition-colors relative group py-2"
-                    >
-                        {link.name}
-                        <span class="absolute right-full top-0 h-full w-0.5 bg-wafu-accent transition-all duration-300 group-hover:block hidden" />
-                    </a>
-                ))
-            }
+            S.H.
         </div>
+    </a>
+
+    <!-- Vertical Navigation -->
+    <nav class="vertical-rl flex items-center gap-16">
+        {
+            links.map((link) => (
+                <a
+                    href={link.href}
+                    class="text-[11px] font-bold tracking-[0.6em] text-zen-dim hover:text-zen-gold transition-all duration-700 relative group py-6"
+                >
+                    {link.name}
+                    <span class="absolute right-0 top-1/2 -translate-y-1/2 h-0 w-[1px] bg-zen-gold group-hover:h-8 transition-all duration-700" />
+                </a>
+            ))
+        }
     </nav>
 
-    <!-- Mobile Tab Bar (Floating Pill) -->
-    <nav
-        class="md:hidden fixed bottom-6 left-1/2 -translate-x-1/2 w-[90%] max-w-sm bg-wafu-paper/90 backdrop-blur-xl border border-wafu-text/10 rounded-full shadow-2xl pointer-events-auto z-50"
-    >
-        <div class="flex justify-around items-center h-16 px-2">
-            <a
-                href="/portfolio/"
-                class="flex flex-col items-center justify-center w-full h-full text-wafu-text-muted hover:text-wafu-accent transition-colors group"
-            >
-                <div
-                    class="w-5 h-5 flex items-center justify-center border border-current rounded-sm rotate-45 mb-1 transform scale-75 group-hover:scale-90 transition-transform"
-                >
-                    <span
-                        class="block -rotate-45 w-2.5 h-2.5 bg-current rounded-full"
-                    ></span>
-                </div>
-                <span class="text-[10px] font-bold font-serif tracking-widest"
-                    >ホーム</span
-                >
-            </a>
-            {
-                links.map((link) => (
-                    <a
-                        href={link.href}
-                        class="flex flex-col items-center justify-center w-full h-full text-wafu-text-muted hover:text-wafu-accent transition-colors group"
-                    >
-                        <span class="text-sm font-bold font-serif tracking-widest group-hover:-translate-y-0.5 transition-transform">
-                            {link.name}
-                        </span>
-                    </a>
-                ))
-            }
+    <!-- Sentiment -->
+    <div class="flex flex-col items-center gap-10">
+        <div class="w-px h-20 bg-gradient-to-b from-zen-gold/40 to-transparent">
         </div>
-    </nav>
+        <span
+            class="vertical-rl text-[8px] font-bold tracking-[0.4em] text-zen-gold opacity-40 uppercase"
+            >Aesthetic</span
+        >
+    </div>
 </header>
+
+<!-- Mobile Navigation (Minimalist Bar) -->
+<nav
+    class="md:hidden fixed bottom-8 left-1/2 -translate-x-1/2 z-50 w-[85%] bg-white/90 backdrop-blur-lg px-8 py-5 flex items-center justify-around border border-zen-border shadow-2xl"
+>
+    {
+        links.map((link) => (
+            <a
+                href={link.href}
+                class="text-[11px] font-bold tracking-[0.2em] text-zen-dim hover:text-zen-gold transition-colors"
+            >
+                {link.name}
+            </a>
+        ))
+    }
+    <div class="sig-mark !pl-4 !py-0">A</div>
+</nav>

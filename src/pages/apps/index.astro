@@ -1,44 +1,38 @@
 ---
-import appData from "../../data/apps.json";
+import appsData from "../../data/apps.json";
 import Layout from "../../layouts/Layout.astro";
 import AppCard from "../../components/AppCard.astro";
+import SectionHeader from "../../components/SectionHeader.astro";
+
+const apps = appsData || [];
 ---
 
-<Layout title="Applications | Shuya Komiya">
-    <main class="relative z-10 pt-32 pb-20">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-20">
-                <h1
-                    class="text-4xl sm:text-6xl font-black tracking-widest mb-6 animate-fade-in-up font-serif text-wafu-text"
-                >
-                    全作品
-                </h1>
-                <p
-                    class="text-lg text-wafu-text-muted max-w-2xl mx-auto animate-fade-in-up font-sans tracking-wider"
-                    style="animation-delay: 0.1s;"
-                >
-                    これまでに制作した<br
-                        class="md:hidden"
-                    />iOSアプリケーションの記録。
-                </p>
-            </div>
-
-            <div
-                class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 animate-fade-in-up"
-                style="animation-delay: 0.2s;"
+<Layout title="制作物">
+    <div class="max-w-6xl mx-auto px-8 py-32">
+        <div class="mb-32">
+            <SectionHeader title="制作物" subtitle="iOSアプリとこだわり" />
+            <p
+                class="text-center text-zen-dim serif-sub max-w-xl mx-auto mt-[-2rem] leading-relaxed"
             >
-                {
-                    appData.map((app) => (
-                        <AppCard
-                            name={app.name}
-                            description={app.description}
-                            iconUrl={app.iconPlaceholder}
-                            appStoreUrl={app.appStoreLink}
-                            features={app.features}
-                        />
-                    ))
-                }
-            </div>
+                機能性、シンプルさ、そして洗練された体験を追求した<br
+                    class="hidden md:block"
+                />iOSアプリケーションのコレクションです。
+            </p>
         </div>
-    </main>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 lg:gap-16">
+            {
+                apps.map((app, index) => (
+                    <AppCard
+                        name={app.name}
+                        description={app.description}
+                        iconUrl={app.iconPlaceholder}
+                        appStoreUrl={app.appStoreLink}
+                        features={app.features}
+                        isFeatured={index === 0}
+                    />
+                ))
+            }
+        </div>
+    </div>
 </Layout>

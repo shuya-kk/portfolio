@@ -1,32 +1,26 @@
 ---
-// コレクションのインポートと型定義
 import type { CollectionEntry } from "astro:content";
 import { getCollection } from "astro:content";
 import Layout from "../../../layouts/Layout.astro";
 import BlogCard from "../../../components/BlogCard.astro";
+import SectionHeader from "../../../components/SectionHeader.astro";
 
-// Propsの型を定義
 type Props = {
-    // postは実際には使わないが、paramsのtagを使用
     posts: CollectionEntry<"blog">[];
     tag: string;
 };
 
-// 1. 動的ルーティングのパスを生成 (SSG: 静的生成)
 export async function getStaticPaths() {
     const allPosts = await getCollection("blog");
-
-    // すべてのタグを重複なく集める
     const uniqueTags = new Set<string>();
+
     allPosts.forEach((post) => {
         post.data.tags?.forEach((tag) => {
             uniqueTags.add(tag);
         });
     });
 
-    // 各タグに対してパスを生成
     return Array.from(uniqueTags).map((tag) => {
-        // そのタグに一致する記事をフィルタリング
         const filteredPosts = allPosts.filter((post) =>
             post.data.tags?.includes(tag),
         );
@@ -44,64 +38,29 @@ export async function getStaticPaths() {
     });
 }
 
-// 2. Propsを取得
 const { tag, posts } = Astro.props as Props;
 ---
 
-<Layout title={`Tag: #${tag} | Shuya Komiya`}>
-    <main class="relative z-10 pt-32 pb-20">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-20 animate-fade-in-up">
-                <p
-                    class="text-wafu-accent text-sm font-serif mb-4 uppercase tracking-widest"
-                >
-                    TAG
-                </p>
-                <h1
-                    class="text-4xl sm:text-6xl font-black tracking-widest font-serif text-wafu-text"
-                >
-                    <span class="text-wafu-text">#{tag}</span>
-                </h1>
-            </div>
-
-            <div
-                class="text-center mb-12 animate-fade-in-up"
-                style="animation-delay: 0.1s;"
-            >
-                <a
-                    href="/portfolio/blog"
-                    class="inline-flex items-center text-wafu-text-muted hover:text-wafu-accent transition-colors font-sans text-sm tracking-wider group"
-                >
-                    <svg
-                        class="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                        ><path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg
-                    >
-                    記事一覧へ戻る
-                </a>
-            </div>
-
-            <div
-                class="space-y-8 animate-fade-in-up"
-                style="animation-delay: 0.2s;"
-            >
-                {
-                    posts.map((post) => (
-                        <BlogCard
-                            title={post.data.title}
-                            date={post.data.pubDate}
-                            slug={post.slug}
-                            tags={post.data.tags}
-                        />
-                    ))
-                }
-            </div>
+<Layout title={`タグ: #${tag}`}>
+    <div class="max-w-4xl mx-auto px-8 py-32">
+        <div class="mb-32">
+            <SectionHeader title="タグ別一覧" subtitle={`#${tag}`} />
+            <p class="text-center text-zen-dim serif-sub mt-[-2rem]">
+                タグ「{tag}」に関連する記録をまとめています。
+            </p>
         </div>
-    </main>
+
+        <div class="space-y-6">
+            {
+                posts.map((post) => (
+                    <BlogCard
+                        title={post.data.title}
+                        date={post.data.pubDate}
+                        slug={post.slug}
+                        tags={post.data.tags}
+                    />
+                ))
+            }
+        </div>
+    </div>
 </Layout>

@@ -11,29 +11,23 @@ const { title, date, slug, tags = [] } = Astro.props;
 
 <a
     href={`/portfolio/blog/${slug}`}
-    class="group block relative pl-6 border-l border-wafu-text/20 hover:border-wafu-accent transition-colors duration-500 py-4"
+    class="group block relative zen-panel zen-hover p-8 md:p-10 transition-all duration-500"
 >
-    <!-- Dot indicator -->
     <div
-        class="absolute left-[-3px] top-1/2 -translate-y-1/2 w-1.5 h-1.5 bg-wafu-bg border border-wafu-text/40 rounded-full group-hover:border-wafu-accent group-hover:bg-wafu-accent transition-colors duration-300"
+        class="relative z-10 flex flex-col md:flex-row md:items-center md:justify-between gap-6"
     >
-    </div>
-
-    <div
-        class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-3"
-    >
-        <h3
-            class="text-lg font-bold text-wafu-text group-hover:text-wafu-accent transition-colors font-serif tracking-widest"
-        >
-            {title}
-        </h3>
-        <div
-            class="flex items-center text-xs text-wafu-text-muted font-serif shrink-0 tracking-wider"
-        >
-            <time
-                datetime={date.toISOString()}
-                class="group-hover:text-wafu-text transition-colors"
+        <div class="flex-grow">
+            <h3
+                class="text-xl md:text-2xl font-light text-zen-ink serif-heading italic group-hover:opacity-70 transition-opacity"
             >
+                {title}
+            </h3>
+        </div>
+
+        <div
+            class="flex items-center text-[10px] text-zen-dim shrink-0 tracking-[0.2em] font-medium serif-sub"
+        >
+            <time datetime={date.toISOString()}>
                 {
                     date
                         .toLocaleDateString("ja-JP", {
@@ -41,16 +35,14 @@ const { title, date, slug, tags = [] } = Astro.props;
                             month: "2-digit",
                             day: "2-digit",
                         })
-                        .replace(/\//g, ".")
+                        .replace(/\//g, " . ")
                 }
             </time>
             {
                 tags.length > 0 && (
                     <>
-                        <span class="mx-3 text-wafu-text/20">|</span>
-                        <span class="text-wafu-text-muted italic">
-                            #{tags[0]}
-                        </span>
+                        <span class="mx-4 opacity-10">|</span>
+                        <span class="text-zen-dim/60">{tags[0]}</span>
                     </>
                 )
             }
