@@ -18,7 +18,7 @@ const apps = appsData || [];
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
             {
-                apps.map((app) => (
+                apps.map((app: any) => (
                     <AppCard
                         name={app.name}
                         description={app.description}
@@ -26,6 +26,8 @@ const apps = appsData || [];
                         appStoreUrl={app.appStoreLink}
                         features={app.features}
                         isFeatured={false}
+                        rating={app.rating}
+                        ratingCount={app.ratingCount}
                     />
                 ))
             }
