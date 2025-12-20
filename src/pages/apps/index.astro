@@ -4,7 +4,13 @@ import Layout from "../../layouts/Layout.astro";
 import AppCard from "../../components/AppCard.astro";
 import SectionHeader from "../../components/SectionHeader.astro";
 
-const apps = appsData || [];
+const apps = (appsData || []).sort((a: any, b: any) => {
+    // First sort by rating count (popularity)
+    const countDiff = (b.ratingCount || 0) - (a.ratingCount || 0);
+    if (countDiff !== 0) return countDiff;
+    // Then sort by rating value
+    return (b.rating || 0) - (a.rating || 0);
+});
 ---
 
 <Layout title="制作実績">

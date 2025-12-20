@@ -2,11 +2,7 @@
     {
         "name": "Low Camera -低画質カメラ-",
         "description": "Low Cameraは低画質な写真や動画を撮影するカメラアプリです！\n\n撮影した写真や動画は低画質なので、スマホ容量の節約に繋がります！\nあえて低画質な写真や動画を撮影したい方にもおすすめ！\n\n◆撮影画質は3段階！\n・中画質\n・低画質\n・超低画質\n\n◆フィルターを18種類用意しました！\n\n◆写真はスクエア撮影もできます！\n\n◆メニューから保存時の品質を落とすことでさらに小さいファイルサイズで保存できます！\n\n- Terms of Use\nhttps://note.com/daizu88/n/n9935f75dc312",
-        "features": [
-            "多様な低画質フィルター",
-            "日付スタンプ機能",
-            "独特なざらつきと質感"
-        ],
+        "features": [],
         "appStoreLink": "https://apps.apple.com/jp/app/low-camera-%E4%BD%8E%E7%94%BB%E8%B3%AA%E3%82%AB%E3%83%A1%E3%83%A9/id1606589793",
         "iconPlaceholder": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/c4/26/ea/c426eac0-fca0-66ed-a4ee-1c3f953c12ca/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg",
         "images": [
@@ -21,11 +17,7 @@
     {
         "name": "MiniCamera – ミニチュア風カメラ",
         "description": "日常を“ミニチュアの世界”に変えるカメラアプリ\n\nMiniCameraは、ワンタップでミニチュア写真・動画（チルトシフト風）が撮れるカメラアプリです。\nリアルタイムでぼかし・彩度・明るさを調整しながら、まるで模型のような世界を切り取れます。\n\n 主な機能\n■ ミニチュア風のボケ加工（チルトシフト）\n被写体の中心だけをくっきり残し、上下をぼかすことで立体的でかわいい見た目に。\n\n■ リアルタイムプレビュー\n撮影前にフィルターがそのまま画面に反映されるから、感覚的に調整できます。\n\n■ ぼかし・彩度・明度の細かい調整が可能\n自分の好みのミニチュア表現を作れます。\n\n■ シンプルで使いやすい UI\n落ち着いた色味のデザインで、初心者でも迷わないレイアウト。\n\n■ アプリ内アルバム & シェア\n撮った写真はそのまま保存、SNSにもすぐ投稿できます。\n\nこんな人におすすめ\n•ミニチュア風の写真が好き\n•カフェ巡り、街並み、風景をおしゃれに撮りたい\n•道具なしで“ジオラマ感”ある写真を撮りたい\n•とにかくシンプルで軽いカメラが欲しい",
-        "features": [
-            "複数のフレームとテクスチャ",
-            "シンプルな操作感",
-            "高解像度での保存に対応"
-        ],
+        "features": [],
         "appStoreLink": "https://apps.apple.com/jp/app/minicamera-%E3%83%9F%E3%83%8B%E3%83%81%E3%83%A5%E3%82%A2%E9%A2%A8%E3%82%AB%E3%83%A1%E3%83%A9/id6756365738",
         "iconPlaceholder": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/56/45/d8/5645d82b-23ef-b6b0-0a3f-c9e0c7f59a84/AppIcon1-0-0-1x_U007ephone-0-1-0-sRGB-85-220.png/512x512bb.jpg",
         "rating": 0,
@@ -34,11 +26,7 @@
     {
         "name": "Rect-チェキ風加工アプリ",
         "description": "Rectは写真をフレーム付き写真に加工するアプリです。\n写真にフィルターをかけることもできます。\nシンプルなUIなので簡単操作\n作った作品はすぐに保存、シェア！\n\n■ 特徴 ■\n・150種類の映えるフレーム\n・角度や大きさの微調整\n・6種類のレトロな写真フィルタ\n・デジタルなフォントの日付ラベル\n・32種類の背景色\n・テンプレート機能\n・ギャラリー機能",
-        "features": [
-            "複数のフレームとテクスチャ",
-            "シンプルな操作感",
-            "高解像度での保存に対応"
-        ],
+        "features": [],
         "appStoreLink": "https://apps.apple.com/jp/app/rect-%E3%83%81%E3%A2%A8%E3%82%AD%E9%A2%A8%E5%8A%A0%E5%B7%A5%E3%82%A2%E3%83%97%E3%83%AA/id1528587271",
         "iconPlaceholder": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/d6/7e/88/d67e8801-07df-2817-ce2f-ff68a2099960/AppIcon-0-0-1x_U007epad-0-1-0-85-220.png/512x512bb.jpg",
         "images": [
@@ -53,11 +41,7 @@
     {
         "name": "WishItem – ほしいもの管理アプリ",
         "description": "WishItem は、ほしいものや気になるアイテムをまとめて管理できるシンプルなアプリです。  \n商品名・価格・画像・ブランド・説明・メモなどを登録して、グループごとに整理できます。  \n自分用のお買い物リストとして、またはプレゼントの管理にも役立ちます。  \n\n【主な機能】  \n- 欲しいものをグループ分けして管理  \n- 商品情報（名前・価格・画像・ブランド・説明・メモ）を登録  \n- 購入有無や購入日を記録  \n- お気に入り度（ほしい度）を設定して並び替え  \n- ショッピングサイトやアプリからも簡単に商品情報を登録\n- シンプルで落ち着いたデザイン、ダークモード対応  \n\n買いたいもの、気になるアイテムをすっきり整理して、  \n賢くお買い物を楽しみましょう。",
-        "features": [
-            "URLからの情報取得",
-            "カテゴリ管理",
-            "パスワード保護"
-        ],
+        "features": [],
         "appStoreLink": "https://apps.apple.com/jp/app/wishitem-%E3%81%BB%E3%81%97%E3%81%84%E3%82%82%E3%81%AE%E7%AE%A1%E7%90%86%E3%82%A2%E3%83%97%E3%83%AA/id6751175434",
         "iconPlaceholder": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/26/23/a9/2623a9ed-72b0-57eb-b99f-da12ca5abfd0/AppIcon-0-0-1x_U007epad-0-1-0-85-220.png/512x512bb.jpg",
         "rating": 0,

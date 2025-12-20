@@ -11,7 +11,15 @@ const latestPosts = allPosts
     .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
     .slice(0, 4);
 
-const featuredApps = appsData.slice(0, 3);
+const featuredApps = appsData
+    .sort((a: any, b: any) => {
+        // First sort by rating count (popularity)
+        const countDiff = (b.ratingCount || 0) - (a.ratingCount || 0);
+        if (countDiff !== 0) return countDiff;
+        // Then sort by rating value
+        return (b.rating || 0) - (a.rating || 0);
+    })
+    .slice(0, 4);
 ---
 
 <Layout title="PORTFOLIO">
