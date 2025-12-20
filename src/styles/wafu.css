@@ -3,8 +3,38 @@
 @tailwind utilities;
 
 @layer base {
+    :root {
+        --color-primary: 15 23 42;
+        /* Slate 900 */
+        --color-secondary: 100 116 139;
+        /* Slate 500 */
+        --color-accent: 30 41 59;
+        /* Slate 800 */
+        --color-surface: 255 255 255;
+        /* White */
+        --color-background: 253 253 253;
+        /* Warm White */
+        --color-border: 241 245 249;
+        /* Slate 100 */
+    }
+
+    .dark {
+        --color-primary: 248 250 252;
+        /* Slate 50 */
+        --color-secondary: 148 163 184;
+        /* Slate 400 */
+        --color-accent: 226 232 240;
+        /* Slate 200 */
+        --color-surface: 30 41 59;
+        /* Slate 800 */
+        --color-background: 2 6 23;
+        /* Slate 950 */
+        --color-border: 51 65 85;
+        /* Slate 700 */
+    }
+
     body {
-        @apply bg-background text-primary font-sans antialiased leading-relaxed tracking-tight;
+        @apply bg-background text-primary font-sans antialiased leading-relaxed tracking-tight transition-colors duration-300;
     }
 }
 
@@ -18,11 +48,11 @@
     }
 
     .card {
-        @apply bg-surface border border-slate-100 rounded-3xl shadow-sm transition-all duration-500 hover:shadow-xl hover:shadow-slate-200/50 hover:-translate-y-1.5;
+        @apply bg-surface border border-border rounded-3xl shadow-sm transition-all duration-500 hover:shadow-xl hover:shadow-accent/5 hover:-translate-y-1.5;
     }
 
     .glass {
-        @apply bg-white/80 backdrop-blur-xl border border-white/40;
+        @apply bg-surface/80 backdrop-blur-xl border border-border/40;
     }
 
     .nav-link {
@@ -34,10 +64,10 @@
     }
 
     .heading-large {
-        @apply text-5xl md:text-7xl font-black tracking-[-0.05em] text-slate-900 leading-[1.05];
+        @apply text-5xl md:text-7xl font-black tracking-[-0.05em] text-primary leading-[1.05];
     }
 
     .heading-medium {
-        @apply text-3xl md:text-4xl font-extrabold tracking-tight text-slate-900 leading-snug;
+        @apply text-3xl md:text-4xl font-extrabold tracking-tight text-primary leading-snug;
     }
 }

@@ -11,7 +11,7 @@ const { title, date, slug, tags = [] } = Astro.props;
 
 <a
     href={`/portfolio/blog/${slug}`}
-    class="group block p-8 bg-white transition-all duration-500 hover:shadow-2xl hover:shadow-slate-200/50 relative z-10 first:rounded-t-[2rem] last:rounded-b-[2rem] hover:z-20 border-b border-slate-50 last:border-0"
+    class="group block p-8 bg-surface transition-all duration-500 hover:shadow-2xl hover:shadow-accent/5 relative z-10 first:rounded-t-[2rem] last:rounded-b-[2rem] hover:z-20 border-b border-border last:border-0"
 >
     <div
         class="flex flex-col md:flex-row md:items-center justify-between gap-6"
@@ -32,7 +32,7 @@ const { title, date, slug, tags = [] } = Astro.props;
                 }
             </time>
             <h3
-                class="text-xl md:text-2xl font-black text-slate-900 group-hover:text-accent transition-colors leading-tight tracking-[-0.05em]"
+                class="text-xl md:text-2xl font-black text-primary group-hover:text-accent transition-colors leading-tight tracking-[-0.05em]"
             >
                 {title}
             </h3>
@@ -42,7 +42,7 @@ const { title, date, slug, tags = [] } = Astro.props;
             tags && (
                 <div class="flex flex-wrap gap-2 pt-2 md:pt-0">
                     {tags.map((tag) => (
-                        <span class="text-[10px] font-bold px-3 py-1 bg-slate-50 text-slate-500 rounded-full border border-slate-100 group-hover:border-accent group-hover:text-accent transition-all whitespace-nowrap uppercase tracking-wider">
+                        <span class="text-[10px] font-bold px-3 py-1 bg-background/50 text-secondary rounded-full border border-border group-hover:border-accent group-hover:text-accent transition-all whitespace-nowrap uppercase tracking-wider">
                             #{tag}
                         </span>
                     ))}

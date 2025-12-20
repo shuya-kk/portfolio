@@ -4,18 +4,19 @@ export default {
     content: [
         './src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}',
     ],
+    darkMode: 'class',
     theme: {
         extend: {
             fontFamily: {
                 sans: ["Inter", "Noto Sans JP", "sans-serif"],
             },
             colors: {
-                primary: "#0f172a", // Slate 900
-                secondary: "#64748b", // Slate 500
-                accent: "#1e293b", // Slate 800 (Sophisticated)
-                surface: "#ffffff",
-                background: "#fdfdfd", // Slightly warmer white
-                border: "#f1f5f9", // Slate 100
+                primary: "rgb(var(--color-primary) / <alpha-value>)",
+                secondary: "rgb(var(--color-secondary) / <alpha-value>)",
+                accent: "rgb(var(--color-accent) / <alpha-value>)",
+                surface: "rgb(var(--color-surface) / <alpha-value>)",
+                background: "rgb(var(--color-background) / <alpha-value>)",
+                border: "rgb(var(--color-border) / <alpha-value>)",
             },
             animation: {
                 "fade-in": "fadeIn 0.5s ease-out forwards",
