@@ -11,7 +11,9 @@ type Props = {
 };
 
 export async function getStaticPaths() {
-    const allPosts = await getCollection("blog");
+    const allPosts = await getCollection("blog", ({ data }) => {
+        return data.visibility === "public";
+    });
     const uniqueTags = new Set<string>();
 
     allPosts.forEach((post) => {

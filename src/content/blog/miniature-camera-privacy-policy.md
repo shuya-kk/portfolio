@@ -4,6 +4,7 @@ title: "MiniCamera プライバシーポリシー"
 pubDate: 2025-12-06T00:00:00Z
 description: "MiniCameraは、ユーザーのプライバシーを尊重し、個人情報の適切な管理を重要な責務と考えています。"
 tags: ["MiniCamera", "プライバシーポリシー"]
+visibility: "public"
 
 ---
 

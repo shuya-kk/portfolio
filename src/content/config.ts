@@ -9,6 +9,7 @@ const blogCollection = defineCollection({
         description: z.string(), // 必須: 記事の概要
         author: z.string().default('Developer'), // オプション: 著者名（名前非公開のためデフォルト値を設定）
         tags: z.array(z.string()).optional(), // オプション: タグ
+        visibility: z.string().optional(), // オプション: 公開設定 (public/private)
     }),
 });
 

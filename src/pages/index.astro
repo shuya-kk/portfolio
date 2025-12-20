@@ -6,7 +6,9 @@ import BlogCard from "../components/BlogCard.astro";
 import SectionHeader from "../components/SectionHeader.astro";
 import appsData from "../data/apps.json";
 
-const allPosts = await getCollection("blog");
+const allPosts = await getCollection("blog", ({ data }) => {
+    return data.visibility === "public";
+});
 const latestPosts = allPosts
     .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
     .slice(0, 4);
