@@ -7,34 +7,7 @@ interface Props {
 const { title, subtitle } = Astro.props;
 ---
 
-<div
-    class="mb-24 relative flex flex-col md:flex-row md:items-end justify-between gap-12"
->
-    <div class="relative group">
-        <h2
-            class="text-[10px] font-bold tracking-[0.8em] text-zen-gold uppercase mb-6 serif-sub opacity-80 group-hover:opacity-100 transition-opacity"
-        >
-            {title}
-        </h2>
-        {
-            subtitle && (
-                <div class="relative">
-                    <p class="text-4xl md:text-6xl font-light text-zen-ink serif-heading leading-tight italic">
-                        {subtitle}
-                    </p>
-                    <div class="mt-8 w-16 h-[0.5px] bg-zen-gold opacity-40 group-hover:w-32 transition-all duration-1000" />
-                </div>
-            )
-        }
-    </div>
-
-    <!-- Decorative Vertical Sentiment -->
-    <div
-        class="hidden md:flex flex-col items-center gap-6 vertical-rl opacity-20"
-    >
-        <span class="text-[9px] font-bold tracking-[0.6em] uppercase"
-            >Kyoto - Craft</span
-        >
-        <div class="w-px h-16 bg-zen-gold"></div>
-    </div>
+<div class="mb-12">
+    <h2 class="heading-medium mb-4">{title}</h2>
+    {subtitle && <p class="text-secondary">{subtitle}</p>}
 </div>

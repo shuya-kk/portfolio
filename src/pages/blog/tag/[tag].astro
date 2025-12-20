@@ -42,25 +42,47 @@ const { tag, posts } = Astro.props as Props;
 ---
 
 <Layout title={`タグ: #${tag}`}>
-    <div class="max-w-4xl mx-auto px-8 py-32">
-        <div class="mb-32">
-            <SectionHeader title="タグ別一覧" subtitle={`#${tag}`} />
-            <p class="text-center text-zen-dim serif-sub mt-[-2rem]">
-                タグ「{tag}」に関連する記録をまとめています。
-            </p>
-        </div>
+    <div class="container-custom section-padding pt-40">
+        <div class="max-w-3xl mx-auto">
+            <a
+                href="/portfolio/blog"
+                class="inline-flex items-center gap-3 text-secondary hover:text-primary transition-all mb-16 font-bold text-[11px] uppercase tracking-widest group"
+            >
+                <svg
+                    class="w-4 h-4 transition-transform group-hover:-translate-x-1"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    ><path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2.5"
+                        d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg
+                >
+                Back to Blog
+            </a>
 
-        <div class="space-y-6">
-            {
-                posts.map((post) => (
-                    <BlogCard
-                        title={post.data.title}
-                        date={post.data.pubDate}
-                        slug={post.slug}
-                        tags={post.data.tags}
-                    />
-                ))
-            }
+            <div class="mb-24">
+                <h1 class="heading-large mb-8">#{tag}</h1>
+                <p class="text-2xl text-secondary leading-relaxed font-medium">
+                    タグ「{tag}」に関連する記事が {posts.length} 件見つかりました。
+                </p>
+            </div>
+
+            <div
+                class="bg-white border border-slate-50 rounded-[2rem] shadow-sm overflow-hidden divide-y divide-slate-50"
+            >
+                {
+                    posts.map((post) => (
+                        <BlogCard
+                            title={post.data.title}
+                            date={post.data.pubDate}
+                            slug={post.slug}
+                            tags={post.data.tags}
+                        />
+                    ))
+                }
+            </div>
         </div>
     </div>
 </Layout>

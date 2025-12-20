@@ -15,141 +15,92 @@ const featuredApps = appsData.slice(0, 3);
 ---
 
 <Layout title="PORTFOLIO">
-    <!-- Premium Hero Section -->
-    <section
-        id="hero"
-        class="min-h-screen flex items-center justify-center relative px-8 py-32 overflow-hidden bg-zen-bg"
-    >
-        <!-- Sophisticated Accents -->
-        <div class="absolute inset-0 opacity-[0.05] pointer-events-none">
-            <div class="absolute top-1/4 right-1/4 w-px h-64 bg-zen-gold/30">
-            </div>
-            <div
-                class="absolute bottom-1/4 left-1/4 w-32 h-px bg-zen-indigo/20"
-            >
-            </div>
-        </div>
-
-        <div
-            class="relative z-10 w-full max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-24"
-        >
-            <!-- Left Side: Refined Vertical Typography -->
-            <div
-                class="hidden md:flex flex-col items-center gap-12 vertical-rl animate-sumi"
-            >
-                <span
-                    class="text-[10px] font-bold tracking-[1em] text-zen-gold uppercase"
-                    >iOS Developer</span
-                >
-                <div class="w-px h-32 bg-zen-gold opacity-20"></div>
-                <h2
-                    class="text-6xl lg:text-8xl font-black serif-heading text-zen-ink tracking-widest leading-none"
-                >
-                    作品集
-                </h2>
-            </div>
-
-            <!-- Main Content -->
-            <div class="flex-grow max-w-2xl text-center md:text-left">
-                <div class="mb-12 sig-mark animate-sumi">Digital Artisan</div>
-
-                <h1
-                    class="text-5xl md:text-7xl font-light mb-10 serif-heading text-zen-ink leading-tight"
-                >
-                    感覚に響く、<br />
-                    シンプルな道具を。
+    <!-- Hero Section -->
+    <section class="section-padding flex items-center min-h-[70vh]">
+        <div class="container-custom">
+            <div class="max-w-3xl">
+                <h1 class="heading-large mb-10">
+                    iOSアプリ開発・ポートフォリオ
                 </h1>
-
                 <p
-                    class="text-lg md:text-xl text-zen-dim serif-sub mb-20 leading-loose max-w-lg"
+                    class="text-2xl text-secondary leading-relaxed mb-12 font-medium max-w-2xl"
                 >
-                    使い心地の良さを追求し、<br />
-                    日常に溶け込む形を仕立てる。
+                    SwiftUIを用いたモダンなiOSアプリ制作を行っています。
                 </p>
-
-                <!-- Actions -->
-                <div
-                    class="flex flex-wrap items-center justify-center md:justify-start gap-16"
-                >
-                    <a
-                        href="/portfolio/apps"
-                        class="group relative text-xs font-bold tracking-[0.5em] text-zen-ink flex items-center gap-6"
-                    >
-                        <span
-                            class="w-12 h-px bg-zen-gold group-hover:w-20 transition-all duration-700"
-                        ></span>
-                        制作物をみる
-                    </a>
-                    <a
-                        href="/portfolio/#about"
-                        class="group relative text-xs font-bold tracking-[0.5em] text-zen-ink flex items-center gap-6"
-                    >
-                        <span
-                            class="w-12 h-px bg-zen-gold group-hover:w-20 transition-all duration-700"
-                        ></span>
-                        志について
+                <div class="flex gap-6">
+                    <a href="/portfolio/apps" class="btn-primary">
+                        制作アプリ一覧
                     </a>
                 </div>
             </div>
-
-            <!-- Right Visual Accent -->
-            <div
-                class="hidden lg:block w-px h-96 bg-gradient-to-b from-transparent via-zen-gold/40 to-transparent opacity-30"
-            >
-            </div>
-        </div>
-
-        <!-- Scroll Indicator -->
-        <div
-            class="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 opacity-30"
-        >
-            <span
-                class="vertical-rl text-[9px] font-bold tracking-[0.4em] uppercase"
-                >Scroll</span
-            >
-            <div class="w-px h-12 bg-zen-ink animate-pulse"></div>
         </div>
     </section>
 
     <!-- Apps Section -->
     <section
         id="apps"
-        class="max-w-6xl mx-auto px-8 py-32 border-t border-zen-border/30"
+        class="section-padding bg-white border-y border-slate-50"
     >
-        <SectionHeader title="作品集" subtitle="iOSアプリとこだわり" />
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 lg:gap-16">
-            {
-                featuredApps.map((app, index) => (
-                    <AppCard
-                        name={app.name}
-                        description={app.description}
-                        iconUrl={app.iconPlaceholder}
-                        appStoreUrl={app.appStoreLink}
-                        features={app.features}
-                        isFeatured={index === 0}
-                    />
-                ))
-            }
-        </div>
-
-        <div class="mt-28 text-center">
-            <a
-                href="/portfolio/apps"
-                class="group inline-flex items-center gap-4 text-[10px] font-bold tracking-[0.5em] text-zen-dim hover:text-zen-ink transition-colors uppercase"
+        <div class="container-custom">
+            <div
+                class="mb-20 flex flex-col md:flex-row md:items-end justify-between gap-8"
             >
-                すべての作品をみる
-                <span
-                    class="w-12 h-px bg-zen-border group-hover:w-16 group-hover:bg-zen-ink transition-all"
-                ></span>
-            </a>
+                <div class="max-w-xl">
+                    <h2 class="heading-medium mb-6">開発アプリ</h2>
+                    <p class="text-secondary text-lg">
+                        制作したiOSアプリケーションの一部をご紹介します。
+                    </p>
+                </div>
+                <a
+                    href="/portfolio/apps"
+                    class="text-slate-900 font-bold tracking-widest uppercase hover:opacity-70 transition-opacity flex items-center gap-2 pb-1 border-b-2 border-slate-900"
+                >
+                    View All Apps
+                    <svg
+                        class="w-4 h-4"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        ><path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg
+                    >
+                </a>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                {
+                    featuredApps.map((app: any) => (
+                        <AppCard
+                            name={app.name}
+                            description={app.description}
+                            iconUrl={app.iconPlaceholder}
+                            appStoreUrl={app.appStoreLink}
+                            features={app.features}
+                            isFeatured={false}
+                        />
+                    ))
+                }
+            </div>
         </div>
     </section>
 
     <!-- Posts Section -->
-    <section id="posts" class="bg-white/40 py-32 border-y border-zen-border/40">
-        <div class="max-w-5xl mx-auto px-8">
-            <SectionHeader title="記録" subtitle="開発と思索" />
-            <div class="space-y-6">
+    <section
+        id="posts"
+        class="section-padding bg-background border-y border-border"
+    >
+        <div class="container-custom">
+            <SectionHeader
+                title="ブログ"
+                subtitle="開発の記録や技術的な備忘録です。"
+            />
+
+            <div
+                class="divide-y divide-border bg-surface border border-border rounded-xl"
+            >
                 {
                     latestPosts.map((post) => (
                         <BlogCard
@@ -162,82 +113,58 @@ const featuredApps = appsData.slice(0, 3);
                 }
             </div>
 
-            <div class="mt-24 text-center">
+            <div class="mt-12">
                 <a
                     href="/portfolio/blog"
-                    class="group inline-flex items-center gap-4 text-[10px] font-bold tracking-[0.5em] text-zen-dim hover:text-zen-ink transition-colors uppercase"
+                    class="text-accent font-medium hover:underline inline-flex items-center gap-2"
                 >
-                    記録一覧へ
-                    <span
-                        class="w-12 h-px bg-zen-border group-hover:w-16 group-hover:bg-zen-ink transition-all"
-                    ></span>
+                    すべての記事を見る
+                    <svg
+                        class="w-4 h-4"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        ><path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M9 5l7 7-7 7"></path></svg
+                    >
                 </a>
             </div>
         </div>
     </section>
 
     <!-- About Section -->
-    <section id="about" class="max-w-4xl mx-auto px-8 py-32">
-        <SectionHeader title="私について" subtitle="理念と歩み" />
-
-        <div
-            class="zen-panel p-12 md:p-32 relative overflow-hidden bg-white/60 backdrop-blur-xl flex flex-col md:flex-row gap-24 group"
-        >
-            <div class="max-w-xl relative z-10 flex-grow">
-                <div class="mb-16 sig-mark">PHILOSOPHY</div>
-
-                <p
-                    class="text-3xl md:text-5xl text-zen-ink serif-heading mb-20 leading-tight italic"
-                >
-                    使い心地という、<br />
-                    目に見えない美しさを。
-                </p>
-                <div
-                    class="space-y-16 text-zen-dim leading-loose text-lg md:text-xl font-light serif-sub opacity-80"
-                >
+    <section id="about" class="section-padding">
+        <div class="container-custom">
+            <div class="max-w-3xl">
+                <h2 class="heading-medium mb-8">私について</h2>
+                <div class="space-y-6 text-primary leading-relaxed text-lg">
                     <p>
-                        単に「動くもの」を作るのではなく、<br />
-                        日々の営みに静かに寄り添う「道具」としてのソフトウェアを仕立てています。
-                    </p>
-                    <p>
-                        伝統的な工芸品が持つ、時を経ても色褪せない機能美と、<br
-                        />
-                        現代のテクノロジーがもたらす滑らかな体験の融合。
+                        Swift /
+                        SwiftUIを中心に、直感的で使いやすいiOSアプリの開発を行っています。
                     </p>
                 </div>
 
-                <div
-                    class="mt-24 pt-20 border-t border-zen-border flex flex-wrap items-center justify-between"
-                >
-                    <div class="flex gap-12">
-                        <a
-                            href="https://github.com"
-                            target="_blank"
-                            class="text-[11px] font-bold tracking-[0.6em] text-zen-indigo/60 hover:text-zen-gold transition-colors uppercase"
-                            >GitHub</a
-                        >
-                    </div>
-
-                    <div
-                        class="text-[10px] font-black tracking-[0.2em] text-zen-ink sig-mark"
+                <div class="mt-12 flex items-center gap-6">
+                    <a
+                        href="https://github.com/shuya-kk"
+                        target="_blank"
+                        class="text-secondary hover:text-primary transition-colors font-medium flex items-center gap-2"
                     >
-                        SHUYA
-                    </div>
+                        GitHub
+                        <svg
+                            class="w-4 h-4"
+                            fill="currentColor"
+                            viewBox="0 0 24 24"
+                            ><path
+                                d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-10.886 0-6.627-5.373-12-12-12z"
+                            ></path></svg
+                        >
+                    </a>
                 </div>
-            </div>
-
-            <!-- Artisan Border Accent -->
-            <div
-                class="hidden lg:flex flex-col items-center justify-center gap-12 opacity-20 group-hover:opacity-40 transition-opacity duration-1000"
-            >
-                <div class="w-px h-32 bg-zen-gold"></div>
-                <span
-                    class="vertical-rl text-[10px] font-bold tracking-[1em] uppercase"
-                    >Est. 2025</span
-                >
-                <div class="w-px h-32 bg-zen-gold"></div>
             </div>
         </div>
     </section>
 </Layout>
-```

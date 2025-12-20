@@ -10,20 +10,18 @@ const sortedPosts = allPosts.sort(
 );
 ---
 
-<Layout title="記録">
-    <div class="max-w-4xl mx-auto px-8 py-32">
-        <div class="mb-32">
-            <SectionHeader title="記録" subtitle="開発と思索" />
-            <p
-                class="text-center text-zen-dim serif-sub max-w-xl mx-auto mt-[-2rem] leading-relaxed"
-            >
-                iOS開発、デザイン哲学、そしてデジタルなものづくりへの<br
-                    class="hidden md:block"
-                />探求についての備忘録です。
+<Layout title="ブログ">
+    <div class="container-custom section-padding">
+        <div class="max-w-3xl mb-24">
+            <h1 class="heading-large mb-8">ブログ</h1>
+            <p class="text-2xl text-secondary leading-relaxed font-medium">
+                iOS開発の技術的な記録などをまとめています。
             </p>
         </div>
 
-        <div class="space-y-6">
+        <div
+            class="bg-white border border-slate-50 rounded-[2rem] shadow-sm overflow-hidden divide-y divide-slate-50"
+        >
             {
                 sortedPosts.map((post) => (
                     <BlogCard
@@ -38,10 +36,8 @@ const sortedPosts = allPosts.sort(
 
         {
             sortedPosts.length === 0 && (
-                <div class="text-center py-24 zen-panel bg-white/50">
-                    <p class="text-zen-dim serif-sub">
-                        記事が見つかりませんでした。
-                    </p>
+                <div class="text-center py-20 bg-surface border border-border rounded-xl mt-8">
+                    <p class="text-secondary">記事が見つかりませんでした。</p>
                 </div>
             )
         }

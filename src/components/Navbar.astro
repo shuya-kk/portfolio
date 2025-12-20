@@ -1,62 +1,47 @@
 ---
 const links = [
-    { name: "制作物", href: "/portfolio/#apps" },
-    { name: "記録", href: "/portfolio/blog" },
-    { name: "私について", href: "/portfolio/#about" },
+    { name: "APPS", href: "/portfolio/#apps" },
+    { name: "BLOG", href: "/portfolio/blog" },
+    { name: "ABOUT ME", href: "/portfolio/#about" },
 ];
 ---
 
 <header
-    class="fixed top-0 right-0 h-screen z-50 w-20 hidden md:flex flex-col items-center justify-between py-16 bg-white/60 backdrop-blur-xl border-l border-zen-border"
+    class="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-100"
 >
-    <!-- Artisan Mark -->
-    <a href="/portfolio/" class="group relative py-4">
-        <div
-            class="text-[10px] font-black tracking-[0.2em] text-zen-ink sig-mark"
+    <div class="container-custom h-20 flex items-center justify-between">
+        <a
+            href="/portfolio/"
+            class="text-slate-900 hover:text-accent transition-colors"
         >
-            S.H.
-        </div>
-    </a>
+            <svg
+                class="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                ><path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+                ></path></svg
+            >
+        </a>
 
-    <!-- Vertical Navigation -->
-    <nav class="vertical-rl flex items-center gap-16">
-        {
-            links.map((link) => (
-                <a
-                    href={link.href}
-                    class="text-[11px] font-bold tracking-[0.6em] text-zen-dim hover:text-zen-gold transition-all duration-700 relative group py-6"
-                >
-                    {link.name}
-                    <span class="absolute right-0 top-1/2 -translate-y-1/2 h-0 w-[1px] bg-zen-gold group-hover:h-8 transition-all duration-700" />
-                </a>
-            ))
-        }
-    </nav>
-
-    <!-- Sentiment -->
-    <div class="flex flex-col items-center gap-10">
-        <div class="w-px h-20 bg-gradient-to-b from-zen-gold/40 to-transparent">
-        </div>
-        <span
-            class="vertical-rl text-[8px] font-bold tracking-[0.4em] text-zen-gold opacity-40 uppercase"
-            >Aesthetic</span
-        >
+        <nav class="flex items-center gap-8">
+            {
+                links.map((link) => (
+                    <a
+                        href={link.href}
+                        class="text-sm font-bold text-slate-600 hover:text-slate-900 transition-colors tracking-wide"
+                    >
+                        {link.name}
+                    </a>
+                ))
+            }
+        </nav>
     </div>
 </header>
 
-<!-- Mobile Navigation (Minimalist Bar) -->
-<nav
-    class="md:hidden fixed bottom-8 left-1/2 -translate-x-1/2 z-50 w-[85%] bg-white/90 backdrop-blur-lg px-8 py-5 flex items-center justify-around border border-zen-border shadow-2xl"
->
-    {
-        links.map((link) => (
-            <a
-                href={link.href}
-                class="text-[11px] font-bold tracking-[0.2em] text-zen-dim hover:text-zen-gold transition-colors"
-            >
-                {link.name}
-            </a>
-        ))
-    }
-    <div class="sig-mark !pl-4 !py-0">A</div>
-</nav>
+<!-- Spacer to push content below navbar -->
+<div class="h-16"></div>

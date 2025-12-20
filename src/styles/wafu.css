@@ -1,112 +1,43 @@
-/* Modern Zen Design System */
-:root {
-    --zen-bg: #fcfaf2;
-    --zen-ink: #1a1a1c;
-    --zen-border: #d1cdc0;
-    --zen-paper: #ffffff;
-    --zen-gold: #c5a059;
-    --zen-indigo: #2d3a4b;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-body {
-    background-color: var(--zen-bg);
-    color: var(--zen-ink);
-    font-family: 'Noto Serif JP', serif;
-    position: relative;
-    min-height: 100vh;
-    overflow-x: hidden;
-    line-height: 1.8;
-}
-
-/* Washi Texture Base */
-body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    opacity: 0.03;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-    z-index: 100;
-}
-
-/* Subtle Ink Wash Grain (Corner Overlays) */
-body::after {
-    content: "";
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    background: radial-gradient(circle at 100% 0%, rgba(26, 26, 28, 0.02) 0%, transparent 40%),
-        radial-gradient(circle at 0% 100%, rgba(26, 26, 28, 0.02) 0%, transparent 40%);
-    z-index: 99;
-}
-
-/* Vertical Typography - Refined */
-.vertical-rl {
-    writing-mode: vertical-rl;
-    text-orientation: mixed;
-}
-
-/* Kintsugi / Gold Line Utility */
-.gold-line {
-    height: 1px;
-    background: linear-gradient(90deg, transparent, var(--zen-gold) 50%, transparent);
-    opacity: 0.4;
-}
-
-/* Minimalist Signature Marking (instead of Hanko) */
-.sig-mark {
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 0.3em;
-    color: var(--zen-gold);
-    border-left: 1px solid var(--zen-gold);
-    padding-left: 12px;
-    display: inline-block;
-}
-
-/* Zen Panel - Sophisticated Flat Style */
-.zen-panel {
-    background: var(--zen-paper);
-    border: 0.5px solid var(--zen-border);
-    border-radius: 0;
-    /* Boxy for artisan look */
-    position: relative;
-    transition: all 0.5s cubic-bezier(0.2, 1, 0.3, 1);
-}
-
-.zen-hover:hover {
-    border-color: var(--zen-gold);
-    box-shadow: 0 20px 40px -20px rgba(197, 160, 89, 0.15);
-}
-
-/* Typography Refinement */
-.serif-heading {
-    font-family: 'Noto Serif JP', serif;
-    letter-spacing: 0.15em;
-    line-height: 1.4;
-}
-
-.serif-sub {
-    font-family: 'Noto Serif JP', serif;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    font-size: 0.75rem;
-    color: var(--zen-dim);
-}
-
-/* Soft Animations */
-@keyframes sumi-fade {
-    from {
-        opacity: 0;
-        filter: blur(4px);
-    }
-
-    to {
-        opacity: 1;
-        filter: blur(0);
+@layer base {
+    body {
+        @apply bg-background text-primary font-sans antialiased leading-relaxed tracking-tight;
     }
 }
 
-.animate-sumi {
-    animation: sumi-fade 2s ease-out forwards;
+@layer components {
+    .container-custom {
+        @apply max-w-5xl mx-auto px-6 md:px-12;
+    }
+
+    .section-padding {
+        @apply py-24 md:py-40;
+    }
+
+    .card {
+        @apply bg-surface border border-slate-100 rounded-3xl shadow-sm transition-all duration-500 hover:shadow-xl hover:shadow-slate-200/50 hover:-translate-y-1.5;
+    }
+
+    .glass {
+        @apply bg-white/80 backdrop-blur-xl border border-white/40;
+    }
+
+    .nav-link {
+        @apply text-secondary hover:text-primary font-medium text-[13px] tracking-wider uppercase transition-all duration-300;
+    }
+
+    .btn-primary {
+        @apply bg-accent text-white px-10 py-4 rounded-full font-bold tracking-widest text-[11px] uppercase shadow-lg shadow-accent/10 transition-all duration-500 hover:shadow-2xl hover:shadow-accent/20 hover:-translate-y-1 active:translate-y-0 overflow-hidden relative;
+    }
+
+    .heading-large {
+        @apply text-5xl md:text-7xl font-black tracking-[-0.05em] text-slate-900 leading-[1.05];
+    }
+
+    .heading-medium {
+        @apply text-3xl md:text-4xl font-extrabold tracking-tight text-slate-900 leading-snug;
+    }
 }

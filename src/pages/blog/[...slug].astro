@@ -17,100 +17,79 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props as Props;
 const { Content } = await post.render();
-
-const formattedDate = post.data.pubDate.toLocaleDateString("ja-JP", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-});
 ---
 
 <Layout title={post.data.title} description={post.data.description}>
-    <div class="max-w-4xl mx-auto px-8 py-32">
-        <!-- Back Link -->
-        <a
-            href="/portfolio/blog"
-            class="inline-flex items-center text-zen-dim hover:text-zen-ink transition-colors mb-20 text-[10px] font-bold tracking-[0.4em] group"
-        >
-            <svg
-                class="w-4 h-4 mr-3 group-hover:-translate-x-1 transition-transform"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                ><path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="1.5"
-                    d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg
+    <div class="container-custom section-padding pt-40">
+        <div class="max-w-3xl mx-auto">
+            <!-- Back Link -->
+            <a
+                href="/portfolio/blog"
+                class="inline-flex items-center gap-3 text-secondary hover:text-primary transition-all mb-16 font-bold text-[11px] uppercase tracking-widest group"
             >
-            記事一覧へ戻る
-        </a>
-
-        <article class="relative">
-            <header class="mb-24">
-                <!-- Article Title -->
-                <h1
-                    class="text-4xl md:text-6xl font-light text-zen-ink mb-12 leading-tight serif-heading italic animate-fade-in-up"
+                <svg
+                    class="w-4 h-4 transition-transform group-hover:-translate-x-1"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    ><path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2.5"
+                        d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg
                 >
-                    {post.data.title}
-                </h1>
+                Back to Blog
+            </a>
 
-                <!-- Meta Info -->
-                <div
-                    class="text-[10px] font-medium tracking-[0.3em] text-zen-dim flex flex-wrap items-center gap-10 animate-fade-in-up serif-sub"
-                    style="animation-delay: 0.1s;"
-                >
-                    <time datetime={post.data.pubDate.toISOString()}>
-                        {formattedDate}
+            <article>
+                <header class="mb-16">
+                    <time
+                        datetime={post.data.pubDate.toISOString()}
+                        class="text-secondary font-bold text-[11px] tracking-widest block mb-6 font-mono opacity-60"
+                    >
+                        {
+                            post.data.pubDate
+                                .toLocaleDateString("ja-JP", {
+                                    year: "numeric",
+                                    month: "2-digit",
+                                    day: "2-digit",
+                                })
+                                .replace(/\//g, ".")
+                        }
                     </time>
+                    <h1 class="heading-large mb-10">{post.data.title}</h1>
+
                     {
                         post.data.tags && (
-                            <>
-                                <span class="opacity-10 text-lg font-light">
-                                    |
-                                </span>
-                                <div class="flex gap-8">
-                                    {post.data.tags.map((tag) => (
-                                        <a
-                                            href={`/portfolio/blog/tag/${tag}`}
-                                            class="hover:text-zen-ink transition-all relative group"
-                                        >
-                                            #{tag}
-                                            <span class="absolute -bottom-1 left-0 w-0 h-px bg-zen-ink group-hover:w-full transition-all duration-300" />
-                                        </a>
-                                    ))}
-                                </div>
-                            </>
+                            <div class="flex flex-wrap gap-2">
+                                {post.data.tags.map((tag) => (
+                                    <a
+                                        href={`/portfolio/blog/tag/${tag}`}
+                                        class="text-[10px] font-bold px-4 py-1.5 bg-slate-50 text-slate-500 rounded-full border border-slate-100 hover:border-accent hover:text-accent transition-all uppercase tracking-wider"
+                                    >
+                                        #{tag}
+                                    </a>
+                                ))}
+                            </div>
                         )
                     }
+                </header>
+
+                <div
+                    class="prose prose-slate prose-lg max-w-none leading-relaxed tracking-tight text-primary/80"
+                >
+                    <Content />
                 </div>
-            </header>
 
-            <!-- Content -->
-            <div
-                class="prose prose-neutral prose-lg max-w-none
-                       prose-headings:serif-heading prose-headings:font-light prose-headings:italic prose-headings:text-zen-ink
-                       prose-p:text-zen-dim prose-p:leading-relaxed prose-p:serif-sub
-                       prose-a:text-zen-ink prose-a:underline prose-a:underline-offset-4 hover:prose-a:opacity-70
-                       prose-blockquote:border-l-2 prose-blockquote:border-zen-border prose-blockquote:italic prose-blockquote:text-zen-dim
-                       prose-img:rounded-lg prose-img:shadow-sm
-                       animate-fade-in-up"
-                style="animation-delay: 0.2s;"
-            >
-                <Content />
-            </div>
-
-            <!-- Footer Line -->
-            <div class="mt-40 pt-16 border-t border-zen-border/30">
-                <div class="flex justify-between items-center opacity-30">
-                    <div class="w-20 h-px bg-zen-ink"></div>
-                    <span
-                        class="text-[10px] font-bold tracking-[0.8em] text-zen-ink"
-                        >以上</span
+                <div class="mt-24 pt-12 border-t border-slate-50">
+                    <a
+                        href="/portfolio/blog"
+                        class="btn-primary inline-flex items-center"
                     >
-                    <div class="w-20 h-px bg-zen-ink"></div>
+                        記事一覧に戻る
+                    </a>
                 </div>
-            </div>
-        </article>
+            </article>
+        </div>
     </div>
 </Layout>
