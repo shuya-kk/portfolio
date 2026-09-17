@@ -4,7 +4,7 @@ title: "MediaPocket 利用規約"
 pubDate: 2026-09-01T00:00:00Z
 description: "MediaPocketの提供条件および利用に関するユーザーの皆様との間の権利義務関係を定めるものです。"
 tags: ["MediaPocket", "利用規約"]
-visibility: "public"
+visibility: "private"
 
 ---
 

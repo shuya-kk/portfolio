@@ -4,7 +4,7 @@ title: "MediaPocket プライバシーポリシー"
 pubDate: 2026-09-01T00:00:00Z
 description: "MediaPocketは、ユーザーのプライバシーを尊重し、個人情報の適切な管理を重要な責務と考えています。"
 tags: ["MediaPocket", "プライバシーポリシー"]
-visibility: "public"
+visibility: "private"
 
 ---
 
