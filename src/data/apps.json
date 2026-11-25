@@ -13,7 +13,7 @@
         "iconPlaceholder": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/16/00/f4/1600f4c9-2679-fa40-53ca-b5bfdcdbe720/AppIcon-0-0-1x_U007ephone-0-1-85-220.png/512x512bb.jpg",
         "rating": 5,
         "ratingCount": 3,
-        "downloads": 176
+        "downloads": 208
     },
     {
         "name": "amaoto - 雨音集中タイマー",
@@ -28,7 +28,7 @@
         "iconPlaceholder": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/d7/e1/6c/d7e16cd5-da19-420e-8a3b-2a425611f5d7/AppIcon-0-0-1x_U007epad-0-1-0-85-220.png/512x512bb.jpg",
         "rating": 4,
         "ratingCount": 2,
-        "downloads": 176
+        "downloads": 203
     },
     {
         "name": "MonoMaze - シンプル迷路",
@@ -62,7 +62,7 @@
         "iconPlaceholder": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/e7/87/8a/e7878ae5-e099-d9a2-219f-1fb8989f789e/AppIcon-0-0-1x_U007ephone-0-1-0-85-220.png/512x512bb.jpg",
         "rating": 4.25,
         "ratingCount": 4,
-        "downloads": 523
+        "downloads": 605
     },
     {
         "name": "re:mood - 気分の記録と心のグラフ",
@@ -79,7 +79,7 @@
         "iconPlaceholder": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/78/d5/ca/78d5ca4c-4279-8e49-4f4c-111875b48165/AppIcon-0-0-1x_U007ephone-0-1-0-85-220.png/512x512bb.jpg",
         "rating": 5,
         "ratingCount": 1,
-        "downloads": 153
+        "downloads": 224
     },
     {
         "name": "Low Note -ミニマルな20文字メモ-",
@@ -111,7 +111,7 @@
                 "author": "にぱにぱgatw"
             }
         ],
-        "downloads": 132
+        "downloads": 147
     },
     {
         "name": "PaperCam - レトロな紙カメラ -",
@@ -126,7 +126,7 @@
         "iconPlaceholder": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/6e/1b/2c/6e1b2cb7-7c4f-8969-3bba-6785e7d7cd9e/AppIcon-0-0-1x_U007ephone-0-1-0-P3-85-220.png/512x512bb.jpg",
         "rating": 3.5,
         "ratingCount": 4,
-        "downloads": 435
+        "downloads": 491
     },
     {
         "name": "Cyano 青写真 - アナログな青写真加工",
@@ -143,7 +143,7 @@
         "iconPlaceholder": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/32/13/8c/32138c36-854b-6122-836d-a6019a896f5a/AppIcon-0-0-1x_U007ephone-0-1-85-220.png/512x512bb.jpg",
         "rating": 4.33333,
         "ratingCount": 3,
-        "downloads": 106
+        "downloads": 118
     },
     {
         "name": "Low Camera -低画質カメラ-",
@@ -160,6 +160,13 @@
         "rating": 4.54246,
         "ratingCount": 789,
         "reviews": [
+            {
+                "id": "14644263312",
+                "title": "理想のアプリです。",
+                "content": "容量の節約もフィルターもまさに探し求めていたものでした。\n中高画質の上の画質とフィルターの編集が出来ると嬉しいです...！",
+                "rating": 4,
+                "author": "rinchan0308"
+            },
             {
                 "id": "13745880491",
                 "title": "最高",
@@ -350,7 +357,7 @@
                 "author": "Rusk7533"
             }
         ],
-        "downloads": 334873
+        "downloads": 368760
     },
     {
         "name": "MiniCamera – ミニチュア風カメラ",
@@ -360,7 +367,7 @@
         "iconPlaceholder": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/f3/54/43/f3544342-a119-f951-4f9d-fb496ece7700/AppIcon1-0-0-1x_U007ephone-0-1-0-sRGB-85-220.png/512x512bb.jpg",
         "rating": 4.21211,
         "ratingCount": 33,
-        "downloads": 4632,
+        "downloads": 5321,
         "images": [
             "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/5c/35/62/5c356208-8a54-a966-5e3d-e470d30dc3bf/iPhone1.png/320x480bb.jpg",
             "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/43/54/e0/4354e002-ac01-d29d-e767-56ee81439e5d/iPhone2.png/320x480bb.jpg",
@@ -387,7 +394,7 @@
                 "author": "まとえ__"
             }
         ],
-        "downloads": 268,
+        "downloads": 316,
         "images": [
             "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/8d/fc/3f/8dfc3f97-aba2-b73b-2949-e0fa99160f21/iPhone1.png/320x480bb.jpg",
             "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/0f/52/03/0f5203ab-0547-50fb-43e5-711e3452d1ed/iPhone3.png/320x480bb.jpg",
@@ -402,7 +409,7 @@
         "iconPlaceholder": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/bf/db/87/bfdb87ea-01c3-912b-363b-efc781e69505/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg",
         "rating": 0,
         "ratingCount": 0,
-        "downloads": 48,
+        "downloads": 53,
         "images": [
             "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/c9/b8/79/c9b8790c-0a73-b406-4a88-b933d5b053e7/iPhone1.png/320x480bb.jpg",
             "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/5a/b7/d2/5ab7d25b-20e5-ab5b-bb30-fd6577afe6c2/iPhone2.png/320x480bb.jpg",
@@ -461,7 +468,7 @@
                 "author": "もーりすもり"
             }
         ],
-        "downloads": 48639
+        "downloads": 67222
     },
     {
         "name": "WishItem – ほしいもの管理アプリ",
@@ -471,7 +478,7 @@
         "iconPlaceholder": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/06/91/20/069120f1-fd67-9103-d707-29ad230a95dd/AppIcon-0-0-1x_U007epad-0-1-0-85-220.png/512x512bb.jpg",
         "rating": 5,
         "ratingCount": 2,
-        "downloads": 955,
+        "downloads": 1111,
         "images": [
             "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/5e/4e/15/5e4e152f-1377-dd23-caf7-10c7963587eb/6.5__U26d4_Ufe0f_DO_NOT_CHNAGE_HERE.jpg/320x480bb.jpg",
             "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/c6/67/93/c667933a-41c6-aaa8-4f68-2a92392a01f3/6.5__U26d4_Ufe0f_DO_NOT_CHNAGE_HERE_2.jpg/320x480bb.jpg",
@@ -496,7 +503,7 @@
         ],
         "rating": 4.54545,
         "ratingCount": 33,
-        "downloads": 2354
+        "downloads": 2644
     },
     {
         "name": "シンプル縦型スケジュール帳",
@@ -578,7 +585,7 @@
                 "author": "えるんぺんと"
             }
         ],
-        "downloads": 2210
+        "downloads": 3084
     },
     {
         "name": "Lock Photo -写真ウィジェット-",
@@ -593,7 +600,7 @@
         ],
         "rating": 0,
         "ratingCount": 0,
-        "downloads": 3202
+        "downloads": 3434
     },
     {
         "name": "SQ Photo -正方形枠 加工-",
@@ -608,7 +615,7 @@
         ],
         "rating": 0,
         "ratingCount": 0,
-        "downloads": 905
+        "downloads": 1337
     },
     {
         "name": "シンプル時計 - 春 -",
@@ -621,7 +628,7 @@
         ],
         "rating": 2.66667,
         "ratingCount": 3,
-        "downloads": 1564
+        "downloads": 2257
     },
     {
         "name": "やさしい単語当て",
@@ -635,7 +642,7 @@
         ],
         "rating": 1,
         "ratingCount": 1,
-        "downloads": 318
+        "downloads": 372
     },
     {
         "name": "SR Magic -画質をアップするアプリ-",
@@ -665,7 +672,7 @@
                 "author": "盆踊り成人"
             }
         ],
-        "downloads": 3863
+        "downloads": 5493
     },
     {
         "name": "Falling Star",
@@ -679,7 +686,7 @@
         ],
         "rating": 5,
         "ratingCount": 1,
-        "downloads": 746
+        "downloads": 826
     },
     {
         "name": "ウェザーカメラ",
@@ -694,7 +701,7 @@
         ],
         "rating": 1.33333,
         "ratingCount": 3,
-        "downloads": 443
+        "downloads": 621
     },
     {
         "name": "漢字クイズ 〜野菜〜",
@@ -710,7 +717,7 @@
         ],
         "rating": 0,
         "ratingCount": 0,
-        "downloads": 528
+        "downloads": 671
     },
     {
         "name": "mist camera",
@@ -725,7 +732,7 @@
         ],
         "rating": 4,
         "ratingCount": 2,
-        "downloads": 1627
+        "downloads": 2337
     },
     {
         "name": "やること -今日-",
@@ -763,7 +770,7 @@
                 "author": "am0907"
             }
         ],
-        "downloads": 1296
+        "downloads": 1595
     },
     {
         "name": "漢字クイズ 〜魚〜",
@@ -779,7 +786,7 @@
         ],
         "rating": 5,
         "ratingCount": 1,
-        "downloads": 804
+        "downloads": 978
     },
     {
         "name": "かんたんタイマー",
@@ -794,7 +801,7 @@
         ],
         "rating": 5,
         "ratingCount": 1,
-        "downloads": 498
+        "downloads": 566
     },
     {
         "name": "PhotoCard",
@@ -809,7 +816,7 @@
         ],
         "rating": 2,
         "ratingCount": 2,
-        "downloads": 551
+        "downloads": 783
     },
     {
         "name": "クイックメモ",
@@ -825,7 +832,7 @@
         ],
         "rating": 4.19231,
         "ratingCount": 26,
-        "downloads": 5122
+        "downloads": 7411
     },
     {
         "name": "Rect Simple-チェキ風加工アプリ",
@@ -850,7 +857,7 @@
                 "author": "shia1010"
             }
         ],
-        "downloads": 7218
+        "downloads": 9464
     },
     {
         "name": "SNSアイコンメーカー",
@@ -875,7 +882,7 @@
                 "author": "ほのえり好き♡"
             }
         ],
-        "downloads": 4601
+        "downloads": 6009
     },
     {
         "name": "iConer アイコン作成 ショートカット",
@@ -892,7 +899,7 @@
         ],
         "rating": 4.16129,
         "ratingCount": 62,
-        "downloads": 8791
+        "downloads": 10778
     },
     {
         "name": "シンプルフォトウィジェット",
@@ -910,7 +917,7 @@
         ],
         "rating": 3.4,
         "ratingCount": 5,
-        "downloads": 1145
+        "downloads": 1678
     },
     {
         "name": "シンプルメモウィジェット",
@@ -926,7 +933,7 @@
         ],
         "rating": 3.71429,
         "ratingCount": 7,
-        "downloads": 1891
+        "downloads": 2548
     },
     {
         "name": "シンプルウィジェット",
@@ -952,7 +959,7 @@
                 "author": "餅雄"
             }
         ],
-        "downloads": 5443
+        "downloads": 7384
     },
     {
         "name": "ToDoリスト-日付とタブで簡単管理",
@@ -971,7 +978,7 @@
         ],
         "rating": 2.8,
         "ratingCount": 5,
-        "downloads": 1290
+        "downloads": 1604
     },
     {
         "name": "絵日記風日記",
@@ -1049,7 +1056,7 @@
                 "title": "日記は三日坊主",
                 "content": "いつも三日坊主だけど...\n毎日書けなくても良いなあと思って\n少しづつ書くのがとても楽しい😆\n可愛いフォントに可愛い色\n画像も載せられて\n...優しい気持ちになれる☺️\n画像が縦長の時、\n切れちゃったから\n画像を編集してから\n載せなきゃいけないのかな🥹？？\nまだ使い方よくわかってない笑笑💦",
                 "rating": 4,
-                "author": "sakanabone"
+                "author": "( •̄ ω •̄   )"
             },
             {
                 "id": "9935701097",
@@ -1129,7 +1136,7 @@
                 "author": "夜卯"
             }
         ],
-        "downloads": 12658
+        "downloads": 16333
     },
     {
         "name": "シンプルな日記",
@@ -1147,7 +1154,7 @@
         ],
         "rating": 4,
         "ratingCount": 2,
-        "downloads": 941
+        "downloads": 1285
     },
     {
         "name": "ハッシュタグメモアプリ",
@@ -1178,7 +1185,7 @@
         ],
         "rating": 5,
         "ratingCount": 3,
-        "downloads": 328
+        "downloads": 534
     },
     {
         "name": "漢字の間違い探し",
@@ -1192,7 +1199,7 @@
         ],
         "rating": 4.4,
         "ratingCount": 20,
-        "downloads": 25867
+        "downloads": 26137
     },
     {
         "name": "Taberu",
@@ -1206,6 +1213,6 @@
         ],
         "rating": 5,
         "ratingCount": 3,
-        "downloads": 415
+        "downloads": 571
     }
 ]

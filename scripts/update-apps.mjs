@@ -58,7 +58,9 @@ async function getAppStoreConnectToken() {
     const issuerId = process.env.APP_STORE_ISSUER_ID?.trim();
     const keyId = process.env.APP_STORE_KEY_ID?.trim();
     const privateKeyPath = process.env.APP_STORE_PRIVATE_KEY_PATH?.trim();
-    const privateKeyRaw = (process.env.APP_STORE_PRIVATE_KEY || process.env.ASC_PRIVATE_KEY)?.trim();
+    const rawCandidate = (process.env.APP_STORE_PRIVATE_KEY || process.env.ASC_PRIVATE_KEY)?.trim();
+    // Ignore dummy placeholder values like "-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----"
+    const privateKeyRaw = (rawCandidate && !rawCandidate.includes('...')) ? rawCandidate : undefined;
 
     if (!issuerId || !keyId || (!privateKeyPath && !privateKeyRaw)) {
         console.warn('App Store Connect API credentials not found in environment. Skipping download count update.');
