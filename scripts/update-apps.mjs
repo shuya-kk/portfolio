@@ -114,8 +114,8 @@ async function fetchReportDownloads(token, vendorNumber, frequency, reportDate) 
             const cols = lines[i].split('\t');
             if (cols.length > Math.max(unitsIndex, productTypeIndex)) {
                 const type = cols[productTypeIndex];
-                // Exclude updates (starts with 7) and redownloads (starts with 3)
-                if (type && !type.startsWith('7') && !type.startsWith('3')) {
+                // Exclude updates (starts with 7) and in-app purchases (starts with IA)
+                if (type && !type.startsWith('7') && !type.startsWith('IA')) {
                     downloads.push({
                         appleId: cols[appleIdIndex],
                         units: parseInt(cols[unitsIndex], 10)
@@ -132,34 +132,74 @@ async function fetchReportDownloads(token, vendorNumber, frequency, reportDate) 
 
 async function getLifetimeDownloadsMap(token, vendorNumber) {
     const downloadsMap = new Map();
-    const currentYear = new Date().getFullYear();
-    const currentMonth = new Date().getMonth() + 1;
+    const now = new Date();
+    const currentYear = now.getFullYear();
+    const currentMonth = now.getMonth() + 1;
+    const currentDay = now.getDate();
     // You can change startYear based on your first app's release year.
     const startYear = 2020; 
 
     console.log(`Fetching App Store Connect reports from ${startYear} to ${currentYear}...`);
 
+    const addRecords = (records) => {
+        for (const record of records) {
+            if (!isNaN(record.units)) {
+                const current = downloadsMap.get(record.appleId) || 0;
+                downloadsMap.set(record.appleId, current + record.units);
+            }
+        }
+    };
+
     for (let year = startYear; year <= currentYear; year++) {
         if (year < currentYear) {
             console.log(`Fetching YEARLY report for ${year}...`);
             const records = await fetchReportDownloads(token, vendorNumber, 'YEARLY', year.toString());
-            for (const record of records) {
-                if (!isNaN(record.units)) {
-                    const current = downloadsMap.get(record.appleId) || 0;
-                    downloadsMap.set(record.appleId, current + record.units);
+            if (records.length > 0) {
+                addRecords(records);
+            } else if (year === currentYear - 1 && currentMonth === 1) {
+                // Early in January, previous year's YEARLY report may not be generated yet
+                console.log(`YEARLY report for ${year} not ready yet. Falling back to MONTHLY reports...`);
+                for (let m = 1; m <= 12; m++) {
+                    const mStr = `${year}-${String(m).padStart(2, '0')}`;
+                    const mRecords = await fetchReportDownloads(token, vendorNumber, 'MONTHLY', mStr);
+                    addRecords(mRecords);
                 }
             }
         } else {
-            for (let month = 1; month <= currentMonth; month++) {
+            // 1. Fetch completed MONTHLY reports for previous months in the current year
+            for (let month = 1; month < currentMonth; month++) {
                 const reportDate = `${year}-${String(month).padStart(2, '0')}`;
                 console.log(`Fetching MONTHLY report for ${reportDate}...`);
                 const records = await fetchReportDownloads(token, vendorNumber, 'MONTHLY', reportDate);
-                for (const record of records) {
-                    if (!isNaN(record.units)) {
-                        const current = downloadsMap.get(record.appleId) || 0;
-                        downloadsMap.set(record.appleId, current + record.units);
+                if (records.length > 0) {
+                    addRecords(records);
+                } else if (month === currentMonth - 1 && currentDay <= 7) {
+                    // Early in the month, the previous month's MONTHLY report might not be generated yet
+                    const daysInPrevMonth = new Date(year, month, 0).getDate();
+                    console.log(`MONTHLY report for ${reportDate} not ready yet. Falling back to DAILY reports...`);
+                    const prevDailyPromises = [];
+                    for (let day = 1; day <= daysInPrevMonth; day++) {
+                        const dateStr = `${reportDate}-${String(day).padStart(2, '0')}`;
+                        prevDailyPromises.push(fetchReportDownloads(token, vendorNumber, 'DAILY', dateStr));
+                    }
+                    const prevDailyResults = await Promise.all(prevDailyPromises);
+                    for (const dRecords of prevDailyResults) {
+                        addRecords(dRecords);
                     }
                 }
+            }
+
+            // 2. Fetch DAILY reports for the current month (1st up to today)
+            const currentMonthStr = `${year}-${String(currentMonth).padStart(2, '0')}`;
+            console.log(`Fetching DAILY reports for ${currentMonthStr} (days 1 to ${currentDay})...`);
+            const dailyPromises = [];
+            for (let day = 1; day <= currentDay; day++) {
+                const dateStr = `${currentMonthStr}-${String(day).padStart(2, '0')}`;
+                dailyPromises.push(fetchReportDownloads(token, vendorNumber, 'DAILY', dateStr));
+            }
+            const dailyResults = await Promise.all(dailyPromises);
+            for (const records of dailyResults) {
+                addRecords(records);
             }
         }
     }
