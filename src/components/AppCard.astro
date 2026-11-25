@@ -5,16 +5,24 @@ interface Props {
     iconUrl: string;
     appStoreUrl: string;
     features?: string[];
+    images?: string[];
+    genre?: string;
+    releaseDate?: string;
+    version?: string;
+    rank?: number;
     isFeatured?: boolean;
     rating?: number;
     ratingCount?: number;
     downloads?: number;
+    countries?: Record<string, number>;
     reviews?: {
         id: string;
         title: string;
         content: string;
         rating: number;
         author: string;
+        date?: string;
+        territory?: string;
     }[];
 }
 
@@ -24,40 +32,99 @@ const {
     iconUrl,
     appStoreUrl,
     features = [],
+    images = [],
+    genre,
+    releaseDate,
+    version,
+    rank,
     isFeatured = false,
     rating,
     ratingCount,
     downloads,
+    countries = {},
     reviews = [],
 } = Astro.props;
+
+const countryCodeToFlag = (code?: string) => {
+    if (!code || code.length !== 2) return "🌐";
+    return Array.from(code.toUpperCase())
+        .map((c) => String.fromCodePoint(127397 + c.charCodeAt(0)))
+        .join("");
+};
+
+const countryCount = Object.keys(countries || {}).length;
+
+const modalData = JSON.stringify({
+    name,
+    description,
+    iconUrl,
+    appStoreUrl,
+    features,
+    images,
+    genre,
+    releaseDate,
+    version,
+    rank,
+    rating,
+    ratingCount,
+    downloads,
+    countries,
+    reviews,
+});
 ---
 
-<div class="liquid-card group relative flex flex-col justify-between">
+<div
+    class="liquid-card group relative flex flex-col justify-between cursor-pointer select-none"
+    data-app-card
+    data-app-detail={modalData}
+    role="button"
+    tabindex="0"
+    aria-label={`${name} の詳細を表示`}
+>
     <div>
         <!-- App Header: Icon + Info -->
         <div class="flex items-start gap-5 sm:gap-6 mb-6">
             {
                 iconUrl && (
-                    <div class="w-20 h-20 sm:w-24 sm:h-24 shrink-0 rounded-[22%] overflow-hidden shadow-lg shadow-black/5 dark:shadow-black/40 group-hover:scale-105 transition-transform duration-500 ease-out">
+                    <div class="relative w-20 h-20 sm:w-24 sm:h-24 shrink-0 rounded-[22%] overflow-hidden shadow-lg shadow-black/5 dark:shadow-black/40 group-hover:scale-105 transition-transform duration-500 ease-out">
                         <img
                             src={iconUrl}
                             alt={name}
                             class="w-full h-full object-cover"
                             loading="lazy"
                         />
+                        {rank && rank <= 3 && (
+                            <span class="absolute top-1.5 left-1.5 px-2 py-0.5 rounded-full text-[10px] font-bold bg-black/75 text-white backdrop-blur-md">
+                                #{rank}
+                            </span>
+                        )}
                     </div>
                 )
             }
             <div class="flex-1 min-w-0 pt-1">
-                <h3 class="text-2xl sm:text-3xl font-bold tracking-tight text-primary mb-2">
+                <div class="flex flex-wrap items-center gap-2 mb-1.5">
+                    {rank && rank > 3 && (
+                        <span class="text-xs font-bold text-secondary">#{rank}</span>
+                    )}
+                    {genre && (
+                        <span class="text-[11px] font-medium px-2.5 py-0.5 rounded-full bg-primary/5 dark:bg-white/10 text-secondary">
+                            {genre}
+                        </span>
+                    )}
+                    {countryCount > 1 && (
+                        <span class="text-[11px] font-medium px-2 py-0.5 rounded-full bg-accent/10 text-accent">
+                            🌐 {countryCount}カ国
+                        </span>
+                    )}
+                </div>
+                <h3 class="text-2xl sm:text-3xl font-bold tracking-tight text-primary mb-2 group-hover:text-accent transition-colors">
                     {name}
                 </h3>
-
 
                 <!-- Stats: Rating & Downloads (Liquid Pills) -->
                 <div class="flex flex-wrap items-center gap-2">
                     {
-                        rating && (ratingCount || 0) > 0 && (
+                        rating && (ratingCount || 0) > 0 ? (
                             <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full liquid-pill text-xs font-semibold text-primary">
                                 <span class="text-amber-500 flex items-center">
                                     <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 20 20">
@@ -66,13 +133,13 @@ const {
                                 </span>
                                 <span>{rating.toFixed(1)}</span>
                                 <span class="text-[11px] text-secondary font-normal">
-                                    ({ratingCount})
+                                    ({ratingCount.toLocaleString()})
                                 </span>
                             </div>
-                        )
+                        ) : null
                     }
                     {
-                        downloads && downloads >= 1000 && (
+                        typeof downloads === "number" && downloads > 0 ? (
                             <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full liquid-pill text-xs font-semibold text-primary">
                                 <span class="text-accent flex items-center">
                                     <svg class="w-3.5 h-3.5 fill-none stroke-current" viewBox="0 0 24 24" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -83,7 +150,7 @@ const {
                                     {`${downloads.toLocaleString()} DL`}
                                 </span>
                             </div>
-                        )
+                        ) : null
                     }
                 </div>
             </div>
@@ -111,9 +178,17 @@ const {
         {
             reviews && reviews.length > 0 && (
                 <div class="mb-6 relative z-10">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-[11px] font-semibold text-secondary uppercase tracking-wider">
+                            Global Reviews ({reviews.length})
+                        </span>
+                        <span class="text-[11px] text-accent font-medium group-hover:underline">
+                            クリックしてすべて読む →
+                        </span>
+                    </div>
                     <div class="flex gap-3 overflow-x-auto pb-3 snap-x scrollbar-none -mx-2 px-2">
                         {reviews.map((review) => (
-                            <div class="snap-start shrink-0 w-64 p-4 rounded-2xl liquid-pill flex flex-col gap-2">
+                            <div class="snap-start shrink-0 w-64 p-4 rounded-2xl liquid-pill flex flex-col gap-2 hover:scale-[1.02] transition-transform">
                                 <div class="flex items-center justify-between gap-2">
                                     <div class="flex text-amber-500">
                                         {Array.from({ length: 5 }).map((_, i) => (
@@ -125,8 +200,9 @@ const {
                                             </svg>
                                         ))}
                                     </div>
-                                    <span class="text-[11px] text-secondary truncate max-w-[90px]">
-                                        {review.author}
+                                    <span class="text-[11px] text-secondary truncate max-w-[110px] flex items-center gap-1">
+                                        <span>{countryCodeToFlag(review.territory || "JP")}</span>
+                                        <span class="truncate">{review.author}</span>
                                     </span>
                                 </div>
                                 <h4 class="text-xs font-semibold text-primary line-clamp-1">
@@ -150,6 +226,7 @@ const {
             target="_blank"
             rel="noopener noreferrer"
             class="btn-apple-primary text-xs"
+            data-appstore-link
         >
             <span>App Storeで見る</span>
             <svg
@@ -166,7 +243,12 @@ const {
                 />
             </svg>
         </a>
+
+        <span class="inline-flex items-center gap-1 text-xs font-semibold text-secondary group-hover:text-primary transition-colors">
+            <span>詳細を見る</span>
+            <svg class="w-4 h-4 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+            </svg>
+        </span>
     </div>
 </div>
-
-

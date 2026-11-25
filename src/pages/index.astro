@@ -13,15 +13,20 @@ const latestPosts = allPosts
     .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
     .slice(0, 4);
 
-const featuredApps = appsData
+const featuredApps = [...appsData]
     .sort((a: any, b: any) => {
-        // First sort by rating count (popularity)
+        // First sort by downloads descending
+        const dlDiff = (b.downloads || 0) - (a.downloads || 0);
+        if (dlDiff !== 0) return dlDiff;
+        // Fallback to rating count
         const countDiff = (b.ratingCount || 0) - (a.ratingCount || 0);
         if (countDiff !== 0) return countDiff;
-        // Then sort by rating value
         return (b.rating || 0) - (a.rating || 0);
     })
     .slice(0, 4);
+
+const totalDownloads = appsData.reduce((sum: number, app: any) => sum + (app.downloads || 0), 0);
+const totalApps = appsData.length;
 ---
 
 <Layout title="PORTFOLIO">
@@ -66,6 +71,15 @@ const featuredApps = appsData
                                 stroke-width="2.5"
                                 d="M19 9l-7 7-7-7"></path>
                         </svg>
+                    </a>
+                    <a
+                        href="/portfolio/summary"
+                        class="btn-apple-secondary"
+                    >
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                        </svg>
+                        <span>サマリー ({totalDownloads.toLocaleString()} DL / {totalApps} Apps)</span>
                     </a>
                     <a
                         href="https://github.com/shuya-kk"
@@ -127,10 +141,15 @@ const featuredApps = appsData
                                 iconUrl={app.iconPlaceholder}
                                 appStoreUrl={app.appStoreLink}
                                 features={app.features}
+                                images={app.images}
+                                genre={app.genre}
+                                releaseDate={app.releaseDate}
+                                version={app.version}
                                 isFeatured={false}
                                 rating={app.rating}
                                 ratingCount={app.ratingCount}
                                 downloads={app.downloads}
+                                countries={app.countries}
                                 reviews={app.reviews}
                             />
                         </div>

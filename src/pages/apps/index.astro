@@ -3,27 +3,40 @@ import appsData from "../../data/apps.json";
 import Layout from "../../layouts/Layout.astro";
 import AppCard from "../../components/AppCard.astro";
 
-const apps = (appsData || []).sort((a: any, b: any) => {
-    // First sort by rating count (popularity)
+const apps = [...(appsData || [])].sort((a: any, b: any) => {
+    // 1. Sort by downloads descending
+    const dlDiff = (b.downloads || 0) - (a.downloads || 0);
+    if (dlDiff !== 0) return dlDiff;
+    // 2. Fallback to rating count
     const countDiff = (b.ratingCount || 0) - (a.ratingCount || 0);
     if (countDiff !== 0) return countDiff;
-    // Then sort by rating value
+    // 3. Fallback to rating value
     return (b.rating || 0) - (a.rating || 0);
 });
+
+const totalDownloads = apps.reduce((sum: number, app: any) => sum + (app.downloads || 0), 0);
 ---
 
 <Layout title="Apps | SHUYA KOMIYA">
     <div class="container-custom pb-32">
-        <div class="max-w-3xl mb-16 md:mb-20 reveal-on-scroll">
-            <h1 class="heading-hero mb-6">Apps</h1>
-            <p class="heading-sub max-w-2xl">
-                これまでに設計・開発・リリースしたiOSネイティブアプリケーションの一覧です。
-            </p>
+        <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-16 md:mb-20 reveal-on-scroll">
+            <div class="max-w-2xl">
+                <h1 class="heading-hero mb-6">Apps</h1>
+                <p class="heading-sub">
+                    これまでに設計・開発・リリースした全 {apps.length} 本のiOSネイティブアプリケーション一覧です（累計 {totalDownloads.toLocaleString()} DL・ダウンロード数順）。カードをクリックすると概要全文やレビュー、スクリーンショットの詳細を確認できます。
+                </p>
+            </div>
+            <a href="/portfolio/summary" class="btn-apple-secondary text-xs shrink-0">
+                <svg class="w-4 h-4 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                </svg>
+                <span>統計サマリーを見る</span>
+            </a>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10">
             {
-                apps.map((app: any) => (
+                apps.map((app: any, index: number) => (
                     <div class="reveal-on-scroll">
                         <AppCard
                             name={app.name}
@@ -31,10 +44,16 @@ const apps = (appsData || []).sort((a: any, b: any) => {
                             iconUrl={app.iconPlaceholder}
                             appStoreUrl={app.appStoreLink}
                             features={app.features}
+                            images={app.images}
+                            genre={app.genre}
+                            releaseDate={app.releaseDate}
+                            version={app.version}
+                            rank={index + 1}
                             isFeatured={false}
                             rating={app.rating}
                             ratingCount={app.ratingCount}
                             downloads={app.downloads}
+                            countries={app.countries}
                             reviews={app.reviews}
                         />
                     </div>
@@ -43,4 +62,3 @@ const apps = (appsData || []).sort((a: any, b: any) => {
         </div>
     </div>
 </Layout>
-

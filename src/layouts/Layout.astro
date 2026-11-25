@@ -43,9 +43,6 @@ const { title, description, image } = Astro.props;
     >
         <LiquidGlassLens />
 
-
-
-
         <Navbar />
 
         <main class="relative z-10 w-full flex-1 pt-24 sm:pt-32">
@@ -54,8 +51,73 @@ const { title, description, image } = Astro.props;
 
         <Footer />
 
-        <!-- Apple Liquid Glare & Fluid Scroll Script -->
+        <!-- Global App Detail Modal -->
+        <div
+            id="app-detail-modal"
+            class="fixed inset-0 z-[100] hidden items-center justify-center p-4 sm:p-6 md:p-10"
+            aria-hidden="true"
+        >
+            <!-- Backdrop -->
+            <div
+                id="app-modal-backdrop"
+                class="fixed inset-0 bg-black/50 dark:bg-black/75 backdrop-blur-md transition-opacity duration-300 opacity-0"
+            ></div>
+
+            <!-- Modal Dialog -->
+            <div
+                id="app-modal-dialog"
+                class="relative z-10 w-full max-w-3xl max-h-[88vh] overflow-y-auto rounded-[32px] bg-surface dark:bg-[#1c1c1e] border border-black/10 dark:border-white/15 shadow-2xl p-6 sm:p-8 md:p-10 transition-all duration-300 scale-95 opacity-0"
+                role="dialog"
+                aria-modal="true"
+            >
+                <!-- Close Button -->
+                <button
+                    id="app-modal-close"
+                    type="button"
+                    class="sticky top-0 float-right z-20 w-9 h-9 rounded-full liquid-pill flex items-center justify-center text-secondary hover:text-primary transition-colors cursor-pointer"
+                    aria-label="閉じる"
+                >
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+
+                <!-- Dynamic Modal Content -->
+                <div id="app-modal-body"></div>
+            </div>
+        </div>
+
+        <!-- Apple Liquid Glare, Fluid Scroll & App Detail Modal Script -->
         <script>
+            const escapeHtml = (str: string) =>
+                String(str || "")
+                    .replace(/&/g, "&amp;")
+                    .replace(/</g, "&lt;")
+                    .replace(/>/g, "&gt;")
+                    .replace(/"/g, "&quot;")
+                    .replace(/'/g, "&#039;");
+
+            const countryCodeToFlag = (code?: string) => {
+                if (!code || code.length !== 2) return "🌐";
+                return Array.from(code.toUpperCase())
+                    .map((c) => String.fromCodePoint(127397 + c.charCodeAt(0)))
+                    .join("");
+            };
+
+            const regionNames =
+                typeof Intl !== "undefined" && Intl.DisplayNames
+                    ? new Intl.DisplayNames(["ja"], { type: "region" })
+                    : null;
+
+            const getCountryName = (code?: string) => {
+                if (!code) return "不明";
+                try {
+                    return regionNames?.of(code.toUpperCase()) || code.toUpperCase();
+                } catch {
+                    return code.toUpperCase();
+                }
+            };
+
             const setupAnimations = () => {
                 const observerOptions = {
                     root: null,
@@ -87,6 +149,271 @@ const { title, description, image } = Astro.props;
                         (card as HTMLElement).style.setProperty("--mouse-y", `${y}px`);
                     });
                 });
+
+                // App Detail Modal Setup
+                const modal = document.getElementById("app-detail-modal");
+                const backdrop = document.getElementById("app-modal-backdrop");
+                const dialog = document.getElementById("app-modal-dialog");
+                const closeBtn = document.getElementById("app-modal-close");
+                const modalBody = document.getElementById("app-modal-body");
+
+                if (!modal || !backdrop || !dialog || !closeBtn || !modalBody) return;
+
+                const openAppModal = (data: any) => {
+                    const releaseYearMonth = data.releaseDate
+                        ? new Date(data.releaseDate).toLocaleDateString("ja-JP", {
+                              year: "numeric",
+                              month: "short",
+                              day: "numeric",
+                          })
+                        : null;
+
+                    const starsHtml = (ratingVal: number) =>
+                        Array.from({ length: 5 })
+                            .map(
+                                (_, i) =>
+                                    `<svg class="w-3.5 h-3.5 ${
+                                        i < Math.round(ratingVal) ? "fill-current text-amber-500" : "fill-current opacity-20 text-amber-500"
+                                    }" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>`
+                            )
+                            .join("");
+
+                    const screenshotsHtml =
+                        data.images && data.images.length > 0
+                            ? `
+                        <div class="mb-8">
+                            <h4 class="text-sm font-bold text-primary uppercase tracking-wider mb-3">スクリーンショット</h4>
+                            <div class="flex gap-3 overflow-x-auto pb-3 snap-x">
+                                ${data.images
+                                    .map(
+                                        (imgUrl: string) => `
+                                    <a href="${escapeHtml(imgUrl)}" target="_blank" rel="noopener noreferrer" class="snap-start shrink-0 rounded-2xl overflow-hidden border border-black/10 dark:border-white/10 shadow-sm hover:opacity-90 transition-opacity">
+                                        <img src="${escapeHtml(imgUrl)}" alt="${escapeHtml(data.name)} screenshot" class="h-56 sm:h-64 w-auto object-contain bg-black/5 dark:bg-white/5" loading="lazy" />
+                                    </a>
+                                `
+                                    )
+                                    .join("")}
+                            </div>
+                        </div>
+                    `
+                            : "";
+
+                    const countryEntries = Object.entries(data.countries || {})
+                        .map(([code, count]) => [code, Number(count)] as [string, number])
+                        .filter(([, count]) => count > 0)
+                        .sort((a, b) => b[1] - a[1]);
+
+                    const countriesHtml =
+                        countryEntries.length > 0
+                            ? `
+                        <div class="mb-8">
+                            <div class="flex items-center justify-between mb-3">
+                                <h4 class="text-sm font-bold text-primary uppercase tracking-wider">
+                                    国・地域別ダウンロード内訳 (${countryEntries.length}カ国・地域)
+                                </h4>
+                            </div>
+                            <div class="flex flex-wrap gap-2 max-h-40 overflow-y-auto p-3.5 rounded-2xl bg-black/[0.02] dark:bg-white/[0.04] border border-black/5 dark:border-white/10">
+                                ${countryEntries
+                                    .map(([code, count]) => {
+                                        const pct =
+                                            data.downloads > 0
+                                                ? ((count / data.downloads) * 100).toFixed(1)
+                                                : "0.0";
+                                        return `
+                                        <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/[0.04] dark:bg-white/[0.08] text-xs">
+                                            <span>${countryCodeToFlag(code)}</span>
+                                            <span class="font-semibold text-primary">${escapeHtml(getCountryName(code))}</span>
+                                            <span class="font-mono font-bold text-accent">${count.toLocaleString()}</span>
+                                            <span class="text-[10px] text-secondary">(${pct}%)</span>
+                                        </div>
+                                    `;
+                                    })
+                                    .join("")}
+                            </div>
+                        </div>
+                    `
+                            : "";
+
+                    const reviewsHtml =
+                        data.reviews && data.reviews.length > 0
+                            ? `
+                        <div class="mb-8">
+                            <div class="flex items-center justify-between mb-4">
+                                <h4 class="text-sm font-bold text-primary uppercase tracking-wider">
+                                    全世界ユーザーレビュー (${data.reviews.length}件)
+                                </h4>
+                            </div>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5 max-h-[420px] overflow-y-auto pr-1">
+                                ${data.reviews
+                                    .map((rev: any) => {
+                                        const code = rev.territory || "JP";
+                                        const revDate = rev.date
+                                            ? new Date(rev.date).toLocaleDateString("ja-JP", {
+                                                  year: "numeric",
+                                                  month: "short",
+                                                  day: "numeric",
+                                              })
+                                            : "";
+                                        return `
+                                    <div class="p-4 rounded-2xl bg-black/[0.03] dark:bg-white/[0.05] border border-black/5 dark:border-white/10 flex flex-col gap-2">
+                                        <div class="flex items-center justify-between gap-2">
+                                            <div class="flex items-center gap-1.5">
+                                                <div class="flex items-center gap-0.5">${starsHtml(rev.rating)}</div>
+                                                <span class="text-[11px] px-1.5 py-0.5 rounded bg-black/5 dark:bg-white/10 text-secondary" title="${escapeHtml(getCountryName(code))}">
+                                                    ${countryCodeToFlag(code)} ${escapeHtml(code)}
+                                                </span>
+                                            </div>
+                                            <span class="text-xs text-secondary truncate max-w-[130px]">${escapeHtml(rev.author)}</span>
+                                        </div>
+                                        <div class="flex items-baseline justify-between gap-2">
+                                            <h5 class="text-sm font-bold text-primary">${escapeHtml(rev.title)}</h5>
+                                            ${revDate ? `<span class="text-[10px] text-secondary shrink-0">${escapeHtml(revDate)}</span>` : ""}
+                                        </div>
+                                        <p class="text-xs sm:text-sm text-secondary leading-relaxed whitespace-pre-line">${escapeHtml(rev.content)}</p>
+                                    </div>
+                                `;
+                                    })
+                                    .join("")}
+                            </div>
+                        </div>
+                    `
+                            : "";
+
+                    modalBody.innerHTML = `
+                        <div class="flex flex-col sm:flex-row items-start gap-5 sm:gap-6 mb-8 pr-8">
+                            ${
+                                data.iconUrl
+                                    ? `<img src="${escapeHtml(data.iconUrl)}" alt="${escapeHtml(data.name)}" class="w-24 h-24 sm:w-28 sm:h-28 rounded-[22%] object-cover shadow-lg shrink-0" />`
+                                    : ""
+                            }
+                            <div class="flex-1 min-w-0">
+                                <div class="flex flex-wrap items-center gap-2 mb-2">
+                                    ${
+                                        data.rank
+                                            ? `<span class="text-xs font-bold px-2.5 py-0.5 rounded-full bg-accent/15 text-accent">DLランキング #${data.rank}</span>`
+                                            : ""
+                                    }
+                                    ${
+                                        data.genre
+                                            ? `<span class="text-xs font-medium px-2.5 py-0.5 rounded-full bg-black/5 dark:bg-white/10 text-secondary">${escapeHtml(data.genre)}</span>`
+                                            : ""
+                                    }
+                                    ${
+                                        countryEntries.length > 0
+                                            ? `<span class="text-xs font-medium px-2.5 py-0.5 rounded-full bg-emerald-500/15 text-emerald-600 dark:text-emerald-400">🌐 世界 ${countryEntries.length}カ国・地域でDL</span>`
+                                            : ""
+                                    }
+                                    ${
+                                        releaseYearMonth
+                                            ? `<span class="text-xs text-secondary">リリース: ${escapeHtml(releaseYearMonth)}</span>`
+                                            : ""
+                                    }
+                                    ${
+                                        data.version
+                                            ? `<span class="text-xs text-secondary">v${escapeHtml(data.version)}</span>`
+                                            : ""
+                                    }
+                                </div>
+                                <h3 class="text-2xl sm:text-3xl font-bold tracking-tight text-primary mb-3">${escapeHtml(data.name)}</h3>
+                                <div class="flex flex-wrap items-center gap-2.5">
+                                    ${
+                                        typeof data.downloads === "number" && data.downloads > 0
+                                            ? `<div class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full liquid-pill text-xs font-bold text-primary">
+                                                <span class="text-accent">↓</span>
+                                                <span>${data.downloads.toLocaleString()} DL</span>
+                                            </div>`
+                                            : ""
+                                    }
+                                    ${
+                                        data.rating && data.ratingCount > 0
+                                            ? `<div class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full liquid-pill text-xs font-bold text-primary">
+                                                <span class="text-amber-500">★</span>
+                                                <span>${Number(data.rating).toFixed(2)}</span>
+                                                <span class="text-secondary font-normal">(${Number(data.ratingCount).toLocaleString()}件の評価)</span>
+                                            </div>`
+                                            : ""
+                                    }
+                                </div>
+                            </div>
+                        </div>
+
+                        ${screenshotsHtml}
+
+                        ${countriesHtml}
+
+                        <div class="mb-8">
+                            <h4 class="text-sm font-bold text-primary uppercase tracking-wider mb-3">アプリ概要</h4>
+                            <div class="p-5 rounded-2xl bg-black/[0.02] dark:bg-white/[0.04] border border-black/5 dark:border-white/10 text-sm sm:text-base text-secondary leading-relaxed whitespace-pre-line">${escapeHtml(data.description)}</div>
+                        </div>
+
+                        ${reviewsHtml}
+
+                        <div class="pt-4 border-t border-black/10 dark:border-white/10 flex flex-wrap items-center justify-end gap-3">
+                            <a href="${escapeHtml(data.appStoreUrl)}" target="_blank" rel="noopener noreferrer" class="btn-apple-primary text-xs sm:text-sm">
+                                <span>App Storeで開く</span>
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                                </svg>
+                            </a>
+                        </div>
+                    `;
+
+                    modal.classList.remove("hidden");
+                    modal.classList.add("flex");
+                    document.body.style.overflow = "hidden";
+                    requestAnimationFrame(() => {
+                        backdrop.classList.remove("opacity-0");
+                        backdrop.classList.add("opacity-100");
+                        dialog.classList.remove("scale-95", "opacity-0");
+                        dialog.classList.add("scale-100", "opacity-100");
+                    });
+                };
+
+                const closeAppModal = () => {
+                    backdrop.classList.remove("opacity-100");
+                    backdrop.classList.add("opacity-0");
+                    dialog.classList.remove("scale-100", "opacity-100");
+                    dialog.classList.add("scale-95", "opacity-0");
+                    setTimeout(() => {
+                        modal.classList.add("hidden");
+                        modal.classList.remove("flex");
+                        document.body.style.overflow = "";
+                    }, 220);
+                };
+
+                document.querySelectorAll("[data-app-card]").forEach((card) => {
+                    card.addEventListener("click", (e) => {
+                        const target = e.target as HTMLElement;
+                        if (target.closest("[data-appstore-link]")) {
+                            return; // Allow direct App Store link click without opening modal
+                        }
+                        const raw = card.getAttribute("data-app-detail");
+                        if (raw) {
+                            try {
+                                openAppModal(JSON.parse(raw));
+                            } catch (err) {
+                                console.error("Failed to parse app detail JSON", err);
+                            }
+                        }
+                    });
+                    card.addEventListener("keydown", (e: any) => {
+                        if (e.key === "Enter" || e.key === " ") {
+                            const target = e.target as HTMLElement;
+                            if (target.closest("[data-appstore-link]")) return;
+                            e.preventDefault();
+                            const raw = card.getAttribute("data-app-detail");
+                            if (raw) openAppModal(JSON.parse(raw));
+                        }
+                    });
+                });
+
+                closeBtn.addEventListener("click", closeAppModal);
+                backdrop.addEventListener("click", closeAppModal);
+                document.addEventListener("keydown", (e) => {
+                    if (e.key === "Escape" && !modal.classList.contains("hidden")) {
+                        closeAppModal();
+                    }
+                });
             };
 
             if (document.readyState === "loading") {
@@ -98,6 +425,3 @@ const { title, description, image } = Astro.props;
         </script>
     </body>
 </html>
-
-
-
