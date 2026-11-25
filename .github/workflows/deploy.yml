@@ -11,7 +11,7 @@ on:
 
 # ジョブ全体で必要な権限を設定
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -43,8 +43,19 @@ jobs:
         env:
           APP_STORE_ISSUER_ID: ${{ secrets.APP_STORE_ISSUER_ID }}
           APP_STORE_KEY_ID: ${{ secrets.APP_STORE_KEY_ID }}
-          APP_STORE_PRIVATE_KEY: ${{ secrets.APP_STORE_PRIVATE_KEY }}
+          APP_STORE_PRIVATE_KEY: ${{ secrets.APP_STORE_PRIVATE_KEY || secrets.ASC_PRIVATE_KEY }}
           APP_STORE_VENDOR_NUMBER: ${{ secrets.APP_STORE_VENDOR_NUMBER }}
+
+      # 3.6. 更新された apps.json をリポジトリに自動保存（差分がある場合のみ）
+      - name: Commit updated apps.json
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if ! git diff --quiet src/data/apps.json; then
+            git add src/data/apps.json
+            git commit -m "chore: auto-update apps.json [skip ci]"
+            git push
+          fi
 
       # 4. Astroのビルド
       - name: Build Astro site

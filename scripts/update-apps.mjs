@@ -55,21 +55,32 @@ async function fetchReviews(appId) {
 }
 
 async function getAppStoreConnectToken() {
-    const issuerId = process.env.APP_STORE_ISSUER_ID;
-    const keyId = process.env.APP_STORE_KEY_ID;
-    const privateKeyPath = process.env.APP_STORE_PRIVATE_KEY_PATH;
-    const privateKeyRaw = process.env.APP_STORE_PRIVATE_KEY;
+    const issuerId = process.env.APP_STORE_ISSUER_ID?.trim();
+    const keyId = process.env.APP_STORE_KEY_ID?.trim();
+    const privateKeyPath = process.env.APP_STORE_PRIVATE_KEY_PATH?.trim();
+    const privateKeyRaw = (process.env.APP_STORE_PRIVATE_KEY || process.env.ASC_PRIVATE_KEY)?.trim();
 
     if (!issuerId || !keyId || (!privateKeyPath && !privateKeyRaw)) {
-        console.warn('App Store Connect API credentials not found in .env. Skipping download count update.');
+        console.warn('App Store Connect API credentials not found in environment. Skipping download count update.');
+        console.warn(`Present variables: APP_STORE_ISSUER_ID=${!!issuerId}, APP_STORE_KEY_ID=${!!keyId}, APP_STORE_PRIVATE_KEY=${!!privateKeyRaw}, APP_STORE_PRIVATE_KEY_PATH=${!!privateKeyPath}`);
         return null;
     }
 
     try {
-        const privateKey = privateKeyRaw ? privateKeyRaw.replace(/\\n/g, '\n') : await fs.readFile(privateKeyPath, 'utf8');
+        let privateKey = privateKeyRaw ? privateKeyRaw.replace(/\\n/g, '\n') : await fs.readFile(privateKeyPath, 'utf8');
+        // Strip surrounding quotes if present in secret/env
+        privateKey = privateKey.replace(/^["']|["']$/g, '').trim();
+        // If someone pasted a single-line PEM without newlines around the body, normalize it
+        if (!privateKey.includes('\n') && privateKey.includes('-----BEGIN PRIVATE KEY-----')) {
+            privateKey = privateKey
+                .replace('-----BEGIN PRIVATE KEY-----', '-----BEGIN PRIVATE KEY-----\n')
+                .replace('-----END PRIVATE KEY-----', '\n-----END PRIVATE KEY-----');
+        }
+        const now = Math.floor(Date.now() / 1000);
         const payload = {
             iss: issuerId,
-            exp: Math.floor(Date.now() / 1000) + 10 * 60, // 10 minutes
+            iat: now - 60, // 1 minute clock skew buffer
+            exp: now + 10 * 60, // 10 minutes
             aud: 'appstoreconnect-v1'
         };
         return jwt.sign(payload, privateKey, { algorithm: 'ES256', keyid: keyId });
@@ -80,18 +91,28 @@ async function getAppStoreConnectToken() {
 }
 
 async function fetchReportDownloads(token, vendorNumber, frequency, reportDate) {
-    const url = `https://api.appstoreconnect.apple.com/v1/salesReports?filter[frequency]=${frequency}&filter[reportDate]=${reportDate}&filter[reportSubType]=SUMMARY&filter[reportType]=SALES&filter[vendorNumber]=${vendorNumber}`;
+    const params = new URLSearchParams({
+        'filter[frequency]': frequency,
+        'filter[reportDate]': reportDate,
+        'filter[reportSubType]': 'SUMMARY',
+        'filter[reportType]': 'SALES',
+        'filter[vendorNumber]': vendorNumber,
+        'filter[version]': '1_0'
+    });
+    const url = `https://api.appstoreconnect.apple.com/v1/salesReports?${params.toString()}`;
     
     try {
         const response = await fetch(url, {
             headers: {
-                'Authorization': `Bearer ${token}`
+                'Authorization': `Bearer ${token}`,
+                'Accept': 'application/a-gzip, application/json'
             }
         });
 
         if (!response.ok) {
             if (response.status !== 404 && response.status !== 400) {
-                console.error(`Failed to fetch ${frequency} report for ${reportDate}: ${response.status} ${response.statusText}`);
+                const errText = await response.text().catch(() => '');
+                console.error(`Failed to fetch ${frequency} report for ${reportDate}: ${response.status} ${response.statusText} ${errText}`);
             }
             return [];
         }
