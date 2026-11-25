@@ -1,6 +1,6 @@
 name: Deploy to GitHub Pages
 
-# mainブランチにプッシュがあったときにこのアクションを実行
+# mainブランチにプッシュがあったとき、または毎日定時にこのアクションを実行
 on:
   push:
     branches:
@@ -9,38 +9,35 @@ on:
     # Run everyday at 0:00 UTC (9:00 JST)
     - cron: '0 0 * * *'
 
+# ジョブ全体で必要な権限を設定
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
 jobs:
-  build-and-deploy:
+  # 1つ目のジョブ：サイトのビルドと成果物のアップロード
+  build:
     runs-on: ubuntu-latest
-
-    permissions:
-      contents: read
-      pages: write
-      id-token: write
-
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-
     steps:
-      # 1. リポジトリのチェックアウト (変更なし)
+      # 1. リポジトリのチェックアウト
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
-          fetch-depth: 0 
-      
-      # 2. Node.js環境のセットアップ (変更なし)
+          fetch-depth: 0
+
+      # 2. Node.js環境のセットアップ
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: 24
           cache: 'npm'
-      
-      # 3. 依存関係のインストール (変更なし)
+
+      # 3. 依存関係のインストール
       - name: Install dependencies
         run: npm install
 
-      # 3.5. アプリ情報の更新 (追加)
+      # 3.5. アプリ情報の更新
       - name: Update apps.json
         run: npm run update-apps
         env:
@@ -49,23 +46,29 @@ jobs:
           APP_STORE_PRIVATE_KEY: ${{ secrets.APP_STORE_PRIVATE_KEY }}
           APP_STORE_VENDOR_NUMBER: ${{ secrets.APP_STORE_VENDOR_NUMBER }}
 
-      # 4. Astroのビルド (変更なし)
+      # 4. Astroのビルド
       - name: Build Astro site
         run: npm run build
-        
-      # 🌟 4.5. GitHub Pages 成果物の設定 (追加) 🌟
+
+      # 4.5. GitHub Pages 成果物の設定
       - name: Setup Pages
-        uses: actions/configure-pages@v5
+        uses: actions/configure-pages@v6
 
-      # 🌟 4.6. ビルド成果物のアップロード (追加) 🌟
+      # 4.6. ビルド成果物のアップロード
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3 # Pages専用のアップロードアクションを使用
+        uses: actions/upload-pages-artifact@v5
         with:
-          path: dist # Astroのビルド成果物が出力されるディレクトリ
+          path: dist
 
-      # 5. GitHub Pagesへのデプロイ (変更なし)
+  # 2つ目のジョブ：buildジョブが終わった後にGitHub Pagesへデプロイ
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      # 5. GitHub Pagesへのデプロイ
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4 
-        # artifacts の指定は不要になりました。deploy-pagesが自動で 'github-pages' を探します。
-        # with: の中身も不要です。
+        uses: actions/deploy-pages@v5
